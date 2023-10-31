@@ -1,0 +1,39 @@
+.container-header {
+  margin-top: 50px;
+  /* background: red; */
+  display: flex;
+  /* flex-wrap: wrap; */
+  width: 100%;
+  gap: 10px;
+  background: purple;
+  margin-bottom: 120px;
+}
+.header {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  background: red;
+  flex-grow: 1;
+}
+.header-img {
+  height: 500px;
+  background: pink;
+  display: flex;
+  justify-content: end;
+  background: cyan;
+  flex-grow: 1;
+}
+p {
+  /* width: 515px; */
+  background: pink;
+  min-width: 200px;
+  width: 90%;
+  height: auto;
+}
+
+@media screen and (max-width: 980px) {
+  .container-header {
+    flex-wrap: wrap;
+  }
+}

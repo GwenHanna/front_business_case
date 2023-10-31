@@ -1,0 +1,28 @@
+.title-h5 {
+  border-bottom: var(--border-title);
+}
+.container-section {
+  background-color: red;
+  justify-content: space-between;
+}
+
+.item-section {
+  height: auto;
+  position: relative;
+  width: 100%;
+  flex-grow: 1;
+  max-width: 100%;
+}
+
+.item-section img {
+  width: 100%;
+  z-index: 10000;
+  object-fit: contain;
+}
+.title-h4 {
+  position: absolute;
+  bottom: 0;
+  background: cyan;
+  width: 100%;
+  text-align: center;
+}

@@ -1,0 +1,148 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="mb-3">
+    <label for="email" class="form-label">Email address</label>
+    <input
+      type="email"
+      class="form-control"
+      id="email"
+      formControlName="email"
+      aria-describedby="emailHelp"
+    />
+    <div
+      id="emailHelp"
+      class="form-text"
+      *ngIf="form?.get('email')?.invalid && form.touched"
+    >
+      Veuillez entrer une adresse mail valid.
+    </div>
+  </div>
+
+  <div class="mb-3 lastname">
+    <label for="lastname" class="form-label">Nom</label>
+    <input
+      type="text"
+      class="form-control"
+      id="lastname"
+      formControlName="lastname"
+      aria-describedby="lastname"
+    />
+    <div
+      id="lastname"
+      class="form-text"
+      *ngIf="form?.get('email')?.invalid && form.touched"
+    >
+      Veuillez entrer votre nom.
+    </div>
+  </div>
+
+  <div class="mb-3 firstname">
+    <label for="firstname" class="form-label">Prénom</label>
+    <input
+      type="text"
+      class="form-control"
+      id="firstname"
+      formControlName="firstname"
+      aria-describedby="firstname"
+    />
+    <div
+      id="firstname"
+      class="form-text"
+      *ngIf="form?.get('email')?.invalid && form.touched"
+    >
+      Veuillez entrer votre Prénom.
+    </div>
+  </div>
+
+  <div class="mb-3 birthdate">
+    <label for="street" class="form-label">Date d'anniversaire</label>
+    <input
+      type="date"
+      class="form-control"
+      id="birthdate"
+      formControlName="birthdate"
+      aria-describedby="birthdate"
+    />
+    <div
+      id="birthdate"
+      class="form-text"
+      *ngIf="form?.get('birthdate')?.invalid && form.touched"
+    >
+      Veuillez entrer un nom de rue.
+    </div>
+  </div>
+
+  <div class="mb-3 street">
+    <label for="street" class="form-label">Rue</label>
+    <input
+      type="text"
+      class="form-control"
+      id="street"
+      formControlName="street"
+      aria-describedby="street"
+    />
+    <div
+      id="street"
+      class="form-text"
+      *ngIf="form?.get('street')?.invalid && form.touched"
+    >
+      Veuillez entrer un nom de rue.
+    </div>
+  </div>
+
+  <div class="mb-3 zipcode">
+    <label for="zipcode" class="form-label">Code postal</label>
+    <input
+      type="text"
+      class="form-control"
+      id="zipcode"
+      formControlName="zipcode"
+      aria-describedby="zipcode"
+    />
+    <div
+      id="street"
+      class="form-text"
+      *ngIf="form?.get('zipcode')?.invalid && form.touched"
+    >
+      Veuillez entrer un code postal.
+    </div>
+  </div>
+
+  <div class="mb-3 city">
+    <label for="city" class="form-label">Ville</label>
+    <input
+      type="text"
+      class="form-control"
+      id="city"
+      formControlName="city"
+      aria-describedby="city"
+    />
+    <div
+      id="city"
+      class="form-text"
+      *ngIf="form?.get('city')?.invalid && form.touched"
+    >
+      Veuillez entrer un code postal.
+    </div>
+  </div>
+
+  <div class="gender">
+    <select formControlName="gender" id="">
+      <option value="mr">Mr</option>
+      <option value="mlle">Mlle</option>
+      <option value="ng">Non genré</option>
+    </select>
+  </div>
+
+  <div class="mb-3">
+    <label for="password" class="form-label">Password</label>
+    <input
+      type="password"
+      class="form-control"
+      id="password"
+      formControlName="plainPassword"
+    />
+  </div>
+
+  <div class="mb-3 form-check"></div>
+  <button class="btn btn-primary">Inscription</button>
+</form>

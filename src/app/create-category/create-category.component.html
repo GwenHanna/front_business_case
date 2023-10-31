@@ -1,0 +1,17 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="mb-3">
+    <label for="category" class="form-label">Categoorie</label>
+    <input
+      type="text"
+      class="form-control"
+      id="category"
+      aria-describedby="emailHelp"
+      formControlName="name"
+    />
+    <div id="emailHelp" class="form-text">
+      We'll never share your email with anyone else.
+    </div>
+  </div>
+
+  <button class="btn btn-primary">Submit</button>
+</form>

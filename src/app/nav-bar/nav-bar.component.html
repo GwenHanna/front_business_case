@@ -1,0 +1,120 @@
+<nav class="navbar navbar-expand-lg">
+  <div class="container-fluid navbar-header-hb">
+    <a class="navbar-brand" href="#">Clean&Chic</a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse navbar-hb" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0 item-navbar">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" routerLink="">Home</a>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle item"
+            href="#"
+            id="navbarDropdown"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            nettoyage
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li>
+              <a class="dropdown-item" routerLink="/"></a>
+            </li>
+          </ul>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle item"
+            href="#"
+            id="navbarDropdown"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            soins
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li>
+              <a class="dropdown-item" routerLink="/"></a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a class="dropdown-item item" routerLink="/">contact</a>
+        </li>
+
+        <!--ADMINISTRATION-->
+
+        <li class="nav-item dropdown" *ngIf="roles === 'ROLE_ADMIN'">
+          <a
+            class="nav-link dropdown-toggle item"
+            href="#"
+            id="navbarDropdown"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            Administration
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li>
+              <a class="dropdown-item" routerLink="/admin">Administration</a>
+            </li>
+            <li>
+              <a class="dropdown-item" routerLink="/category/new"
+                >Ajouter catégorie</a
+              >
+            </li>
+            <li><hr class="dropdown-divider" /></li>
+            <li><a class="dropdown-item" href="#">Something else here</a></li>
+          </ul>
+        </li>
+      </ul>
+      <!--
+        <form class="d-flex">
+          <input
+            class="form-control me-2"
+            type="search"
+            placeholder="Search"
+            aria-label="Search"
+          />
+        </form>
+        <button class="btn btn-outline-success" type="submit">Search</button>
+    -->
+      <div *ngIf="!isLogin" class="btns">
+        <button
+          routerLink="/login"
+          class="btn btn-outline-success btn-default primary"
+          id=""
+        >
+          CONNEXION
+        </button>
+        <p><a class="register" routerLink="/register">S'inscrire</a></p>
+      </div>
+
+      <div *ngIf="isLogin" class="">
+        <button
+          (click)="logout()"
+          class="btn btn-outline-success btn-default secondary"
+          id=""
+        >
+          DECONNEXION
+        </button>
+      </div>
+    </div>
+  </div>
+</nav>

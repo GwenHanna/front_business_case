@@ -1,0 +1,24 @@
+<div class="d-flex w-100 flex-column">
+  <div *ngFor="let category of categories | keyvalue | sortServices">
+    <div class="d-flex flex-column">
+      <h5 class="title-h5">{{ category.key }}</h5>
+
+      <div class="d-flex flex-wrap container-section">
+        <div
+          *ngFor="let service of category.value"
+          class="card item-section"
+          style="width: 18rem"
+        >
+          <div class="card-header p-0">
+            <img
+              src="../../assets/{{ service.picture }}"
+              class="card-img-top"
+              [alt]="service.name"
+            />
+            <h4 class="card-title title-h4">{{ service.name }}</h4>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

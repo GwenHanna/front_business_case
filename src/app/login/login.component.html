@@ -1,0 +1,32 @@
+<form [formGroup]="form" (ngSubmit)="onLogin()">
+  <div class="mb-3 form-control">
+    <label for="email" class="form-label">Email</label>
+    <input
+      type="email"
+      class="form-control"
+      id="email"
+      aria-describedby="emailHelp"
+      formControlName="email"
+    />
+    <div
+      id="emailHelp"
+      class="form-text"
+      *ngIf="form?.get('email')?.invalid && form.touched"
+    >
+      L'email saisi est incorrect
+    </div>
+  </div>
+  <div class="mb-3">
+    <label for="password" class="form-label">Mot de passe</label>
+    <input
+      type="password"
+      class="form-control"
+      id="password"
+      formControlName="password"
+    />
+    <div *ngIf="form?.get('password')?.invalid && form.touched">
+      Votre mot de passe doit contenir au minimum 6 caractère.
+    </div>
+  </div>
+  <button type="submit" class="btn-primary">Connexion</button>
+</form>

@@ -1,0 +1,33 @@
+.navbar-header-hb {
+  align-items: start;
+  justify-content: space-between;
+  /* background: red; */
+  width: 100%;
+}
+.navbar-hb {
+  /* background: cyan; */
+  width: 100%;
+  padding-top: 5px;
+  align-items: start;
+}
+
+.item-navbar {
+  display: flex;
+  width: 80%;
+  /* background: red; */
+  justify-content: space-around;
+  align-items: start;
+}
+a {
+  color: var(--secondary);
+}
+.register {
+  text-transform: lowercase;
+}
+.dropdown-toggle::after {
+  display: none;
+}
+.item {
+  padding: 8px;
+  color: var(--primary);
+}

@@ -1,17 +1,25 @@
 .title-h5 {
   border-bottom: var(--border-title);
+  padding-bottom: 10px;
 }
 .container-section {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+.container-service {
   background-color: red;
   justify-content: space-between;
+  gap: 20px;
 }
 
 .item-section {
   height: auto;
   position: relative;
-  width: 100%;
+  width: 255px;
+  max-width: 50%;
   flex-grow: 1;
-  max-width: 100%;
+  background: #000;
 }
 
 .item-section img {
@@ -20,9 +28,23 @@
   object-fit: contain;
 }
 .title-h4 {
+  z-index: 100;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  height: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: var(--white);
+}
+.container-title {
   position: absolute;
   bottom: 0;
-  background: cyan;
+  left: 0;
   width: 100%;
-  text-align: center;
+  /* transform: translateY(12%); */
+  background: var(--gradient-primary);
+  height: 62px;
+  z-index: 1;
 }

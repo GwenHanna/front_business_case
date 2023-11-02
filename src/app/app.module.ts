@@ -13,9 +13,10 @@ import { CreateCategoryComponent } from './create-category/create-category.compo
 import { RegisterComponent } from './register/register.component';
 import { AuthInterceptor } from './auth.interceptor';
 import { AdminComponent } from './admin/admin.component';
-import { HeaderComponent } from './header/header.component';
 import { ServiceListComponent } from './service-list/service-list.component';
 import { SortServicesPipe } from './pipes/sort-services.pipe';
+import { FooterComponent } from './footer/footer.component';
+import { CommentComponent } from './comment/comment.component';
 
 @NgModule({
   declarations: [
@@ -27,9 +28,10 @@ import { SortServicesPipe } from './pipes/sort-services.pipe';
     CreateCategoryComponent,
     RegisterComponent,
     AdminComponent,
-    HeaderComponent,
     ServiceListComponent,
     SortServicesPipe,
+    FooterComponent,
+    CommentComponent,
   ],
   imports: [
     BrowserModule,

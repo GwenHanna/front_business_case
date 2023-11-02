@@ -1,0 +1,17 @@
+.nextPage {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  cursor: pointer;
+}
+.previousPage {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  cursor: pointer;
+}
+.container-cpmment {
+  position: relative;
+  background: red;
+  justify-content: space-around;
+}

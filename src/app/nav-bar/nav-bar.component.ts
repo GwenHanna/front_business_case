@@ -8,24 +8,33 @@ import { Router } from '@angular/router';
   styleUrls: ['./nav-bar.component.css'],
 })
 export class NavBarComponent implements OnInit {
-  roles = '';
+  isAdmin: boolean = false;
   isLogin: boolean = false;
 
-  constructor(private authService: AuthService, private router: Router) {
-    this.authService.isLogin$.subscribe({
-      next: (data) => {
-        this.isLogin = data;
-      },
-    });
-  }
+  constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
-    this.roles = this.authService.getRoleUser();
+    this.getLoggin();
+  }
+
+  getLoggin() {
+    this.authService.getIsAdmin().subscribe({
+      next: (data) => {
+        this.isAdmin = data;
+        console.log('isAdmin' + data);
+      },
+      error: (err) => console.log(err + 'err'),
+    });
+    this.authService.getIsLogged().subscribe({
+      next: (data) => {
+        this.isLogin = data;
+        console.log('isLoogin' + data);
+      },
+    });
   }
 
   logout() {
     this.authService.logout();
     this.router.navigateByUrl('/');
-    // window.location.reload();
   }
 }

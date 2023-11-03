@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit {
         error: (error) => (this.feedback = 'Mauvais mot de passe / email'),
         complete: () => {
           this.router.navigateByUrl('/');
-          this.loginService.isLogin$.next(true);
+          this.loginService.setIsLogged(true);
         },
       });
     }

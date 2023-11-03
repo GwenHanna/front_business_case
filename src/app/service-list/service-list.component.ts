@@ -28,11 +28,10 @@ export class ServiceListComponent implements OnInit {
             this.categories[data.category] = [];
           }
           this.categories[data.category].push(data);
-          console.log(this.categories);
         });
       },
       error: (err) => console.log(err),
-      complete: () => console.log('data chargé'),
+      complete: () => {},
     });
   }
 }

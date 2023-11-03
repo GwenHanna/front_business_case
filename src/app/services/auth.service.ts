@@ -4,43 +4,42 @@ import { RegisterForm } from '../entities/registerForm';
 import { Router } from '@angular/router';
 import { TokenInterface } from '../entities/token';
 import { LoginForm } from '../entities/loginForm';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private isLogged: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
-    false
-  );
-  constructor(private http: HttpClient, private router: Router) {}
+  private isLogged$: BehaviorSubject<boolean>;
+  private isAdmin$: BehaviorSubject<boolean>;
+
+  constructor(private http: HttpClient, private router: Router) {
+    this.isLogged$ = new BehaviorSubject<boolean>(
+      !!localStorage.getItem('token')
+    );
+    this.isAdmin$ = new BehaviorSubject<boolean>(
+      !!localStorage.getItem('roles')?.includes('ROLE_ADMIN')
+    );
+  }
 
   url = 'http://127.0.0.1:8000/api/';
-  isLogin$ = this.isLogged;
 
-  add(user: RegisterForm) {
-    return this.http.post<RegisterForm>(`${this.url}users`, user);
+  //** Observable sur le login plus sur les admins */
+  getIsLogged(): Observable<boolean> {
+    return this.isLogged$.asObservable();
+  }
+  setIsLogged(bool: boolean) {
+    this.isLogged$.next(bool);
   }
 
-  login(credential: LoginForm) {
-    return this.http.post<TokenInterface>(`${this.url}login_check`, credential);
+  getIsAdmin(): Observable<boolean> {
+    return this.isAdmin$.asObservable();
+  }
+  setIsAdmin(bool: boolean) {
+    this.isAdmin$.next(bool);
   }
 
-  logout() {
-    this.router.navigateByUrl('');
-    localStorage.removeItem('token');
-    this.isLogin$.next(false);
-  }
-
-  saveToken(token: string) {
-    localStorage.setItem('token', token);
-    this.router.navigate(['/']);
-  }
-
-  getToken() {
-    return localStorage.getItem('token');
-  }
-
+  /** User */
   getUserInfo() {
     const token = localStorage.getItem('token');
     if (token !== null) {
@@ -51,13 +50,47 @@ export class AuthService {
     }
     return null;
   }
-
-  getRoleUser() {
+  checkAdminStatus() {
     const userInfo = this.getUserInfo();
     if (userInfo !== null) {
-      return userInfo.roles;
-    } else {
-      return null;
+      return userInfo.roles.includes('ROLE_ADMIN');
     }
+    return false;
+  }
+
+  add(user: RegisterForm) {
+    return this.http.post<RegisterForm>(`${this.url}users`, user);
+  }
+
+  /** Connexion */
+  login(credential: LoginForm) {
+    return this.http.post<TokenInterface>(`${this.url}login_check`, credential);
+  }
+  /** Deconnexion */
+  logout() {
+    this.router.navigateByUrl('');
+    localStorage.removeItem('token');
+    localStorage.removeItem('roles');
+    this.isLogged$.next(false);
+    this.isAdmin$.next(false);
+  }
+
+  /** Token */
+  saveToken(token: string) {
+    localStorage.setItem('token', token);
+    const userInfo = this.getUserInfo();
+    this.isAdmin$.next(userInfo.roles.includes('ROLE_ADMIN'));
+    this.router.navigate(['/']);
+  }
+
+  getToken() {
+    return localStorage.getItem('token');
+  }
+
+  saveRoles(roles: string) {
+    localStorage.setItem('roles', roles);
+  }
+  getRole() {
+    return localStorage.getItem('roles');
   }
 }

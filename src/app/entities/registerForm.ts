@@ -10,4 +10,5 @@ export interface RegisterForm {
   zipcode: string;
   city: string;
   roles?: string;
+  dateCreated: Date;
 }

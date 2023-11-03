@@ -9,4 +9,5 @@ export interface UserInterface {
   street: string;
   zipcode: string;
   city: string;
+  dateCreated: Date;
 }

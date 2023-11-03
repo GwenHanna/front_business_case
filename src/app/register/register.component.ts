@@ -38,11 +38,14 @@ export class RegisterComponent implements OnInit {
     if (this.form.valid) {
       const formData: RegisterForm = {
         ...this.form.value,
+        // dateCreated: new Date(),
         roles: ['ROLE_USER'],
       };
-      
+
       this.authService.add(formData).subscribe({
         next: (data) => {
+          console.log(data);
+
           this.navigateService.navigate('login');
         },
         error: (err) => {

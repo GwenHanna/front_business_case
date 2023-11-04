@@ -79,6 +79,7 @@ export class AuthService {
   saveToken(token: string) {
     localStorage.setItem('token', token);
     const userInfo = this.getUserInfo();
+    this.saveRoles(userInfo.roles);
     this.isAdmin$.next(userInfo.roles.includes('ROLE_ADMIN'));
     this.router.navigate(['/']);
   }

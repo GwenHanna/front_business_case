@@ -54,7 +54,4 @@ export class NavBarComponent implements OnInit {
       },
     });
   }
-  encodeServiceName(name: string): string {
-    return encodeURIComponent(name);
-  }
 }

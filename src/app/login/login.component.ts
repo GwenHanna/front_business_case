@@ -5,6 +5,7 @@ import { LoginForm } from '../entities/loginForm';
 import { map } from 'rxjs/operators';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
+import { HttpResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -35,7 +36,7 @@ export class LoginComponent implements OnInit {
         next: (data) => {
           this.loginService.saveToken(data.token);
         },
-        error: (error) => (this.feedback = 'Mauvais mot de passe / email'),
+        error: (error) => console.log(error.error.code),
         complete: () => {
           this.router.navigateByUrl('/');
           this.loginService.setIsLogged(true);

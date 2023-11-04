@@ -1,0 +1,9 @@
+<h2>{{ serviceName }}</h2>
+<div *ngFor="let article of prestationsArticles">
+  <h4>
+    {{ article.name }}
+  </h4>
+  <p>{{ article.description }}</p>
+  <span>{{ article.price }}</span>
+  <img [src]="" alt="" />
+</div>

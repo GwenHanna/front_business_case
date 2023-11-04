@@ -17,6 +17,7 @@ import { ServiceListComponent } from './service-list/service-list.component';
 import { SortServicesPipe } from './pipes/sort-services.pipe';
 import { FooterComponent } from './footer/footer.component';
 import { CommentComponent } from './comment/comment.component';
+import { PrestationComponent } from './prestation/prestation.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { CommentComponent } from './comment/comment.component';
     SortServicesPipe,
     FooterComponent,
     CommentComponent,
+    PrestationComponent,
   ],
   imports: [
     BrowserModule,

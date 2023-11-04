@@ -8,14 +8,16 @@ import { RegisterComponent } from './register/register.component';
 import { AdminComponent } from './admin/admin.component';
 import { ServiceListComponent } from './service-list/service-list.component';
 import { authGuard } from './gards/auth.guard';
+import { PrestationComponent } from './prestation/prestation.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'services', component: ServiceListComponent },
-  { path: 'admin', component: AdminComponent },
-  { path: 'category/new', component: CreateCategoryComponent },
+  { path: 'service/:id', component: PrestationComponent },
   { path: 'register', component: RegisterComponent, canActivate: [authGuard] },
   { path: 'login', component: LoginComponent, canActivate: [authGuard] },
+  { path: 'admin', component: AdminComponent },
+  { path: 'category/new', component: CreateCategoryComponent },
 ];
 
 @NgModule({

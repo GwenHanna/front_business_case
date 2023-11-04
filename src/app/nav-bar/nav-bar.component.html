@@ -21,7 +21,7 @@
         <li class="nav-item dropdown">
           <a
             class="nav-link dropdown-toggle item"
-            href="#"
+            (click)="selectService('nettoyage')"
             id="navbarDropdown"
             role="button"
             data-bs-toggle="dropdown"
@@ -30,8 +30,10 @@
             nettoyage
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li>
-              <a class="dropdown-item" routerLink="/"></a>
+            <li *ngFor="let service of services">
+              <a class="dropdown-item" routerLink="service/{{ service?.id }}">{{
+                service?.name
+              }}</a>
             </li>
           </ul>
         </li>
@@ -39,7 +41,7 @@
         <li class="nav-item dropdown">
           <a
             class="nav-link dropdown-toggle item"
-            href="#"
+            (click)="selectService('soins')"
             id="navbarDropdown"
             role="button"
             data-bs-toggle="dropdown"
@@ -48,8 +50,30 @@
             soins
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li>
-              <a class="dropdown-item" routerLink="/"></a>
+            <li *ngFor="let service of services">
+              <a class="dropdown-item" routerLink="service/{{ service?.id }}">{{
+                service?.name
+              }}</a>
+            </li>
+          </ul>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle item"
+            (click)="selectService('autre')"
+            id="navbarDropdown"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            autres
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li *ngFor="let service of services">
+              <a class="dropdown-item" routerLink="service/{{ service?.id }}">{{
+                service?.name
+              }}</a>
             </li>
           </ul>
         </li>

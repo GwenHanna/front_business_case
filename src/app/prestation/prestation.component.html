@@ -1,9 +1,28 @@
 <h2>{{ serviceName }}</h2>
-<div *ngFor="let article of prestationsArticles">
-  <h4>
-    {{ article.name }}
-  </h4>
-  <p>{{ article.description }}</p>
-  <span>{{ article.price }}</span>
-  <img [src]="" alt="" />
+<div>
+  <div
+    *ngFor="let article of prestationsArticles"
+    class="card mb-3"
+    style="max-width: 540px"
+  >
+    <div class="row g-0">
+      <div class="col-md-4">
+        <img
+          src="../../assets/articles/{{ article.picture }}"
+          class="img-fluid rounded-start"
+          alt="..."
+        />
+      </div>
+      <p>{{ article.picture }}</p>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="card-title">Card title</h5>
+          <div class="btn-card">
+            <button class="btn btn-itm-card">+</button>
+            <button class="btn btn-itm-card">-</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

@@ -39,6 +39,8 @@ export class PrestationComponent implements OnInit {
         data.forEach((data) => {
           this.serviceName = data.service.name;
           this.prestationsArticles.push(data.article);
+          console.log(data);
+          
         });
       },
       error: (err) => console.log(err),

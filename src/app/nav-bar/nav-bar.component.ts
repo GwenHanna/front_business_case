@@ -14,6 +14,7 @@ export class NavBarComponent implements OnInit {
   isLogin: boolean = false;
 
   services: serviceInterface[] = [];
+  categories: serviceInterface[] = [];
 
   constructor(
     private authService: AuthService,
@@ -23,6 +24,8 @@ export class NavBarComponent implements OnInit {
 
   ngOnInit(): void {
     this.getLoggin();
+    console.log(this.authService.getUserInfo());
+    this.displayNavService();
   }
 
   getLoggin() {
@@ -46,11 +49,21 @@ export class NavBarComponent implements OnInit {
     this.router.navigateByUrl('/');
   }
 
+  displayNavService() {
+    this.serviceService.fetchAllCategoryService().subscribe({
+      next: (data) => {
+        this.categories = data.filter(
+          (thing, i, arr) =>
+            arr.findIndex((t) => t.category === thing.category) === i
+        );
+      },
+    });
+  }
+
   selectService(category: string) {
     this.serviceService.fetchByCategoryService(category).subscribe({
       next: (data) => {
         this.services = data;
-        console.log(data);
       },
     });
   }

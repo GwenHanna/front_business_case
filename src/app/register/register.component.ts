@@ -13,6 +13,7 @@ import { NavigateService } from '../services/navigate.service';
 export class RegisterComponent implements OnInit {
   form!: FormGroup;
   formObservable$: Observable<RegisterForm> | undefined;
+  messageEmail = '';
 
   constructor(
     private fb: FormBuilder,
@@ -35,6 +36,8 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit() {
+    console.log(this.form);
+
     if (this.form.valid) {
       const formData: RegisterForm = {
         ...this.form.value,
@@ -49,7 +52,8 @@ export class RegisterComponent implements OnInit {
           this.navigateService.navigate('login');
         },
         error: (err) => {
-          console.log(err);
+          this.messageEmail = err.error.detail;
+          console.log(err.error.detail);
         },
       });
       this.form.reset();

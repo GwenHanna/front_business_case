@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
         next: (data) => {
           this.loginService.saveToken(data.token);
         },
-        error: (error) => console.log(error.error.code),
+        error: (error: HttpResponse<any>) => console.log(error),
         complete: () => {
           this.router.navigateByUrl('/');
           this.loginService.setIsLogged(true);

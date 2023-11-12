@@ -7,14 +7,13 @@
   --black: #0000;
   --border-btn-default: 1px solid var(--primary);
   --border-title: 1px solid var(--secondary);
+  --border-input: 1px solid var(--thirdly);
   --gradient-primary: linear-gradient(
     179deg,
     rgba(0, 0, 0, 0.7) 0.77%,
     rgba(0, 0, 0, 0.47) 100.99%,
     rgba(255, 255, 255, 0) 101.2%
   );
-
-  box-sizing: border-box;
 }
 
 .body {
@@ -40,7 +39,7 @@ a:hover {
 }
 .title-h2 {
   text-transform: uppercase;
-  font-size: 2.5rem;
+  font-size: 2.5em;
   letter-spacing: 1;
   font-weight: 300;
   color: var(--secondary);
@@ -66,9 +65,21 @@ a:hover {
   font-weight: 500;
   color: var(--secondary);
 }
+.title-h5-secondary {
+  font-size: 20px;
+  letter-spacing: 1.2px;
+  font-weight: 500;
+  color: var(--thirdly);
+}
+.title-h6 {
+  font-size: 1em;
+  letter-spacing: 0.95px;
+  font-weight: 300;
+  color: var(--thirdly);
+}
 .item-navbar {
   text-transform: uppercase;
-  font-size: 1.1rem;
+  font-size: 1.1em;
   letter-spacing: 5px;
   transform: scaleY(1.05);
   -webkit-transform: scaleY(1.05);
@@ -78,12 +89,12 @@ a:hover {
   color: var(--secondary);
 }
 .paragraph-primary {
-  font-size: 1rem;
+  font-size: 1em;
   font-weight: 300;
   color: var(--secondary);
 }
 .paragraph-card {
-  font-size: 0.95rem;
+  font-size: 0.95em;
   letter-spacing: 1.4px;
   font-weight: 300;
   color: var(--white);
@@ -91,14 +102,14 @@ a:hover {
 .title-footer {
   text-transform: uppercase;
   font-family: "Roboto", sans-serif;
-  font-size: 1.15rem;
+  font-size: 1.15em;
   letter-spacing: 1.4px;
   font-weight: 500;
   color: var(--white);
 }
 .footer-nav {
   text-transform: uppercase;
-  font-size: 0.95rem;
+  font-size: 0.95em;
   letter-spacing: 1.05px;
   line-height: 44px;
   font-weight: 300;
@@ -107,7 +118,7 @@ a:hover {
 
 .btn-default {
   letter-spacing: 10;
-  font-size: 1rem;
+  font-size: 1em;
   font-weight: 300;
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -133,8 +144,24 @@ a:hover {
 /* Media Querries */
 
 @media screen and (max-width: 900px) {
+}
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+}
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+}
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+}
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
   body {
     padding: 0;
     margin: 0;
   }
+}
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
 }

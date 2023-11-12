@@ -22,11 +22,12 @@ export class CommentComponent implements OnInit {
   loadComment(page: number) {
     this.commentService.getCommentsPage(page).subscribe({
       next: (data: any) => {
-        this.comments = data;
         console.log('curentPage : ' + this.curentPage);
-        if (data.length === 0) {
+        if (data.length === 0 && this.curentPage !== 1) {
           this.curentPage = 1;
+          this.loadComment(this.curentPage);
         } else {
+          this.comments = data;
           this.dataIsEmpty = false;
         }
       },

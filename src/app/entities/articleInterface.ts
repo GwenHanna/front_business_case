@@ -7,4 +7,5 @@ export interface articleInterface {
   state: string;
   price: number;
   category: categoryInterface;
+  picture?: string;
 }

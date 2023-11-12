@@ -1,0 +1,18 @@
+.container-register {
+  width: 100%;
+  max-width: 878px;
+  height: auto;
+}
+input {
+  border-style: none;
+  border-bottom: var(--border-input);
+  width: 100%;
+}
+form div {
+  position: relative;
+}
+.form-label {
+  position: absolute;
+  padding-bottom: 0;
+  bottom: 0;
+}

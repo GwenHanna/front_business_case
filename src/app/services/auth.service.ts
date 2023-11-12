@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { TokenInterface } from '../entities/token';
 import { LoginForm } from '../entities/loginForm';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { environment } from 'src/environments/environment.development';
 
 @Injectable({
   providedIn: 'root',
@@ -12,6 +13,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 export class AuthService {
   private isLogged$: BehaviorSubject<boolean>;
   private isAdmin$: BehaviorSubject<boolean>;
+  private apiUrl: string = environment.apiUrl;
 
   constructor(private http: HttpClient, private router: Router) {
     this.isLogged$ = new BehaviorSubject<boolean>(
@@ -22,7 +24,7 @@ export class AuthService {
     );
   }
 
-  url = 'http://127.0.0.1:8000/api/';
+  // url = 'http://vps206.tyrolium.fr:2022/api';
 
   //** Observable sur le login plus sur les admins */
   getIsLogged(): Observable<boolean> {
@@ -42,10 +44,15 @@ export class AuthService {
   /** User */
   getUserInfo() {
     const token = localStorage.getItem('token');
+    console.log(token);
+
     if (token !== null) {
       const base64Url = token.split('.')[1];
       const base64 = base64Url.replace('-', '+').replace('_', '/');
       const userInfo = JSON.parse(atob(base64));
+      const idUser = userInfo.id;
+      console.log(idUser);
+
       return userInfo;
     }
     return null;
@@ -59,12 +66,15 @@ export class AuthService {
   }
 
   add(user: RegisterForm) {
-    return this.http.post<RegisterForm>(`${this.url}users`, user);
+    return this.http.post<RegisterForm>(`${this.apiUrl}users`, user);
   }
 
   /** Connexion */
   login(credential: LoginForm) {
-    return this.http.post<TokenInterface>(`${this.url}login_check`, credential);
+    return this.http.post<TokenInterface>(
+      `${this.apiUrl}login_check`,
+      credential
+    );
   }
   /** Deconnexion */
   logout() {

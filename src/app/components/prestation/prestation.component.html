@@ -1,7 +1,10 @@
 <h2>{{ serviceName }}</h2>
-<div>
-  <div class="loading">
-    <p *ngIf="isLoading">Chargement en cours ...</p>
+
+<app-basket *ngIf="basket.length > 0" [basket]="basket"></app-basket>
+
+<div class="d-flex flex-wrap">
+  <div *ngIf="isLoading" class="loading">
+    <p>Chargement en cours ...</p>
   </div>
   <div
     *ngFor="let article of prestationsArticles"
@@ -16,12 +19,19 @@
           alt="..."
         />
       </div>
-      <p>{{ article.picture }}</p>
       <div class="col-md-8">
         <div class="card-body">
-          <h5 class="card-title">Card title</h5>
+          <h5 class="card-title">{{ article.name }}</h5>
+          <div *ngFor="let b of basket">
+            <div *ngIf="b.articleName === article.name">
+              <p>{{ b.quantity }}</p>
+              <p>{{ b.priceTotal }} €</p>
+            </div>
+          </div>
           <div class="btn-card">
-            <button class="btn btn-itm-card">+</button>
+            <button (click)="addPrestation(article)" class="btn btn-itm-card">
+              +
+            </button>
             <button class="btn btn-itm-card">-</button>
           </div>
         </div>
@@ -29,3 +39,5 @@
     </div>
   </div>
 </div>
+
+<div></div>

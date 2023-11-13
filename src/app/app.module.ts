@@ -19,6 +19,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { CommentComponent } from './components/comment/comment.component';
 import { PrestationComponent } from './components/prestation/prestation.component';
 import { AffectationComponent } from './components/affectation/affectation.component';
+import { BasketComponent } from './components/basket/basket.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { AffectationComponent } from './components/affectation/affectation.compo
     CommentComponent,
     PrestationComponent,
     AffectationComponent,
+    BasketComponent,
   ],
   imports: [
     BrowserModule,

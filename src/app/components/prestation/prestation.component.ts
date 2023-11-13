@@ -4,6 +4,9 @@ import { prestationInterface } from '../../entities/prestationsInterface';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { articleInterface } from '../../entities/articleInterface';
 import { Observable, map } from 'rxjs';
+import { BasketInterface } from 'src/app/entities/basket-interface';
+import { serviceInterface } from 'src/app/entities/serviceInterface';
+import { selection } from 'src/app/models/selection';
 
 @Component({
   selector: 'app-prestation',
@@ -14,7 +17,10 @@ export class PrestationComponent implements OnInit {
   prestationsArticles: articleInterface[] = [];
   isLoading = false;
   serviceName = '';
+  servicePrice!: number;
   id$ = new Observable();
+
+  basket: selection[] = [];
 
   constructor(
     private serviceService: ServiceService,
@@ -31,7 +37,6 @@ export class PrestationComponent implements OnInit {
       next: (data: any) => {
         this.prestationsArticles = [];
         this.refreashPrestation(data);
-        console.log(this.id$);
       },
     });
   }
@@ -40,14 +45,29 @@ export class PrestationComponent implements OnInit {
     this.serviceService.fetchByNameSercice(id).subscribe({
       next: (data) => {
         data.forEach((data) => {
-          console.log(data);
-
           this.serviceName = data.service.name;
+          this.servicePrice = data.service.price;
           this.prestationsArticles.push(data.article);
           this.isLoading = false;
         });
       },
       error: (err) => console.log(err),
     });
+  }
+
+  addPrestation(article: articleInterface) {
+    let existElem = this.basket.find(
+      (element: any) => element.articleName === article.name
+    );
+    if (existElem) {
+      existElem.quantity++;
+      existElem.priceTotal =
+        this.servicePrice + article.price * existElem.quantity;
+    } else {
+      let newSelection = new selection(article.name, this.serviceName, 0, 1);
+      newSelection.priceTotal = this.servicePrice + article.price * 1;
+      this.basket.push(newSelection);
+    }
+    console.log(this.basket);
   }
 }

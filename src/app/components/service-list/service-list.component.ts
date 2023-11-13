@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { serviceInterface } from '../entities/serviceInterface';
-import { ServiceService } from '../services/service.service';
+import { serviceInterface } from '../../entities/serviceInterface';
+import { ServiceService } from '../../services/service.service';
 
 @Component({
   selector: 'app-service-list',
@@ -9,6 +9,7 @@ import { ServiceService } from '../services/service.service';
 })
 export class ServiceListComponent implements OnInit {
   services: serviceInterface[] = [];
+  isLoading = false;
   categories: {
     [key: string]: serviceInterface[];
   } = {};
@@ -16,10 +17,11 @@ export class ServiceListComponent implements OnInit {
   constructor(private serviceService: ServiceService) {}
 
   ngOnInit(): void {
-    this.displayService();
+    this.isLoading = true;
+    this.refreachService();
   }
 
-  displayService() {
+  refreachService() {
     this.serviceService.fetchAllService().subscribe({
       next: (data) => {
         this.services = data;
@@ -29,6 +31,7 @@ export class ServiceListComponent implements OnInit {
           }
           this.categories[data.category].push(data);
         });
+        this.isLoading = false;
       },
       error: (err) => console.log(err),
       complete: () => {},

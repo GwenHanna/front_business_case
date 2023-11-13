@@ -31,3 +31,7 @@ a {
   padding: 8px;
   color: var(--primary);
 }
+
+.navbar-nav {
+  z-index: 99999999;
+}

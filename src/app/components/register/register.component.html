@@ -167,6 +167,13 @@
       </div>
     </div>
 
+    <div *ngIf="isAdmin" class="role">
+      <select formControlName="roles" id="role">
+        <option [ngValue]="['ROLE_EMPLOYEE']">Employée</option>
+        <option [ngValue]="['ROLE_ADMIN']">Admin</option>
+      </select>
+    </div>
+
     <div class="mb-3 form-check"></div>
     <button class="btn btn-primary">Inscription</button>
   </form>

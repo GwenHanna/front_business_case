@@ -1,9 +1,9 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from '../services/auth.service';
+import { AuthService } from '../../services/auth.service';
 import { Observable, map, switchMap } from 'rxjs';
-import { RegisterForm } from '../entities/registerForm';
-import { NavigateService } from '../services/navigate.service';
+import { RegisterForm } from '../../entities/registerForm';
+import { NavigateService } from '../../services/navigate.service';
 
 @Component({
   selector: 'app-register',
@@ -14,6 +14,7 @@ export class RegisterComponent implements OnInit {
   form!: FormGroup;
   formObservable$: Observable<RegisterForm> | undefined;
   messageEmail = '';
+  isAdmin = false;
 
   constructor(
     private fb: FormBuilder,
@@ -22,6 +23,11 @@ export class RegisterComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.authService.getIsAdmin().subscribe({
+      next: (data) => {
+        this.isAdmin = data;
+      },
+    });
     this.form = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       plainPassword: ['', [Validators.required, Validators.minLength(6)]],
@@ -32,19 +38,26 @@ export class RegisterComponent implements OnInit {
       street: ['', [Validators.required]],
       zipcode: ['', [Validators.required]],
       city: ['', [Validators.required]],
+      roles: [''],
     });
   }
 
   onSubmit() {
-    console.log(this.form);
+    console.log(this.form.value.role);
+    let formData: RegisterForm;
 
     if (this.form.valid) {
-      const formData: RegisterForm = {
-        ...this.form.value,
-        // dateCreated: new Date(),
-        roles: ['ROLE_USER'],
-      };
-
+      if (this.isAdmin === false) {
+        formData = {
+          ...this.form.value,
+          roles: ['ROLE_USER'],
+        };
+      } else {
+        formData = {
+          ...this.form.value,
+        };
+        console.log(formData);
+      }
       this.authService.add(formData).subscribe({
         next: (data) => {
           console.log(data);

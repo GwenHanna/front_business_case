@@ -1,5 +1,8 @@
 <h2>{{ serviceName }}</h2>
 <div>
+  <div class="loading">
+    <p *ngIf="isLoading">Chargement en cours ...</p>
+  </div>
   <div
     *ngFor="let article of prestationsArticles"
     class="card mb-3"

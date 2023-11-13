@@ -15,7 +15,6 @@ export class CommentService {
   isEmpty$ = this.dataIsEmpty;
   private apiUrl: string = environment.apiUrl;
 
-
   constructor(private http: HttpClient) {}
 
   getCommentsPage(page: number) {

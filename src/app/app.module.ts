@@ -3,21 +3,22 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { HomeComponent } from './home/home.component';
-import { NavBarComponent } from './nav-bar/nav-bar.component';
-import { ArticleComponent } from './article/article.component';
-import { LoginComponent } from './login/login.component';
+import { AppComponent } from './components/app/app.component';
+import { HomeComponent } from './components/home/home.component';
+import { NavBarComponent } from './components/nav-bar/nav-bar.component';
+import { ArticleComponent } from './components/article/article.component';
+import { LoginComponent } from './components/login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { CreateCategoryComponent } from './create-category/create-category.component';
-import { RegisterComponent } from './register/register.component';
-import { AuthInterceptor } from './auth.interceptor';
-import { AdminComponent } from './admin/admin.component';
-import { ServiceListComponent } from './service-list/service-list.component';
+import { CreateCategoryComponent } from './components/create-category/create-category.component';
+import { RegisterComponent } from './components/register/register.component';
+import { AuthInterceptor } from './interceptor/auth.interceptor';
+import { AdminComponent } from './components/admin/admin.component';
+import { ServiceListComponent } from './components/service-list/service-list.component';
 import { SortServicesPipe } from './pipes/sort-services.pipe';
-import { FooterComponent } from './footer/footer.component';
-import { CommentComponent } from './comment/comment.component';
-import { PrestationComponent } from './prestation/prestation.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { CommentComponent } from './components/comment/comment.component';
+import { PrestationComponent } from './components/prestation/prestation.component';
+import { AffectationComponent } from './components/affectation/affectation.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { PrestationComponent } from './prestation/prestation.component';
     FooterComponent,
     CommentComponent,
     PrestationComponent,
+    AffectationComponent,
   ],
   imports: [
     BrowserModule,

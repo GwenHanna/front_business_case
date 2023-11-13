@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ServiceService } from '../services/service.service';
-import { prestationInterface } from '../entities/prestationsInterface';
+import { ServiceService } from '../../services/service.service';
+import { prestationInterface } from '../../entities/prestationsInterface';
 import { ActivatedRoute, ParamMap } from '@angular/router';
-import { articleInterface } from '../entities/articleInterface';
+import { articleInterface } from '../../entities/articleInterface';
 import { Observable, map } from 'rxjs';
 
 @Component({
@@ -12,6 +12,7 @@ import { Observable, map } from 'rxjs';
 })
 export class PrestationComponent implements OnInit {
   prestationsArticles: articleInterface[] = [];
+  isLoading = false;
   serviceName = '';
   id$ = new Observable();
 
@@ -21,6 +22,7 @@ export class PrestationComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.isLoading = true;
     this.id$ = this.route.paramMap.pipe(
       map((params: ParamMap) => params.get('id'))
     );
@@ -28,19 +30,21 @@ export class PrestationComponent implements OnInit {
     this.id$.subscribe({
       next: (data: any) => {
         this.prestationsArticles = [];
-        this.displayPrestation(data);
+        this.refreashPrestation(data);
+        console.log(this.id$);
       },
     });
   }
 
-  displayPrestation(id: string) {
+  refreashPrestation(id: string) {
     this.serviceService.fetchByNameSercice(id).subscribe({
       next: (data) => {
         data.forEach((data) => {
+          console.log(data);
+
           this.serviceName = data.service.name;
           this.prestationsArticles.push(data.article);
-          console.log(data);
-          
+          this.isLoading = false;
         });
       },
       error: (err) => console.log(err),

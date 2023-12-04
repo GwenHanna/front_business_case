@@ -1,5 +1,5 @@
 .navbar-header-hb {
-  align-items: start;
+  align-items: flex-start;
   justify-content: space-between;
   /* background: red; */
   width: 100%;
@@ -8,7 +8,7 @@
   /* background: cyan; */
   width: 100%;
   padding-top: 5px;
-  align-items: start;
+  align-items: flex-start;
 }
 
 .item-navbar {
@@ -16,7 +16,7 @@
   width: 80%;
   /* background: red; */
   justify-content: space-around;
-  align-items: start;
+  align-items: flex-start;
 }
 a {
   color: var(--secondary);
@@ -33,5 +33,5 @@ a {
 }
 
 .navbar-nav {
-  z-index: 99999999;
+  z-index: 1000;
 }

@@ -20,7 +20,11 @@ import { CommentComponent } from './components/comment/comment.component';
 import { PrestationComponent } from './components/prestation/prestation.component';
 import { AffectationComponent } from './components/affectation/affectation.component';
 import { BasketComponent } from './components/basket/basket.component';
-
+import { ButtonModule } from 'primeng/button';
+import { DialogService, DynamicDialogModule } from 'primeng/dynamicdialog';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BasketDialogueComponent } from './components/basket-dialogue/basket-dialogue.component';
+import { BasketService } from './services/basket.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -38,14 +42,19 @@ import { BasketComponent } from './components/basket/basket.component';
     PrestationComponent,
     AffectationComponent,
     BasketComponent,
+    BasketDialogueComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
+    BrowserModule,
+    BrowserAnimationsModule,
+    DynamicDialogModule,
+    ButtonModule,
   ],
-  providers: [AuthInterceptor],
+  providers: [AuthInterceptor, DialogService, BasketService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

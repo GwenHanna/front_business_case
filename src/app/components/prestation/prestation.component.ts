@@ -7,6 +7,7 @@ import { Observable, map } from 'rxjs';
 import { BasketInterface } from 'src/app/entities/basket-interface';
 import { serviceInterface } from 'src/app/entities/serviceInterface';
 import { selection } from 'src/app/models/selection';
+import { PrestationService } from 'src/app/services/prestation.service';
 
 @Component({
   selector: 'app-prestation',
@@ -18,22 +19,23 @@ export class PrestationComponent implements OnInit {
   isLoading = false;
   serviceName = '';
   servicePrice!: number;
-  id$ = new Observable();
+  idPrestation$ = new Observable();
 
   basket: selection[] = [];
 
   constructor(
     private serviceService: ServiceService,
+    private prestationService: PrestationService,
     private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
     this.isLoading = true;
-    this.id$ = this.route.paramMap.pipe(
+    this.idPrestation$ = this.route.paramMap.pipe(
       map((params: ParamMap) => params.get('id'))
     );
 
-    this.id$.subscribe({
+    this.idPrestation$.subscribe({
       next: (data: any) => {
         this.prestationsArticles = [];
         this.refreashPrestation(data);
@@ -63,11 +65,13 @@ export class PrestationComponent implements OnInit {
       existElem.quantity++;
       existElem.priceTotal =
         this.servicePrice + article.price * existElem.quantity;
+      this.prestationService.addPrestation(existElem);
     } else {
       let newSelection = new selection(article.name, this.serviceName, 0, 1);
       newSelection.priceTotal = this.servicePrice + article.price * 1;
       this.basket.push(newSelection);
+      this.prestationService.addPrestation(newSelection);
     }
-    console.log(this.basket);
+    console.log(existElem);
   }
 }

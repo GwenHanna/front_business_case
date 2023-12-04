@@ -3,11 +3,16 @@ import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { ServiceService } from '../../services/service.service';
 import { serviceInterface } from '../../entities/serviceInterface';
+import { PrestationService } from 'src/app/services/prestation.service';
+import { DialogService } from 'primeng/dynamicdialog';
+import { selection } from 'src/app/models/selection';
+import { BasketService } from 'src/app/services/basket.service';
 
 @Component({
   selector: 'app-nav-bar',
   templateUrl: './nav-bar.component.html',
   styleUrls: ['./nav-bar.component.css'],
+  providers: [DialogService],
 })
 export class NavBarComponent implements OnInit {
   isAdmin: boolean = false;
@@ -15,17 +20,32 @@ export class NavBarComponent implements OnInit {
 
   services: serviceInterface[] = [];
   categories: serviceInterface[] = [];
+  basket: selection[] = [];
 
   constructor(
     private authService: AuthService,
     private serviceService: ServiceService,
-    private router: Router
+    private router: Router,
+    public dialogService: DialogService,
+    private basketService: BasketService,
+    private prestationService: PrestationService
   ) {}
 
   ngOnInit(): void {
     this.getLoggin();
-    console.log(this.authService.getUserInfo());
     this.displayNavService();
+  }
+
+  getBasket() {
+    this.prestationService.getPrestation().subscribe({
+      next: (basket) => (this.basket = basket),
+      error: (err) => console.log(err),
+    });
+  }
+
+  openBasket(prestation: any) {
+    this.basketService.openModal(prestation);
+    this.getBasket();
   }
 
   getLoggin() {

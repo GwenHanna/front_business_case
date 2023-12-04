@@ -81,6 +81,7 @@ export class AuthService {
     this.router.navigateByUrl('');
     localStorage.removeItem('token');
     localStorage.removeItem('roles');
+    localStorage.removeItem('basket');
     this.isLogged$.next(false);
     this.isAdmin$.next(false);
   }

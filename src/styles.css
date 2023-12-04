@@ -1,4 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
+@import "~primeng/resources/primeng.min.css";
+@import "~primeicons/primeicons.css";
+
 :root {
   --primary: #377d75;
   --secondary: #253f3c;
@@ -151,16 +154,20 @@ a:hover {
 }
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (min-width: 600px) {
+  .body {
+    padding: 0;
+    margin: 50px;
+  }
 }
 /* Medium devices (landscape tablets, 768px and up) */
 @media only screen and (min-width: 768px) {
+  .body {
+    padding: 0;
+    margin: 100px;
+  }
 }
 /* Large devices (laptops/desktops, 992px and up) */
-@media only screen and (min-width: 992px) {
-  body {
-    padding: 0;
-    margin: 0;
-  }
+@media screen and (max-width: 992px) {
 }
 /* Extra large devices (large laptops and desktops, 1200px and up) */
 @media only screen and (min-width: 1200px) {

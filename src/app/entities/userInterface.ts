@@ -1,7 +1,7 @@
 export interface UserInterface {
   id?: number;
   email: string;
-  roles: string;
+  roles: string[];
   firstname: string;
   lastname: string;
   birthdate: Date;
@@ -10,4 +10,5 @@ export interface UserInterface {
   zipcode: string;
   city: string;
   dateCreated: Date;
+  plainPassword?: string;
 }

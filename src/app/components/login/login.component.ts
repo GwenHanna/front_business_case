@@ -6,6 +6,7 @@ import { map } from 'rxjs/operators';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { HttpResponse } from '@angular/common/http';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-login',
@@ -20,6 +21,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private loginService: AuthService,
+    private userService: UserService,
     private router: Router
   ) {}
 
@@ -35,6 +37,7 @@ export class LoginComponent implements OnInit {
       this.loginService.login(this.form.value).subscribe({
         next: (data) => {
           this.loginService.saveToken(data.token);
+          this.userService.getUser();
         },
         error: (error: HttpResponse<any>) => console.log(error),
         complete: () => {

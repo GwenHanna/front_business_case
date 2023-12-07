@@ -20,21 +20,21 @@
 
         <!-- SERVICES -->
 
-        <li *ngFor="let service of categories" class="nav-item dropdown">
+        <li *ngFor="let section of sections" class="nav-item dropdown">
           <a
             class="nav-link dropdown-toggle item"
-            (click)="selectService(service.category)"
+            (click)="selectService(section.name)"
             id="navbarDropdown"
             role="button"
             data-bs-toggle="dropdown"
             aria-expanded="false"
           >
-            {{ service.category }}
+            {{ section.name }}
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li *ngFor="let service of services">
+            <li *ngFor="let service of section.services">
               <a class="dropdown-item" routerLink="service/{{ service?.id }}">{{
-                service?.name
+                service.name
               }}</a>
             </li>
           </ul>
@@ -88,17 +88,40 @@
         </button>
         <p><a class="register" routerLink="/register">S'inscrire</a></p>
       </div>
-
-      <div *ngIf="isLogin" class="">
-        <button
-          (click)="logout()"
-          class="btn btn-outline-success btn-default secondary"
-          id=""
+      <li class="nav-item dropdown" *ngIf="user && isLogin">
+        <a
+          class="nav-link dropdown-toggle"
+          href="#"
+          id="navbarDropdown"
+          role="button"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
         >
-          DECONNEXION
-        </button>
-      </div>
-      <button pButton type="button" (click)="openBasket(basket)">Panier</button>
+          {{ user.firstname }}
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <li><a class="dropdown-item" routerLink="/account">Mon compte</a></li>
+
+          <div *ngIf="isLogin" class="">
+            <button
+              (click)="logout()"
+              class="btn btn-outline-success btn-default secondary"
+              id=""
+            >
+              DECONNEXION
+            </button>
+          </div>
+        </ul>
+      </li>
+
+      <button
+        *ngIf="isLogin && !isAdmin"
+        pButton
+        type="button"
+        (click)="openBasket(basket)"
+      >
+        Panier
+      </button>
     </div>
   </div>
 </nav>

@@ -7,6 +7,10 @@ import { PrestationService } from 'src/app/services/prestation.service';
 import { DialogService } from 'primeng/dynamicdialog';
 import { selection } from 'src/app/models/selection';
 import { BasketService } from 'src/app/services/basket.service';
+import { UserInterface } from 'src/app/entities/userInterface';
+import { SectionService } from 'src/app/services/section.service';
+import { sectionInterface } from 'src/app/entities/sectionInterface';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-nav-bar',
@@ -17,10 +21,12 @@ import { BasketService } from 'src/app/services/basket.service';
 export class NavBarComponent implements OnInit {
   isAdmin: boolean = false;
   isLogin: boolean = false;
+  user: any;
 
   services: serviceInterface[] = [];
-  categories: serviceInterface[] = [];
+  sections: any = [];
   basket: selection[] = [];
+  basketFilter: { [key: string]: { article: string; quantity: number }[] } = {};
 
   constructor(
     private authService: AuthService,
@@ -28,16 +34,31 @@ export class NavBarComponent implements OnInit {
     private router: Router,
     public dialogService: DialogService,
     private basketService: BasketService,
-    private prestationService: PrestationService
+    private prestationService: PrestationService,
+    private sectionService: SectionService,
+    private userService: UserService
   ) {}
 
   ngOnInit(): void {
-    this.getLoggin();
     this.displayNavService();
+    this.getLoggin();
+    this.getBasket();
+    if (this.isLogin) {
+      this.userService.getUser();
+    }
+    this.userService.$user.subscribe({
+      next: (data) => (this.user = data),
+    });
+  }
+
+  displayNavService() {
+    this.sectionService.fetchAllSection().subscribe({
+      next: (data) => (this.sections = data),
+    });
   }
 
   getBasket() {
-    this.prestationService.getPrestation().subscribe({
+    return this.basketService.getPrestation().subscribe({
       next: (basket) => (this.basket = basket),
       error: (err) => console.log(err),
     });
@@ -45,6 +66,7 @@ export class NavBarComponent implements OnInit {
 
   openBasket(prestation: any) {
     this.basketService.openModal(prestation);
+
     this.getBasket();
   }
 
@@ -67,17 +89,6 @@ export class NavBarComponent implements OnInit {
   logout() {
     this.authService.logout();
     this.router.navigateByUrl('/');
-  }
-
-  displayNavService() {
-    this.serviceService.fetchAllCategoryService().subscribe({
-      next: (data) => {
-        this.categories = data.filter(
-          (thing, i, arr) =>
-            arr.findIndex((t) => t.category === thing.category) === i
-        );
-      },
-    });
   }
 
   selectService(category: string) {

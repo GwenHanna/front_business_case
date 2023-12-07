@@ -17,9 +17,6 @@ export class ServiceService {
     return this.http.get<serviceInterface[]>(`${this.apiUrl}services`);
   }
 
-  fetchAllCategoryService() {
-    return this.http.get<serviceInterface[]>(`${this.apiUrl}services`);
-  }
   fetchByCategoryService(category: string) {
     return this.http.get<serviceInterface[]>(
       `${this.apiUrl}services?category=${category}`
@@ -27,8 +24,6 @@ export class ServiceService {
   }
 
   fetchByNameSercice(id: string) {
-    return this.http.get<prestationInterface[]>(
-      `${this.apiUrl}prestations?service.id=${id}`
-    );
+    return this.http.get<prestationInterface>(`${this.apiUrl}services/${id}`);
   }
 }

@@ -4,6 +4,7 @@ import { AuthService } from '../../services/auth.service';
 import { Observable, map, switchMap } from 'rxjs';
 import { RegisterForm } from '../../entities/registerForm';
 import { NavigateService } from '../../services/navigate.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-register',
@@ -19,6 +20,7 @@ export class RegisterComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
+    private userService: UserService,
     private navigateService: NavigateService
   ) {}
 
@@ -58,7 +60,7 @@ export class RegisterComponent implements OnInit {
         };
         console.log(formData);
       }
-      this.authService.add(formData).subscribe({
+      this.userService.addUser(formData).subscribe({
         next: (data) => {
           console.log(data);
 

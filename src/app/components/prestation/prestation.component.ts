@@ -1,13 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ServiceService } from '../../services/service.service';
-import { prestationInterface } from '../../entities/prestationsInterface';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { articleInterface } from '../../entities/articleInterface';
 import { Observable, map } from 'rxjs';
-import { BasketInterface } from 'src/app/entities/basket-interface';
-import { serviceInterface } from 'src/app/entities/serviceInterface';
 import { selection } from 'src/app/models/selection';
-import { PrestationService } from 'src/app/services/prestation.service';
+import { BasketService } from 'src/app/services/basket.service';
 
 @Component({
   selector: 'app-prestation',
@@ -15,17 +12,16 @@ import { PrestationService } from 'src/app/services/prestation.service';
   styleUrls: ['./prestation.component.css'],
 })
 export class PrestationComponent implements OnInit {
-  prestationsArticles: articleInterface[] = [];
+  prestations: any = [];
   isLoading = false;
-  serviceName = '';
   servicePrice!: number;
+  serviceName: string = '';
   idPrestation$ = new Observable();
-
   basket: selection[] = [];
 
   constructor(
     private serviceService: ServiceService,
-    private prestationService: PrestationService,
+    private basketService: BasketService,
     private route: ActivatedRoute
   ) {}
 
@@ -37,7 +33,6 @@ export class PrestationComponent implements OnInit {
 
     this.idPrestation$.subscribe({
       next: (data: any) => {
-        this.prestationsArticles = [];
         this.refreashPrestation(data);
       },
     });
@@ -46,18 +41,19 @@ export class PrestationComponent implements OnInit {
   refreashPrestation(id: string) {
     this.serviceService.fetchByNameSercice(id).subscribe({
       next: (data) => {
-        data.forEach((data) => {
-          this.serviceName = data.service.name;
-          this.servicePrice = data.service.price;
-          this.prestationsArticles.push(data.article);
-          this.isLoading = false;
-        });
+        this.prestations = data;
+      },
+      complete: () => {
+        this.serviceName = this.prestations.name;
+        this.isLoading = false;
+        this.servicePrice = this.prestations.price;
       },
       error: (err) => console.log(err),
     });
   }
 
   addPrestation(article: articleInterface) {
+    // this.prestationService.addPrestation(article);
     let existElem = this.basket.find(
       (element: any) => element.articleName === article.name
     );
@@ -65,13 +61,12 @@ export class PrestationComponent implements OnInit {
       existElem.quantity++;
       existElem.priceTotal =
         this.servicePrice + article.price * existElem.quantity;
-      this.prestationService.addPrestation(existElem);
+      this.basketService.addPrestation(existElem);
     } else {
       let newSelection = new selection(article.name, this.serviceName, 0, 1);
       newSelection.priceTotal = this.servicePrice + article.price * 1;
       this.basket.push(newSelection);
-      this.prestationService.addPrestation(newSelection);
+      this.basketService.addPrestation(newSelection);
     }
-    console.log(existElem);
   }
 }

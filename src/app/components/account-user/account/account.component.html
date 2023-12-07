@@ -1,0 +1,21 @@
+<div *ngIf="!selectUpDate" class="container bc-container content">
+  <h3 class="title-h3">mon compte</h3>
+
+  <div class="card bc-card">
+    <div class="card-header">
+      <h5>{{ user?.firstname }} -{{ user?.lastname }}</h5>
+
+      <p>{{ user?.email }}</p>
+      <div class="card-body">
+        <p>{{ user?.street }}</p>
+        <p>{{ user?.zipcode }} - {{ user?.city }}</p>
+      </div>
+    </div>
+  </div>
+  <button class="btn" (click)="upDateAccount()">Modifier mon compte</button>
+  <button class="btn" (click)="deletAccount()">Supprimer mon compte</button>
+</div>
+<div *ngIf="selectUpDate">
+  <app-up-date-account [user]="user"></app-up-date-account>
+  <button class="btn" (click)="upDateAccount()">Annuler</button>
+</div>

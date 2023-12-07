@@ -6,6 +6,7 @@ import { TokenInterface } from '../entities/token';
 import { LoginForm } from '../entities/loginForm';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
+import { UserService } from './user.service';
 
 @Injectable({
   providedIn: 'root',
@@ -15,7 +16,11 @@ export class AuthService {
   private isAdmin$: BehaviorSubject<boolean>;
   private apiUrl: string = environment.apiUrl;
 
-  constructor(private http: HttpClient, private router: Router) {
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private userService: UserService
+  ) {
     this.isLogged$ = new BehaviorSubject<boolean>(
       !!localStorage.getItem('token')
     );
@@ -41,34 +46,6 @@ export class AuthService {
     this.isAdmin$.next(bool);
   }
 
-  /** User */
-  getUserInfo() {
-    const token = localStorage.getItem('token');
-    console.log(token);
-
-    if (token !== null) {
-      const base64Url = token.split('.')[1];
-      const base64 = base64Url.replace('-', '+').replace('_', '/');
-      const userInfo = JSON.parse(atob(base64));
-      const idUser = userInfo.id;
-      console.log(idUser);
-
-      return userInfo;
-    }
-    return null;
-  }
-  checkAdminStatus() {
-    const userInfo = this.getUserInfo();
-    if (userInfo !== null) {
-      return userInfo.roles.includes('ROLE_ADMIN');
-    }
-    return false;
-  }
-
-  add(user: RegisterForm) {
-    return this.http.post<RegisterForm>(`${this.apiUrl}users`, user);
-  }
-
   /** Connexion */
   login(credential: LoginForm) {
     return this.http.post<TokenInterface>(
@@ -89,7 +66,7 @@ export class AuthService {
   /** Token */
   saveToken(token: string) {
     localStorage.setItem('token', token);
-    const userInfo = this.getUserInfo();
+    const userInfo = this.userService.getUserInfo();
     this.saveRoles(userInfo.roles);
     this.isAdmin$.next(userInfo.roles.includes('ROLE_ADMIN'));
     this.router.navigate(['/']);

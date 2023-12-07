@@ -24,13 +24,5 @@ export class BasketComponent implements OnInit {
 
   constructor() {}
 
-  ngOnInit(): void {
-    // this.baskets = localStorage.getItem('basket');
-    // this.prestationService.getPrestation().subscribe({
-    //   next: (data) => {
-    //     this.baskets = data;
-    //     console.log(data);
-    //   },
-    // });
-  }
+  ngOnInit(): void {}
 }

@@ -26,9 +26,3 @@ p {
   width: 90%;
   height: auto;
 }
-
-@media screen and (max-width: 980px) {
-  .container-header {
-    flex-wrap: wrap;
-  }
-}

@@ -1,7 +1,7 @@
 export class selection {
   constructor(
     public articleName: string,
-    private serviceName: string,
+    public serviceName: string,
     public priceTotal: number,
     public quantity: number
   ) {}

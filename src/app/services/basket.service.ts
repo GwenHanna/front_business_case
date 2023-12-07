@@ -10,7 +10,6 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class BasketService {
   private basket: selection[] = [];
-  private basketFilter: selection[] = [];
   private storeBasket: any = localStorage.getItem('basket');
   private subjectBasket = new BehaviorSubject<selection[]>([]);
 
@@ -28,9 +27,7 @@ export class BasketService {
     console.log(prestation);
 
     let existElem: selection | undefined = this.basket.find(
-      (item) =>
-        item.articleName === prestation.articleName &&
-        item.serviceName === prestation.serviceName
+      (item) => item.articleName === prestation.articleName
     );
 
     if (existElem) {
@@ -41,6 +38,10 @@ export class BasketService {
 
     localStorage.setItem('basket', JSON.stringify(this.basket));
     this.updateBasket();
+  }
+
+  getPrestation() {
+    return this.subjectBasket.asObservable();
   }
 
   openModal(prestationData: any) {
@@ -57,10 +58,6 @@ export class BasketService {
         console.log('Modal fermé');
       },
     });
-  }
-
-  getPrestation() {
-    return this.subjectBasket.asObservable();
   }
 
   // getBasket() {

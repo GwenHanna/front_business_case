@@ -46,7 +46,7 @@
 
         <!--ADMINISTRATION-->
 
-        <li class="nav-item dropdown" *ngIf="isAdmin">
+        <li class="nav-item dropdown" *ngIf="isAdmin && isLogin">
           <a
             class="nav-link dropdown-toggle item"
             href="#"
@@ -65,6 +65,9 @@
             </li>
             <li>
               <a class="dropdown-item" routerLink="/assign">Affectation</a>
+            </li>
+            <li>
+              <a class="dropdown-item" routerLink="/crud-admin">CRUD</a>
             </li>
             <li>
               <a class="dropdown-item" routerLink="/article">Article</a>

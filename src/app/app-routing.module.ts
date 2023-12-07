@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
 import { ArticleComponent } from './components/article/article.component';
 import { LoginComponent } from './components/login/login.component';
-import { CreateCategoryComponent } from './components/create-category/create-category.component';
+import { CreateCategoryComponent } from './components/admin/create-category/create-category.component';
 import { RegisterComponent } from './components/register/register.component';
 import { AdminComponent } from './pages/admin/admin.component';
 import { ServiceListComponent } from './components/service-list/service-list.component';
@@ -11,8 +11,9 @@ import { authGuard } from './gards/auth.guard';
 import { PrestationComponent } from './components/prestation/prestation.component';
 import { adminGuard } from './gards/admin.guard';
 import { registerGuard } from './gards/register.guard';
-import { AffectationComponent } from './components/affectation/affectation.component';
+import { AffectationComponent } from './components/admin/affectation/affectation.component';
 import { AccountComponent } from './components/account-user/account/account.component';
+import { AdminCrudComponent } from './components/admin/admin-crud/admin-crud.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -32,8 +33,8 @@ const routes: Routes = [
     canActivate: [adminGuard],
   },
   {
-    path: 'category/new',
-    component: CreateCategoryComponent,
+    path: 'crud-admin',
+    component: AdminCrudComponent,
     canActivate: [adminGuard],
   },
 ];

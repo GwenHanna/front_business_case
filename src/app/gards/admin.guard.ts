@@ -7,6 +7,7 @@ export const adminGuard: CanActivateFn = (route, state) => {
   const router = inject(Router);
 
   const isAdmin = autService.getIsAdmin();
+  const isLogin = autService.getIsLogged();
 
   isAdmin.subscribe({
     next: (data: any) => {
@@ -15,5 +16,6 @@ export const adminGuard: CanActivateFn = (route, state) => {
       }
     },
   });
+
   return true;
 };

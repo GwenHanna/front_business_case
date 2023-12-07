@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { CategoryService } from '../../services/category.service';
+import { CategoryService } from '../../../services/category.service';
 
 @Component({
   selector: 'app-create-category',
@@ -12,7 +12,7 @@ export class CreateCategoryComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private serviceCategory: CategoryService
+    private categoryService: CategoryService
   ) {}
 
   ngOnInit(): void {
@@ -23,7 +23,7 @@ export class CreateCategoryComponent implements OnInit {
 
   onSubmit() {
     if (this.form.valid) {
-      this.serviceCategory.add(this.form.value).subscribe((res) => {});
+      this.categoryService.add(this.form.value).subscribe((res) => {});
     }
   }
 }

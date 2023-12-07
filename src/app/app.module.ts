@@ -9,7 +9,7 @@ import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { ArticleComponent } from './components/article/article.component';
 import { LoginComponent } from './components/login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { CreateCategoryComponent } from './components/create-category/create-category.component';
+import { CreateCategoryComponent } from './components/admin/create-category/create-category.component';
 import { RegisterComponent } from './components/register/register.component';
 import { AuthInterceptor } from './interceptor/auth.interceptor';
 import { AdminComponent } from './pages/admin/admin.component';
@@ -18,7 +18,7 @@ import { SortServicesPipe } from './pipes/sort-services.pipe';
 import { FooterComponent } from './components/footer/footer.component';
 import { CommentComponent } from './components/comment/comment.component';
 import { PrestationComponent } from './components/prestation/prestation.component';
-import { AffectationComponent } from './components/affectation/affectation.component';
+import { AffectationComponent } from './components/admin/affectation/affectation.component';
 import { BasketComponent } from './components/basket/basket.component';
 import { ButtonModule } from 'primeng/button';
 import { DialogService, DynamicDialogModule } from 'primeng/dynamicdialog';
@@ -29,6 +29,9 @@ import { HeaderComponent } from './components/header/header.component';
 import { PressingComponent } from './pages/pressing/pressing.component';
 import { AccountComponent } from './components/account-user/account/account.component';
 import { UpDateAccountComponent } from './components/account-user/up-date-account/up-date-account.component';
+import { AdminCrudComponent } from './components/admin/admin-crud/admin-crud.component';
+import { CreateArticleComponent } from './components/admin/create-article/create-article.component';
+import { CreateServiceComponent } from './components/admin/create-service/create-service.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -51,6 +54,9 @@ import { UpDateAccountComponent } from './components/account-user/up-date-accoun
     PressingComponent,
     AccountComponent,
     UpDateAccountComponent,
+    AdminCrudComponent,
+    CreateArticleComponent,
+    CreateServiceComponent,
   ],
   imports: [
     BrowserModule,

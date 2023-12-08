@@ -1,0 +1,11 @@
+h4 {
+  cursor: pointer;
+}
+.articles {
+  display: none;
+  height: 0;
+}
+.active {
+  display: inherit;
+  height: auto;
+}

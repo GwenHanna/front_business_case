@@ -8,4 +8,5 @@ export interface articleInterface {
   price: number;
   category: categoryInterface;
   picture?: string;
+  services?: string;
 }

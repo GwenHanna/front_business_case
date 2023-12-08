@@ -23,6 +23,9 @@ export class ArticleService {
 
   // URL_API_ARTICLE = 'http://vps206.tyrolium.fr:2022/api/articles';
 
+  fetchById(idArticle: string) {
+    return this.http.get<articleInterface>(`${this.apiUrl}/${idArticle}`);
+  }
   removeArticle(idArticle: string) {
     return this.http.delete(`${this.apiUrl}/${idArticle}`);
   }

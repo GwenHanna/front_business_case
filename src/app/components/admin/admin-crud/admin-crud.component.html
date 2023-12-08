@@ -1,3 +1,9 @@
-<app-create-article></app-create-article>
+<div class="">
+  <h4 (click)="toggleClass()">article</h4>
+  <app-create-article
+    [isActive]="isActive"
+    class="articles"
+  ></app-create-article>
+</div>
 <app-create-service></app-create-service>
 <app-create-category></app-create-category>

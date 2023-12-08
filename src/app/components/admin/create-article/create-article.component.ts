@@ -1,10 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+} from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { BehaviorSubject, Observable, map } from 'rxjs';
 import { articleInterface } from 'src/app/entities/articleInterface';
 import { categoryInterface } from 'src/app/entities/categoryInterface';
 import { serviceInterface } from 'src/app/entities/serviceInterface';
 import { ArticleService } from 'src/app/services/article.service';
 import { CategoryService } from 'src/app/services/category.service';
+import { CrudService } from 'src/app/services/crud.service';
 import { ServiceService } from 'src/app/services/service.service';
 
 @Component({
@@ -13,6 +21,8 @@ import { ServiceService } from 'src/app/services/service.service';
   styleUrls: ['./create-article.component.css'],
 })
 export class CreateArticleComponent implements OnInit {
+  @Input() isActive: boolean = false;
+
   formAddArticle!: FormGroup;
   categories: categoryInterface[] = [];
   services: serviceInterface[] = [];
@@ -21,20 +31,29 @@ export class CreateArticleComponent implements OnInit {
   pathUriServices = '/api/services/';
   messageSuccess = '';
   displayAddArticle: boolean = false;
-  displayUpdateArticle: boolean = false;
+  isEditor: boolean = false;
 
   constructor(
     private fb: FormBuilder,
     private articleService: ArticleService,
     private categoryService: CategoryService,
-    private servicesService: ServiceService
+    private servicesService: ServiceService,
+    private crudService: CrudService
   ) {}
   ngOnInit(): void {
     this.getCategories();
     this.getServices();
-
     this.formAddArticle = this.buildFormBuilder();
     this.getArticle();
+    console.log(this.isActive);
+  }
+
+  upDateArticle(article: articleInterface) {
+    this.articleService.upDateArticle(article).subscribe({
+      next: (data) =>
+        (this.messageSuccess = 'Modification effectuer avec succès'),
+      error: (err) => console.log(err),
+    });
   }
 
   addArticle() {
@@ -50,7 +69,6 @@ export class CreateArticleComponent implements OnInit {
         category: uriCategory,
         services: serviceUri,
       };
-      console.log(formData);
 
       this.articleService.addArticle(formData).subscribe({
         next: (data) => this.getArticle(),
@@ -63,11 +81,33 @@ export class CreateArticleComponent implements OnInit {
     }
   }
 
+  onFileSelected(event: any): void {
+    const file: File = event.target.files[0];
+    // this.formAddArticle.patchValue({
+    //   file,
+    // });
+    if (file) {
+      const formData = new FormData();
+      formData.append('picture', file);
+    }
+    console.log(this.formAddArticle);
+  }
+
   toggleAddArticle() {
     this.displayAddArticle = !this.displayAddArticle;
+    this.formAddArticle = this.buildFormBuilder();
+    console.log(this.isEditor);
+    console.log(this.displayAddArticle);
   }
-  toggleUpDateArticle() {
-    this.displayUpdateArticle = !this.displayUpdateArticle;
+  showUpDate(idArticle: number) {
+    this.isEditor = true;
+    console.log(this.isEditor);
+    console.log(this.displayAddArticle);
+
+    this.loadFormBuilder(idArticle);
+  }
+  closeUpDate() {
+    this.isEditor = false;
   }
 
   deleteArticle(articleId: number) {
@@ -102,18 +142,19 @@ export class CreateArticleComponent implements OnInit {
       error: (err) => console.log(err),
     });
   }
-  toggleServiceChecked(serviceId: number | undefined) {
+  toggleServiceChecked(serviceId: number | undefined): boolean | void {
     const selectService = this.formAddArticle.get('services') as FormArray;
     const pathService = '/api/services/';
     const id: string = '' + serviceId;
+
     if (serviceId !== undefined) {
       if (selectService.value.includes(id)) {
-        const index = selectService.value.indexOf(serviceId);
+        const index = selectService.value.indexOf(id);
         selectService.removeAt(index);
       } else {
-        console.log(pathService + this.fb.control(serviceId));
+        console.log(pathService + this.fb.control(id));
 
-        selectService.push(this.fb.control(serviceId));
+        selectService.push(this.fb.control(id));
       }
     }
   }
@@ -129,6 +170,24 @@ export class CreateArticleComponent implements OnInit {
       category: [''],
       picture: ['', Validators.required],
       services: this.fb.array([]),
+    });
+  }
+  loadFormBuilder(articleId: number) {
+    const id: string = '' + articleId;
+    const pathUri = '/api/services/';
+    let serviceUri: string[] = [];
+
+    this.articleService.fetchById(id).subscribe({
+      next: (data) => {
+        this.formAddArticle.patchValue({
+          name: data.name,
+          description: data.description,
+          price: data.price,
+          category: data.category.id,
+          picture: [''],
+          services: data.services,
+        });
+      },
     });
   }
 }

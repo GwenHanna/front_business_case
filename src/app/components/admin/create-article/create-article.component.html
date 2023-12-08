@@ -1,197 +1,218 @@
-<h4>article</h4>
-<div *ngIf="messageSuccess">
-  {{ messageSuccess }}
-</div>
-<div class="d-flex">
-  <button
-    *ngIf="!displayAddArticle"
-    (click)="toggleAddArticle()"
-    type="button"
-    class="btn btn-dark"
-  >
-    Ajouter Article
-  </button>
-  <button
-    *ngIf="displayAddArticle"
-    (click)="toggleAddArticle()"
-    type="button"
-    class="btn btn-dark"
-  >
-    Retour
-  </button>
-</div>
+<div [ngClass]="{ active: isActive }" class="articles">
+  <div *ngIf="messageSuccess">
+    {{ messageSuccess }}
+  </div>
+  <div *ngIf="!isEditor" class="d-flex">
+    <button
+      *ngIf="!displayAddArticle"
+      (click)="toggleAddArticle()"
+      type="button"
+      class="btn btn-dark"
+    >
+      Ajouter Article
+    </button>
+    <button
+      *ngIf="displayAddArticle"
+      (click)="toggleAddArticle()"
+      type="button"
+      class="btn btn-dark"
+    >
+      Retour
+    </button>
+  </div>
 
-<div *ngIf="!displayAddArticle" class="card mb-3" style="max-width: 540px">
-  <div *ngFor="let article of articles" class="row g-0">
-    <div class="col-md-4">
-      <img
-        class="img-fluid rounded-start"
-        [src]="pathPicture + article.picture"
-        [alt]="article.name"
-      />
+  <div *ngIf="!isEditor && !displayAddArticle" class="card mb-3">
+    <div *ngFor="let article of articles" class="row g-0">
+      <div class="col-md-4">
+        <img
+          class="img-fluid rounded-start"
+          [src]="pathPicture + article.picture"
+          [alt]="article.name"
+        />
+      </div>
+      <div class="col-md-8">
+        <div class="bc-card-header card-header">
+          <h6>{{ article.name }}</h6>
+          <span (click)="deleteArticle(article.id)" class="delete"
+            ><svg
+              width="25px"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+            >
+              <title>delete</title>
+              <path
+                d="M17 4V6H3V4H6.5L7.5 3H12.5L13.5 4H17M4 19V7H16V19C16 20.1 15.1 21 14 21H6C4.9 21 4 20.1 4 19M19 15H21V17H19V15M19 7H21V13H19V7Z"
+              /></svg
+          ></span>
+        </div>
+        <div class="card-body">
+          <p class="card-text">{{ article.description }}</p>
+          <p class="card-text">
+            <small class="text-muted">{{ article.price }}</small>
+          </p>
+        </div>
+        <div class="card-footer">
+          <button class="btn" (click)="showUpDate(article.id)">
+            Modifier article
+          </button>
+        </div>
+      </div>
     </div>
-    <div class="col-md-8">
-      <div class="bc-card-header card-header">
-        <h6>{{ article.name }}</h6>
-        <span (click)="deleteArticle(article.id)" class="delete"
-          ><svg
-            width="25px"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
+  </div>
+  <div>
+    <div class="card">
+      <div *ngIf="isEditor" class="card-header">
+        <svg
+          (click)="closeUpDate()"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          width="20px"
+        >
+          <title>close</title>
+          <path
+            d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z"
+          />
+        </svg>
+      </div>
+      <form
+        *ngIf="isEditor || displayAddArticle"
+        [formGroup]="formAddArticle"
+        (ngSubmit)="addArticle()"
+      >
+        <div class="mb-3 article-name">
+          <label for="article" class="form-label">name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="article"
+            aria-describedby="article"
+            formControlName="name"
+            [value]=""
+          />
+          <div
+            *ngIf="
+              !formAddArticle.get('name')?.valid &&
+              formAddArticle.get('name')?.touched
+            "
+            id="article"
+            class="form-text"
           >
-            <title>delete</title>
-            <path
-              d="M17 4V6H3V4H6.5L7.5 3H12.5L13.5 4H17M4 19V7H16V19C16 20.1 15.1 21 14 21H6C4.9 21 4 20.1 4 19M19 15H21V17H19V15M19 7H21V13H19V7Z"
-            /></svg
-        ></span>
-      </div>
-      <div class="card-body">
-        <p class="card-text">{{ article.description }}</p>
-        <p class="card-text">
-          <small class="text-muted">{{ article.price }}</small>
-        </p>
-      </div>
-      <div class="card-footer">
-        <a (click)="toggleUpDateArticle()">Modifier article</a>
-      </div>
+            Un nom est obligatoire.
+          </div>
+        </div>
+
+        <div class="mb-3 article-description">
+          <label for="article" class="form-label">description</label>
+          <input
+            type="text"
+            class="form-control"
+            id="article-description"
+            aria-describedby="article"
+            formControlName="description"
+          />
+          <div
+            *ngIf="
+              !formAddArticle.get('description')?.valid &&
+              formAddArticle.get('description')?.touched
+            "
+            id="article-description"
+            class="form-text"
+          >
+            Une description est obligatoire.
+          </div>
+        </div>
+
+        <div class="mb-3 article-price">
+          <label for="article" class="form-label">price</label>
+          <input
+            type="number"
+            class="form-control"
+            id="article-price"
+            aria-describedby="article"
+            formControlName="price"
+          />
+          <div
+            *ngIf="
+              !formAddArticle.get('price')?.valid &&
+              formAddArticle.get('price')?.touched
+            "
+            id="article-price"
+            class="form-text"
+          >
+            Un prix est obligatoire.
+          </div>
+        </div>
+
+        <div class="mb-3 article-category">
+          <label for="article" class="form-label">category</label>
+          <select name="category" id="" formControlName="category">
+            <option value="" disabled>- Choisir categorie -</option>
+            <option *ngFor="let category of categories" [ngValue]="category.id">
+              {{ category.name }}
+            </option>
+          </select>
+          <div
+            *ngIf="
+              !formAddArticle.get('category')?.valid &&
+              formAddArticle.get('category')?.touched
+            "
+            id="article-category"
+            class="form-text"
+          >
+            Une categorie est obligatoire.
+          </div>
+        </div>
+
+        <div class="mb-3 article-service">
+          <div *ngFor="let service of services" class="d-flex flex-column">
+            <label [for]="'article_' + service.id" class="form-label">{{
+              service.name
+            }}</label>
+            <input
+              type="checkbox"
+              [value]="service.id"
+              [checked]="isSelectedService(service.id)"
+              (change)="toggleServiceChecked(service.id)"
+              [id]="'article_' + service.id"
+            />
+          </div>
+
+          <div
+            *ngIf="
+              !formAddArticle.get('service')?.valid &&
+              formAddArticle.get('service')?.touched
+            "
+            id="article-service"
+            class="form-text"
+          >
+            Une categorie est obligatoire.
+          </div>
+        </div>
+
+        <div class="mb-3 article-picture">
+          <label for="article" class="form-label">picture</label>
+          <input
+            type="file"
+            class="form-control"
+            id="article-picture"
+            accept="image/png, image/jpeg, image/svg"
+            formControlName="picture"
+            (change)="onFileSelected($event)"
+          />
+          <div
+            *ngIf="
+              !formAddArticle.get('picture')?.valid &&
+              formAddArticle.get('picture')?.touched
+            "
+            id="article-picture"
+            class="form-text"
+          >
+            Une categorie est obligatoire.
+          </div>
+        </div>
+
+        <button class="btn btn-primary">Enregistrer</button>
+      </form>
     </div>
   </div>
 </div>
-
-<form
-  *ngIf="displayAddArticle"
-  [formGroup]="formAddArticle"
-  (ngSubmit)="addArticle()"
->
-  <div class="mb-3 article-name">
-    <label for="article" class="form-label">name</label>
-    <input
-      type="text"
-      class="form-control"
-      id="article"
-      aria-describedby="article"
-      formControlName="name"
-    />
-    <div
-      *ngIf="
-        !formAddArticle.get('name')?.valid &&
-        formAddArticle.get('name')?.touched
-      "
-      id="article"
-      class="form-text"
-    >
-      Un nom est obligatoire.
-    </div>
-  </div>
-
-  <div class="mb-3 article-description">
-    <label for="article" class="form-label">description</label>
-    <input
-      type="text"
-      class="form-control"
-      id="article-description"
-      aria-describedby="article"
-      formControlName="description"
-    />
-    <div
-      *ngIf="
-        !formAddArticle.get('description')?.valid &&
-        formAddArticle.get('description')?.touched
-      "
-      id="article-description"
-      class="form-text"
-    >
-      Une description est obligatoire.
-    </div>
-  </div>
-
-  <div class="mb-3 article-price">
-    <label for="article" class="form-label">price</label>
-    <input
-      type="number"
-      class="form-control"
-      id="article-price"
-      aria-describedby="article"
-      formControlName="price"
-    />
-    <div
-      *ngIf="
-        !formAddArticle.get('price')?.valid &&
-        formAddArticle.get('price')?.touched
-      "
-      id="article-price"
-      class="form-text"
-    >
-      Un prix est obligatoire.
-    </div>
-  </div>
-
-  <div class="mb-3 article-category">
-    <label for="article" class="form-label">category</label>
-    <select name="category" id="" formControlName="category">
-      <option value="" disabled>- Choisir categorie -</option>
-      <option *ngFor="let category of categories" [ngValue]="category.id">
-        {{ category.name }}
-      </option>
-    </select>
-    <div
-      *ngIf="
-        !formAddArticle.get('category')?.valid &&
-        formAddArticle.get('category')?.touched
-      "
-      id="article-category"
-      class="form-text"
-    >
-      Une categorie est obligatoire.
-    </div>
-  </div>
-
-  <div class="mb-3 article-service">
-    <div *ngFor="let service of services" class="d-flex flex-column">
-      <label [for]="'article_' + service.id" class="form-label">{{
-        service.name
-      }}</label>
-      <input
-        type="checkbox"
-        [value]="service.id"
-        [checked]="isSelectedService(service.id)"
-        (change)="toggleServiceChecked(service.id)"
-        [id]="'article_' + service.id"
-      />
-    </div>
-
-    <div
-      *ngIf="
-        !formAddArticle.get('service')?.valid &&
-        formAddArticle.get('service')?.touched
-      "
-      id="article-service"
-      class="form-text"
-    >
-      Une categorie est obligatoire.
-    </div>
-  </div>
-
-  <div class="mb-3 article-picture">
-    <label for="article" class="form-label">picture</label>
-    <input
-      type="file"
-      class="form-control"
-      id="article-picture"
-      accept="image/png, image/jpeg, image/svg"
-      formControlName="picture"
-    />
-    <div
-      *ngIf="
-        !formAddArticle.get('picture')?.valid &&
-        formAddArticle.get('picture')?.touched
-      "
-      id="article-picture"
-      class="form-text"
-    >
-      Une categorie est obligatoire.
-    </div>
-  </div>
-
-  <button class="btn btn-primary">Enregistrer</button>
-</form>

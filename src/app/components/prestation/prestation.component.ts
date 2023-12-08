@@ -55,7 +55,9 @@ export class PrestationComponent implements OnInit {
   addPrestation(article: articleInterface) {
     // this.prestationService.addPrestation(article);
     let existElem = this.basket.find(
-      (element: any) => element.articleName === article.name
+      (element: any) =>
+        element.articleName === article.name &&
+        element.serviceName === this.serviceName
     );
     if (existElem) {
       existElem.quantity++;

@@ -13,7 +13,7 @@ export class UserService {
 
   private apiUrl: string = environment.apiUrl;
   private userSubject = new BehaviorSubject<any>(null);
-  $user = this.userSubject.asObservable();
+  public $user = this.userSubject.asObservable();
 
   /** User */
 

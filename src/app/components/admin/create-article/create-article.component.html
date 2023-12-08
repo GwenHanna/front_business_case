@@ -1,5 +1,7 @@
 <h4>article</h4>
-
+<div *ngIf="messageSuccess">
+  {{ messageSuccess }}
+</div>
 <div class="d-flex">
   <button
     *ngIf="!displayAddArticle"
@@ -53,10 +55,6 @@
         <a (click)="toggleUpDateArticle()">Modifier article</a>
       </div>
     </div>
-  </div>
-
-  <div *ngIf="messageSuccess">
-    {{ messageSuccess }}
   </div>
 </div>
 
@@ -131,6 +129,7 @@
   <div class="mb-3 article-category">
     <label for="article" class="form-label">category</label>
     <select name="category" id="" formControlName="category">
+      <option value="" disabled>- Choisir categorie -</option>
       <option *ngFor="let category of categories" [ngValue]="category.id">
         {{ category.name }}
       </option>
@@ -141,6 +140,32 @@
         formAddArticle.get('category')?.touched
       "
       id="article-category"
+      class="form-text"
+    >
+      Une categorie est obligatoire.
+    </div>
+  </div>
+
+  <div class="mb-3 article-service">
+    <div *ngFor="let service of services" class="d-flex flex-column">
+      <label [for]="'article_' + service.id" class="form-label">{{
+        service.name
+      }}</label>
+      <input
+        type="checkbox"
+        [value]="service.id"
+        [checked]="isSelectedService(service.id)"
+        (change)="toggleServiceChecked(service.id)"
+        [id]="'article_' + service.id"
+      />
+    </div>
+
+    <div
+      *ngIf="
+        !formAddArticle.get('service')?.valid &&
+        formAddArticle.get('service')?.touched
+      "
+      id="article-service"
       class="form-text"
     >
       Une categorie est obligatoire.

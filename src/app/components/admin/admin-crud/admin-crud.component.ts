@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { CrudService } from 'src/app/services/crud.service';
 
 @Component({
   selector: 'app-admin-crud',
@@ -6,8 +7,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./admin-crud.component.css'],
 })
 export class AdminCrudComponent {
-  isActive: boolean = false;
-  toggleClass() {
-    this.isActive = !this.isActive;
+  constructor(public crudService: CrudService) {}
+  toggleClass(section: string) {
+    this.crudService.upDateActive(section);
   }
 }

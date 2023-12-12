@@ -5,6 +5,14 @@ h4 {
   display: none;
   height: 0;
 }
+.services {
+  display: none;
+  height: 0;
+}
+.categories {
+  display: none;
+  height: 0;
+}
 .active {
   display: inherit;
   height: auto;

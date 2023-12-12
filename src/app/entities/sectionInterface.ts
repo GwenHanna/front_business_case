@@ -1,4 +1,6 @@
+import { serviceInterface } from './serviceInterface';
+
 export interface sectionInterface {
   name: string;
-  services: { id: number; name: string };
+  services: serviceInterface[];
 }

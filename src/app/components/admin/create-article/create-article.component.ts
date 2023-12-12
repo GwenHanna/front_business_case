@@ -6,7 +6,7 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { BehaviorSubject, Observable, map } from 'rxjs';
+import { BehaviorSubject, Observable, Subscription, map } from 'rxjs';
 import { articleInterface } from 'src/app/entities/articleInterface';
 import { categoryInterface } from 'src/app/entities/categoryInterface';
 import { serviceInterface } from 'src/app/entities/serviceInterface';
@@ -21,8 +21,7 @@ import { ServiceService } from 'src/app/services/service.service';
   styleUrls: ['./create-article.component.css'],
 })
 export class CreateArticleComponent implements OnInit {
-  @Input() isActive: boolean = false;
-
+  subscriptionIsActive: Subscription | undefined;
   formAddArticle!: FormGroup;
   categories: categoryInterface[] = [];
   services: serviceInterface[] = [];
@@ -37,15 +36,13 @@ export class CreateArticleComponent implements OnInit {
     private fb: FormBuilder,
     private articleService: ArticleService,
     private categoryService: CategoryService,
-    private servicesService: ServiceService,
-    private crudService: CrudService
+    private servicesService: ServiceService
   ) {}
   ngOnInit(): void {
     this.getCategories();
     this.getServices();
     this.formAddArticle = this.buildFormBuilder();
     this.getArticle();
-    console.log(this.isActive);
   }
 
   upDateArticle(article: articleInterface) {
@@ -96,13 +93,9 @@ export class CreateArticleComponent implements OnInit {
   toggleAddArticle() {
     this.displayAddArticle = !this.displayAddArticle;
     this.formAddArticle = this.buildFormBuilder();
-    console.log(this.isEditor);
-    console.log(this.displayAddArticle);
   }
   showUpDate(idArticle: number) {
     this.isEditor = true;
-    console.log(this.isEditor);
-    console.log(this.displayAddArticle);
 
     this.loadFormBuilder(idArticle);
   }
@@ -112,7 +105,7 @@ export class CreateArticleComponent implements OnInit {
 
   deleteArticle(articleId: number) {
     const id: string = '' + articleId;
-    this.articleService.removeArticle(id).subscribe({
+    this.articleService.deleteArticle(id).subscribe({
       error: (err) => console.log(err),
       next: () => {
         this.messageSuccess = 'Article suprimmer avec succès !';
@@ -132,12 +125,12 @@ export class CreateArticleComponent implements OnInit {
   }
 
   getCategories() {
-    this.categoryService.fetchAll().subscribe({
+    this.categoryService.$categories.subscribe({
       next: (categories) => (this.categories = categories),
     });
   }
   getServices() {
-    this.servicesService.fetchAllService().subscribe({
+    this.servicesService.$services.subscribe({
       next: (services) => (this.services = services),
       error: (err) => console.log(err),
     });

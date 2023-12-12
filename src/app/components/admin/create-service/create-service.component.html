@@ -1,18 +1,30 @@
-<h4>services</h4>
-<!--
-<div>
-  <div *ngFor="let article of services" class="row g-0">
-    <div class="col-md-4">
-      <img
-        class="img-fluid rounded-start"
-        [src]="pathPicture + article.picture"
-        [alt]="article.name"
-      />
-    </div>
+<div *ngIf="messageSuccess">
+  {{ messageSuccess }}
+</div>
+<div *ngIf="!isEditor" class="d-flex">
+  <button
+    *ngIf="!displayAddService"
+    (click)="toggleAddService()"
+    type="button"
+    class="btn btn-dark"
+  >
+    Ajouter Service
+  </button>
+  <button
+    *ngIf="displayAddService"
+    (click)="toggleAddService()"
+    type="button"
+    class="btn btn-dark"
+  >
+    Retour
+  </button>
+</div>
+<div *ngIf="!isEditor && !displayAddService">
+  <div *ngFor="let service of services" class="row g-0">
     <div class="col-md-8">
       <div class="bc-card-header card-header">
-        <h6>{{ article.name }}</h6>
-        <span (click)="deleteArticle(article.id)" class="delete"
+        <h6>{{ service.name }}</h6>
+        <span (click)="deleteService(service.id)" class="delete"
           ><svg
             width="25px"
             xmlns="http://www.w3.org/2000/svg"
@@ -25,17 +37,154 @@
         ></span>
       </div>
       <div class="card-body">
-        <p class="card-text">{{ article.description }}</p>
+        <p class="card-text">{{ service.description }}</p>
         <p class="card-text">
-          <small class="text-muted">{{ article.price }}</small>
+          <small class="text-muted">{{ service.price }}</small>
         </p>
       </div>
       <div class="card-footer">
-        <button class="btn" (click)="showUpDate(article.id)">
-          Modifier article
+        <button class="btn" (click)="showUpDate(service.id)">
+          Modifier service
         </button>
       </div>
     </div>
   </div>
 </div>
--->
+
+<div class="card">
+  <div *ngIf="isEditor" class="card-header">
+    <svg
+      (click)="closeUpDate()"
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      width="20px"
+    >
+      <title>close</title>
+      <path
+        d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z"
+      />
+    </svg>
+  </div>
+  <form
+    *ngIf="isEditor || displayAddService"
+    [formGroup]="form"
+    (ngSubmit)="addService()"
+  >
+    <div class="mb-3">
+      <label for="name" class="form-label">Nom</label>
+      <input
+        type="text"
+        class="form-control"
+        id="name"
+        aria-describedby="emailHelp"
+        formControlName="name"
+      />
+      <div
+        *ngIf="!form.get('name')?.valid && form.get('name')?.touched"
+        id="article"
+        class="form-text"
+      >
+        Un nom est obligatoire.
+      </div>
+    </div>
+
+    <div class="mb-3 article-description">
+      <label for="article" class="form-label">description</label>
+      <input
+        type="text"
+        class="form-control"
+        id="article-description"
+        aria-describedby="article"
+        formControlName="description"
+      />
+      <div
+        *ngIf="
+          !form.get('description')?.valid && form.get('description')?.touched
+        "
+        id="article-description"
+        class="form-text"
+      >
+        Une description est obligatoire.
+      </div>
+    </div>
+
+    <div class="mb-3 article-price">
+      <label for="article" class="form-label">price</label>
+      <input
+        type="number"
+        class="form-control"
+        id="article-price"
+        aria-describedby="article"
+        formControlName="price"
+      />
+      <div
+        *ngIf="!form.get('price')?.valid && form.get('price')?.touched"
+        id="article-price"
+        class="form-text"
+      >
+        Un prix est obligatoire.
+      </div>
+    </div>
+
+    <div class="mb-3 article-category">
+      <label for="article" class="form-label">category</label>
+      <select name="category" id="" formControlName="category">
+        <option value="" disabled>- Choisir categorie -</option>
+        <option *ngFor="let category of categories" [ngValue]="category.name">
+          {{ category.name }}
+        </option>
+      </select>
+      <div
+        *ngIf="!form.get('category')?.valid && form.get('category')?.touched"
+        id="article-category"
+        class="form-text"
+      >
+        Une categorie est obligatoire.
+      </div>
+    </div>
+
+    <div class="mb-3 article-service">
+      <div *ngFor="let article of articles" class="d-flex flex-column">
+        <label [for]="'article_' + article.id" class="form-label">{{
+          article.name
+        }}</label>
+        <input
+          type="checkbox"
+          [value]="article.id"
+          [checked]="isSelectedService(article.id)"
+          (change)="toggleServiceChecked(article.id)"
+          [id]="'article_' + article.id"
+        />
+      </div>
+
+      <div
+        *ngIf="!form.get('article')?.valid && form.get('article')?.touched"
+        id="article-article"
+        class="form-text"
+      >
+        Une categorie est obligatoire.
+      </div>
+    </div>
+
+    <div class="mb-3 article-picture">
+      <label for="article" class="form-label">picture</label>
+      <input
+        type="file"
+        class="form-control"
+        id="article-picture"
+        accept="image/png, image/jpeg, image/svg"
+        formControlName="picture"
+        (change)="onFileSelected($event)"
+      />
+      <div
+        *ngIf="!form.get('picture')?.valid && form.get('picture')?.touched"
+        id="article-picture"
+        class="form-text"
+      >
+        Une categorie est obligatoire.
+      </div>
+    </div>
+
+    <button class="btn btn-primary">Submit</button>
+  </form>
+</div>

@@ -1,11 +1,13 @@
 import { prestationInterface } from './prestationsInterface';
+import { sectionInterface } from './sectionInterface';
 
 export interface serviceInterface {
   id?: number;
   name: string;
-  description: string;
-  price: number;
-  picture: string;
+  description?: string;
+  price?: number;
+  picture?: string;
   prestations?: prestationInterface;
-  category: string;
+  category?: string;
+  section?: sectionInterface;
 }

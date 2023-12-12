@@ -1,9 +1,21 @@
 <div class="">
-  <h4 (click)="toggleClass()">article</h4>
+  <h4 (click)="toggleClass('articles')">article</h4>
   <app-create-article
-    [isActive]="isActive"
+    [ngClass]="{ active: crudService.$isActiveArticles | async }"
     class="articles"
   ></app-create-article>
 </div>
-<app-create-service></app-create-service>
-<app-create-category></app-create-category>
+<div>
+  <h4 (click)="toggleClass('services')">services</h4>
+  <app-create-service
+    [ngClass]="{ active: crudService.$isActiveServices | async }"
+    class="services"
+  ></app-create-service>
+</div>
+<div>
+  <h4 (click)="toggleClass('categories')">categories</h4>
+  <app-create-category
+    [ngClass]="{ active: crudService.$isActiveCategories | async }"
+    class="categories"
+  ></app-create-category>
+</div>

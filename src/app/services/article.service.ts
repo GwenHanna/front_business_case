@@ -26,7 +26,7 @@ export class ArticleService {
   fetchById(idArticle: string) {
     return this.http.get<articleInterface>(`${this.apiUrl}/${idArticle}`);
   }
-  removeArticle(idArticle: string) {
+  deleteArticle(idArticle: string) {
     return this.http.delete(`${this.apiUrl}/${idArticle}`);
   }
 

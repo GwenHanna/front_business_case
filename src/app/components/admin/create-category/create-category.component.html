@@ -1,3 +1,30 @@
+<div>
+  <div *ngFor="let category of categories" class="row g-0">
+    <div class="col-md-8">
+      <p *ngIf="messageSuccess">{{ messageSuccess }}</p>
+      <div class="bc-card-header card-header">
+        <h6>{{ category.name }}</h6>
+        <span (click)="deleteCategory(category.id)" class="delete"
+          ><svg
+            width="25px"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+          >
+            <title>delete</title>
+            <path
+              d="M17 4V6H3V4H6.5L7.5 3H12.5L13.5 4H17M4 19V7H16V19C16 20.1 15.1 21 14 21H6C4.9 21 4 20.1 4 19M19 15H21V17H19V15M19 7H21V13H19V7Z"
+            /></svg
+        ></span>
+      </div>
+      <div class="card-footer">
+        <button class="btn" (click)="showUpDate(category.id)">
+          Modifier category
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
   <div class="mb-3">
     <label for="category" class="form-label">Categoorie</label>

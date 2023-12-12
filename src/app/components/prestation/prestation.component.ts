@@ -39,7 +39,7 @@ export class PrestationComponent implements OnInit {
   }
 
   refreashPrestation(id: string) {
-    this.serviceService.fetchByNameSercice(id).subscribe({
+    this.serviceService.fetchById(id).subscribe({
       next: (data) => {
         this.prestations = data;
       },

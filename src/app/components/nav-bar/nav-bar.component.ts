@@ -30,17 +30,15 @@ export class NavBarComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private serviceService: ServiceService,
     private router: Router,
     public dialogService: DialogService,
     private basketService: BasketService,
-    private prestationService: PrestationService,
     private sectionService: SectionService,
     private userService: UserService
   ) {}
 
   ngOnInit(): void {
-    this.displayNavService();
+    this.refreashSectionService();
     this.getLoggin();
     this.getBasket();
     if (this.isLogin) {
@@ -51,9 +49,13 @@ export class NavBarComponent implements OnInit {
     });
   }
 
-  displayNavService() {
-    this.sectionService.fetchAllSection().subscribe({
-      next: (data) => (this.sections = data),
+  refreashSectionService() {
+    this.sectionService.getSection();
+    this.sectionService.$section.subscribe({
+      next: (data) => {
+        this.sections = data;
+        console.log(data);
+      },
     });
   }
 
@@ -89,13 +91,5 @@ export class NavBarComponent implements OnInit {
   logout() {
     this.authService.logout();
     this.router.navigateByUrl('/');
-  }
-
-  selectService(category: string) {
-    this.serviceService.fetchByCategoryService(category).subscribe({
-      next: (data) => {
-        this.services = data;
-      },
-    });
   }
 }

@@ -6,14 +6,13 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { BehaviorSubject, Observable, Subscription, map } from 'rxjs';
+import { Subscription, map } from 'rxjs';
 import { articleInterface } from 'src/app/entities/articleInterface';
 import { categoryInterface } from 'src/app/entities/categoryInterface';
 import { serviceInterface } from 'src/app/entities/serviceInterface';
-import { ArticleService } from 'src/app/services/article.service';
+import { ArticleService } from 'src/app/services/serviceArticle.service';
 import { CategoryService } from 'src/app/services/category.service';
-import { CrudService } from 'src/app/services/crud.service';
-import { ServiceService } from 'src/app/services/service.service';
+import { ServiceTypeService } from 'src/app/services/service-type.service';
 
 @Component({
   selector: 'app-create-article',
@@ -25,8 +24,7 @@ export class CreateArticleComponent implements OnInit {
   formAddArticle!: FormGroup;
   categories: categoryInterface[] = [];
   services: serviceInterface[] = [];
-  articles: articleInterface[] = [];
-  pathPicture = '../../../../assets/articles/crud/';
+  pathPicture = '../../../../assets/articles/';
   pathUriServices = '/api/services/';
   messageSuccess = '';
   displayAddArticle: boolean = false;
@@ -36,15 +34,15 @@ export class CreateArticleComponent implements OnInit {
     private fb: FormBuilder,
     private articleService: ArticleService,
     private categoryService: CategoryService,
-    private servicesService: ServiceService
+    private servicesService: ServiceTypeService
   ) {}
   ngOnInit(): void {
     this.getCategories();
     this.getServices();
     this.formAddArticle = this.buildFormBuilder();
-    this.getArticle();
   }
 
+  // CRUD
   upDateArticle(article: articleInterface) {
     this.articleService.upDateArticle(article).subscribe({
       next: (data) =>
@@ -68,7 +66,7 @@ export class CreateArticleComponent implements OnInit {
       };
 
       this.articleService.addArticle(formData).subscribe({
-        next: (data) => this.getArticle(),
+        next: (data) => this.getServices(),
         error: (err) => console.log(err),
         complete: () => {
           this.displayAddArticle = false;
@@ -78,6 +76,18 @@ export class CreateArticleComponent implements OnInit {
     }
   }
 
+  deleteArticle(articleId: number | undefined) {
+    const id: string = '' + articleId;
+    this.articleService.deleteArticle(id).subscribe({
+      error: (err) => console.log(err),
+      next: () => {
+        this.messageSuccess = 'Article suprimmer avec succès !';
+        this.getServices();
+      },
+    });
+  }
+
+  // Upload File
   onFileSelected(event: any): void {
     const file: File = event.target.files[0];
     // this.formAddArticle.patchValue({
@@ -90,38 +100,20 @@ export class CreateArticleComponent implements OnInit {
     console.log(this.formAddArticle);
   }
 
+  // UTILS
   toggleAddArticle() {
     this.displayAddArticle = !this.displayAddArticle;
     this.formAddArticle = this.buildFormBuilder();
   }
-  showUpDate(idArticle: number) {
+  showUpDate(idArticle: number | undefined) {
+    console.log(idArticle);
     this.isEditor = true;
 
-    this.loadFormBuilder(idArticle);
+    // this.loadFormBuilder(idArticle);
   }
   closeUpDate() {
     this.isEditor = false;
-  }
-
-  deleteArticle(articleId: number) {
-    const id: string = '' + articleId;
-    this.articleService.deleteArticle(id).subscribe({
-      error: (err) => console.log(err),
-      next: () => {
-        this.messageSuccess = 'Article suprimmer avec succès !';
-        this.getArticle();
-      },
-    });
-  }
-
-  getArticle() {
-    this.articleService.getArticles();
-    this.articleService.$articles.subscribe({
-      next: (data) => {
-        console.log('data', data);
-        this.articles = data;
-      },
-    });
+    console.log(this.isEditor);
   }
 
   getCategories() {
@@ -131,7 +123,11 @@ export class CreateArticleComponent implements OnInit {
   }
   getServices() {
     this.servicesService.$services.subscribe({
-      next: (services) => (this.services = services),
+      next: (services) => {
+        console.log(services);
+
+        this.services = services;
+      },
       error: (err) => console.log(err),
     });
   }

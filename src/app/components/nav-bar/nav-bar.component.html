@@ -31,7 +31,7 @@
             {{ section.name }}
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li *ngFor="let service of section.services">
+            <li *ngFor="let service of section.serviceTypes">
               <a class="dropdown-item" routerLink="service/{{ service?.id }}">{{
                 service.name
               }}</a>

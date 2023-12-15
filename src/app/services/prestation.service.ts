@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { selection } from '../models/selection';
-import { ServiceService } from './service.service';
+import { ServiceTypeService } from './service-type.service';
 
 @Injectable({
   providedIn: 'root',
@@ -13,6 +13,6 @@ export class PrestationService {
 
   constructor(
     private http: HttpClient,
-    private serviceService: ServiceService
+    private serviceService: ServiceTypeService
   ) {}
 }

@@ -1,8 +1,9 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment.development';
 import { sectionInterface } from '../entities/sectionInterface';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { categoryInterface } from '../entities/categoryInterface';
 
 @Injectable({
   providedIn: 'root',
@@ -17,7 +18,9 @@ export class SectionService {
 
   getSection() {
     this.fetchAllSection().subscribe({
-      next: (data) => this.sectionsSubject.next(data),
+      next: (data) => {
+        this.sectionsSubject.next(data);
+      },
     });
   }
   fetchById(idCategory: string) {
@@ -39,8 +42,8 @@ export class SectionService {
     return this.http.delete<sectionInterface>(`${this.apiUrl}/${categoryId}`);
   }
 
-  addSection(name: sectionInterface) {
-    return this.http.post<sectionInterface>(this.apiUrl, name);
+  addSection(name: categoryInterface): Observable<categoryInterface> {
+    return this.http.post(this.apiUrl, name);
   }
 
   fetchAllSection() {

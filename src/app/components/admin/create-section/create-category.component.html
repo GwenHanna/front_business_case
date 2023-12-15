@@ -1,7 +1,7 @@
+<p *ngIf="messageSuccess">{{ messageSuccess }}</p>
 <div>
   <div *ngFor="let category of categories" class="row g-0">
     <div class="col-md-8">
-      <p *ngIf="messageSuccess">{{ messageSuccess }}</p>
       <div class="bc-card-header card-header">
         <h6>{{ category.name }}</h6>
         <span (click)="deleteCategory(category.id)" class="delete"

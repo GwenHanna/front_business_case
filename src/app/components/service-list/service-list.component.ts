@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { serviceInterface } from '../../entities/serviceInterface';
-import { ServiceService } from '../../services/service.service';
 import { sectionInterface } from 'src/app/entities/sectionInterface';
 import { SectionService } from 'src/app/services/section.service';
 
@@ -10,8 +8,7 @@ import { SectionService } from 'src/app/services/section.service';
   styleUrls: ['./service-list.component.css'],
 })
 export class ServiceListComponent implements OnInit {
-  services: serviceInterface[] = [];
-  sections: any = [];
+  sections: sectionInterface[] = [];
   isLoading = false;
 
   constructor(private sectionsService: SectionService) {}
@@ -24,7 +21,10 @@ export class ServiceListComponent implements OnInit {
   refreachService() {
     this.sectionsService.fetchAllSection().subscribe({
       next: (data) => {
-        this.sections = data;
+        data.forEach((section) => {
+          this.sections.push(section);
+        });
+
         this.isLoading = false;
       },
       error: (err) => console.log(err),

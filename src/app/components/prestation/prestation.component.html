@@ -1,10 +1,9 @@
-<h2>{{ prestations.name }}</h2>
 <div class="d-flex flex-wrap">
   <div *ngIf="isLoading" class="loading">
     <p>Chargement en cours ...</p>
   </div>
   <div
-    *ngFor="let article of prestations.articles"
+    *ngFor="let article of prestations.services"
     class="card mb-3"
     style="max-width: 540px"
   >

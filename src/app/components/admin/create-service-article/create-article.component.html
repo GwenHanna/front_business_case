@@ -1,3 +1,5 @@
+<h1>ok</h1>
+
 <div class="articles">
   <div *ngIf="messageSuccess">
     {{ messageSuccess }}
@@ -22,7 +24,7 @@
   </div>
 
   <div *ngIf="!isEditor && !displayAddArticle" class="card mb-3">
-    <div *ngFor="let article of articles" class="row g-0">
+    <div *ngFor="let article of services" class="row g-0">
       <div class="col-md-4">
         <img
           class="img-fluid rounded-start"
@@ -62,17 +64,18 @@
   <div>
     <div class="card">
       <div *ngIf="isEditor" class="card-header">
-        <svg
-          (click)="closeUpDate()"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 24 24"
-          width="20px"
-        >
-          <title>close</title>
-          <path
-            d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z"
-          />
-        </svg>
+        <span (click)="closeUpDate()">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            width="20px"
+          >
+            <title>close</title>
+            <path
+              d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z"
+            />
+          </svg>
+        </span>
       </div>
       <form
         *ngIf="isEditor || displayAddArticle"

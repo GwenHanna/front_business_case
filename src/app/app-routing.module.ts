@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
 import { ArticleComponent } from './components/article/article.component';
 import { LoginComponent } from './components/login/login.component';
-import { CreateCategoryComponent } from './components/admin/create-category/create-category.component';
+import { CreateCategoryComponent } from './components/admin/create-section/create-category.component';
 import { RegisterComponent } from './components/register/register.component';
 import { AdminComponent } from './pages/admin/admin.component';
 import { ServiceListComponent } from './components/service-list/service-list.component';
@@ -25,13 +25,13 @@ const routes: Routes = [
     canActivate: [registerGuard],
   },
   { path: 'login', component: LoginComponent, canActivate: [authGuard] },
-  { path: 'account', component: AccountComponent },
+  // { path: 'account', component: AccountComponent },
   { path: 'admin', component: AdminComponent, canActivate: [adminGuard] },
-  {
-    path: 'assign',
-    component: AffectationComponent,
-    canActivate: [adminGuard],
-  },
+  // {
+  //   path: 'assign',
+  //   component: AffectationComponent,
+  //   canActivate: [adminGuard],
+  // },
   {
     path: 'crud-admin',
     component: AdminCrudComponent,

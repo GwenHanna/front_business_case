@@ -9,7 +9,7 @@ import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { ArticleComponent } from './components/article/article.component';
 import { LoginComponent } from './components/login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { CreateCategoryComponent } from './components/admin/create-category/create-category.component';
+import { CreateCategoryComponent } from './components/admin/create-section/create-category.component';
 import { RegisterComponent } from './components/register/register.component';
 import { AuthInterceptor } from './interceptor/auth.interceptor';
 import { AdminComponent } from './pages/admin/admin.component';
@@ -30,7 +30,7 @@ import { PressingComponent } from './pages/pressing/pressing.component';
 import { AccountComponent } from './components/account-user/account/account.component';
 import { UpDateAccountComponent } from './components/account-user/up-date-account/up-date-account.component';
 import { AdminCrudComponent } from './components/admin/admin-crud/admin-crud.component';
-import { CreateArticleComponent } from './components/admin/create-article/create-article.component';
+import { CreateArticleComponent } from './components/admin/create-service-article/create-article.component';
 import { CreateServiceComponent } from './components/admin/create-service/create-service.component';
 @NgModule({
   declarations: [

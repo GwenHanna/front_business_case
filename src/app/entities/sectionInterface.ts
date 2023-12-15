@@ -1,6 +1,7 @@
 import { serviceInterface } from './serviceInterface';
 
 export interface sectionInterface {
-  name: string;
-  services: serviceInterface[];
+  id?: number;
+  name?: string;
+  serviceTypes?: serviceInterface[];
 }

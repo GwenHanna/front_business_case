@@ -1,26 +1,27 @@
-import { Component, OnInit } from '@angular/core';
-import { ServiceService } from '../../services/service.service';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { articleInterface } from '../../entities/articleInterface';
-import { Observable, map } from 'rxjs';
+import { Observable, Subject, map, takeUntil } from 'rxjs';
 import { selection } from 'src/app/models/selection';
 import { BasketService } from 'src/app/services/basket.service';
+import { ArticleService } from 'src/app/services/serviceArticle.service';
 
 @Component({
   selector: 'app-prestation',
   templateUrl: './prestation.component.html',
   styleUrls: ['./prestation.component.css'],
 })
-export class PrestationComponent implements OnInit {
+export class PrestationComponent implements OnInit, OnDestroy {
   prestations: any = [];
   isLoading = false;
   servicePrice!: number;
   serviceName: string = '';
   idPrestation$ = new Observable();
   basket: selection[] = [];
+  private destroy$ = new Subject<void>();
 
   constructor(
-    private serviceService: ServiceService,
+    private articleService: ArticleService,
     private basketService: BasketService,
     private route: ActivatedRoute
   ) {}
@@ -31,7 +32,7 @@ export class PrestationComponent implements OnInit {
       map((params: ParamMap) => params.get('id'))
     );
 
-    this.idPrestation$.subscribe({
+    this.idPrestation$.pipe(takeUntil(this.destroy$)).subscribe({
       next: (data: any) => {
         this.refreashPrestation(data);
       },
@@ -39,14 +40,13 @@ export class PrestationComponent implements OnInit {
   }
 
   refreashPrestation(id: string) {
-    this.serviceService.fetchById(id).subscribe({
+    console.log(id);
+    this.articleService.getServiceUri(+id);
+    this.articleService.$articles.pipe(takeUntil(this.destroy$)).subscribe({
       next: (data) => {
         this.prestations = data;
-      },
-      complete: () => {
-        this.serviceName = this.prestations.name;
-        this.isLoading = false;
-        this.servicePrice = this.prestations.price;
+
+        console.log(this.prestations.services);
       },
       error: (err) => console.log(err),
     });
@@ -70,5 +70,10 @@ export class PrestationComponent implements OnInit {
       this.basket.push(newSelection);
       this.basketService.addPrestation(newSelection);
     }
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

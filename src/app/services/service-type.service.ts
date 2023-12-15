@@ -1,19 +1,19 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { serviceInterface } from '../entities/serviceInterface';
 import { prestationInterface } from '../entities/prestationsInterface';
 import { environment } from 'src/environments/environment.development';
 import { BehaviorSubject } from 'rxjs';
+import { serviceTypesInterface } from '../entities/service_types';
 
 @Injectable({
   providedIn: 'root',
 })
-export class ServiceService {
+export class ServiceTypeService {
   constructor(private http: HttpClient) {}
 
   // url = 'http://vps206.tyrolium.fr:2022/api';
-  private apiUrl: string = environment.apiUrl + 'services';
-  private subjectServices = new BehaviorSubject<serviceInterface[]>([]);
+  private apiUrl: string = environment.apiUrl + 'service_types';
+  private subjectServices = new BehaviorSubject<serviceTypesInterface[]>([]);
   public $services = this.subjectServices.asObservable();
 
   getServices() {
@@ -23,7 +23,7 @@ export class ServiceService {
   }
 
   fetchAllService() {
-    return this.http.get<serviceInterface[]>(this.apiUrl);
+    return this.http.get<serviceTypesInterface[]>(this.apiUrl);
   }
 
   fetchById(id: string) {
@@ -33,12 +33,12 @@ export class ServiceService {
   deleteService(idService: string) {
     return this.http.delete(`${this.apiUrl}/${idService}`);
   }
-  addService(service: serviceInterface) {
+  addService(service: serviceTypesInterface) {
     console.log('service' + service);
 
-    return this.http.post<serviceInterface>(this.apiUrl, service);
+    return this.http.post<serviceTypesInterface>(this.apiUrl, service);
   }
-  upDateService(service: serviceInterface) {
-    return this.http.patch<serviceInterface>(this.apiUrl, service);
+  upDateService(service: serviceTypesInterface) {
+    return this.http.patch<serviceTypesInterface>(this.apiUrl, service);
   }
 }

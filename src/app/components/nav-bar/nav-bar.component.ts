@@ -1,13 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
-import { ServiceService } from '../../services/service.service';
-import { serviceInterface } from '../../entities/serviceInterface';
-import { PrestationService } from 'src/app/services/prestation.service';
 import { DialogService } from 'primeng/dynamicdialog';
 import { selection } from 'src/app/models/selection';
 import { BasketService } from 'src/app/services/basket.service';
-import { UserInterface } from 'src/app/entities/userInterface';
 import { SectionService } from 'src/app/services/section.service';
 import { sectionInterface } from 'src/app/entities/sectionInterface';
 import { UserService } from 'src/app/services/user.service';
@@ -23,8 +19,7 @@ export class NavBarComponent implements OnInit {
   isLogin: boolean = false;
   user: any;
 
-  services: serviceInterface[] = [];
-  sections: any = [];
+  sections: sectionInterface[] = [];
   basket: selection[] = [];
   basketFilter: { [key: string]: { article: string; quantity: number }[] } = {};
 
@@ -53,8 +48,9 @@ export class NavBarComponent implements OnInit {
     this.sectionService.getSection();
     this.sectionService.$section.subscribe({
       next: (data) => {
-        this.sections = data;
-        console.log(data);
+        data.forEach((section) => {
+          this.sections = data;
+        });
       },
     });
   }

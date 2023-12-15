@@ -2,19 +2,35 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { articleInterface } from '../entities/articleInterface';
 import { environment } from 'src/environments/environment.development';
-import { BehaviorSubject, catchError, of, tap } from 'rxjs';
+import { BehaviorSubject, Observable, catchError, of, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ArticleService {
-  private apiUrl: string = environment.apiUrl + 'articles';
+  private apiUrl: string = environment.apiUrl + 'services';
+  private apiUrlService: string = environment.apiUrl;
+
   private subjectArticle = new BehaviorSubject<articleInterface[]>([]);
   public $articles = this.subjectArticle.asObservable();
 
   constructor(private http: HttpClient) {}
 
-  getArticles() {
+  getServiceUri(id: number) {
+    this.fetchServiceByServiceType(id).subscribe({
+      next: (data) => this.subjectArticle.next(data),
+      error: (err) => {
+        console.log(err);
+      },
+    });
+  }
+
+  fetchServiceByServiceType(id: number): Observable<any> {
+    const url = `${this.apiUrlService}services/${id}/article`;
+    return this.http.get(url);
+  }
+
+  getServices() {
     this.fetchAllArticle().subscribe({
       next: (articles) => this.subjectArticle.next(articles),
       error: (err) => console.log(err),

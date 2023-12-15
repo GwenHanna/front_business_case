@@ -108,10 +108,11 @@
       <label for="section" class="form-label">section</label>
       <select name="section" id="" formControlName="section">
         <option value="" disabled>- Choisir categorie -</option>
-        <option *ngFor="let section of sections" [ngValue]="section.id">
+        <option *ngFor="let section of categorySection" [ngValue]="section.id">
           {{ section.name }}
         </option>
       </select>
+
       <div
         *ngIf="!form.get('section')?.valid && form.get('section')?.touched"
         id="service-types-section"

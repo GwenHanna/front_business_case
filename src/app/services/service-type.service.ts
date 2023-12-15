@@ -27,7 +27,7 @@ export class ServiceTypeService {
   }
 
   fetchById(id: string) {
-    return this.http.get<prestationInterface>(`${this.apiUrl}/${id}`);
+    return this.http.get<serviceTypesInterface>(`${this.apiUrl}/${id}`);
   }
 
   deleteService(idService: string) {

@@ -27,11 +27,13 @@ export class CreateServiceComponent implements OnInit {
   // Formulaire reactive form
   public form!: FormGroup;
 
+  //
+  public servicesTypes: serviceTypesInterface[] = [];
+  public categorySection: sectionInterface[] = [];
+
   // utils
   public messageSuccess: string = '';
   public displayAddService: boolean = false;
-  public servicesTypes: serviceTypesInterface[] = [];
-  public sections: any[] = [];
   public pathSectionUri = 'api/sections/';
 
   // Up Date service
@@ -44,30 +46,25 @@ export class CreateServiceComponent implements OnInit {
 
   toggleAddService() {
     this.displayAddService = !this.displayAddService;
+    this.getCategoriesSection();
+    this.formBuilder();
+  }
+
+  getCategoriesSection() {
+    this.sectionService.getSection();
+    this.sectionService.$section.subscribe({
+      next: (categories) => {
+        this.categorySection = categories;
+      },
+      error: (err) => console.log(err),
+    });
   }
 
   // CRUD service_types
   getService() {
     this.serviceTypesService.getServices();
     this.serviceTypesService.$services.subscribe({
-      next: (services) => {
-        this.servicesTypes = services;
-        const uniqueSections: sectionInterface[] = [];
-        this.sections = services
-          .map((services) => {
-            return services.section;
-          })
-          .filter((section) => {
-            if (section) {
-              const isUnique = !uniqueSections.some((s) => s.id === section.id);
-              if (isUnique) {
-                uniqueSections.push(section);
-                return true;
-              }
-            }
-            return false;
-          });
-      },
+      next: (services) => (this.servicesTypes = services),
       error: (err) => console.log(err),
     });
   }
@@ -83,33 +80,6 @@ export class CreateServiceComponent implements OnInit {
         },
       });
   }
-
-  // addService() {
-  //   if (this.form.valid) {
-  //     const articleId = this.form.get('articles')?.value;
-  //     const pathArticles = `/api/articles/`;
-  //     const uriArticles = articleId.map((data: any) => pathArticles + data);
-  //     const formData = {
-  //       ...this.form.value,
-  //       articles: uriArticles,
-  //       section: {
-  //         name: this.form.value.category,
-  //       },
-  //     };
-
-  //     this.serviceTypesService.addService(formData).subscribe({
-  //       next: (data) => {
-  //         console.log(data);
-  //         this.messageSuccess = 'Service ajouté avec succès';
-  //         this.getService();
-  //       },
-  //       error: (err) => {
-  //         console.error(err);
-  //         // Gérer l'erreur ici
-  //       },
-  //     });
-  //   }
-  // }
 
   addService() {
     if (this.form.valid) {
@@ -145,33 +115,36 @@ export class CreateServiceComponent implements OnInit {
       section: ['', Validators.required],
     });
   }
+  loadFormBuilder(articleId: number) {
+    const id: string = '' + articleId;
+    const pathUri = '/api/services/';
+    let serviceUri: string[] = [];
+
+    this.serviceTypesService.fetchById(id).subscribe({
+      next: (data) => {
+        console.log(data);
+
+        this.form.patchValue({
+          name: data.name,
+          description: data.description,
+          section: { id: id, name: name },
+          picture: [''],
+        });
+      },
+      error: (err) => console.log(err),
+    });
+  }
 
   showUpDate(servicesId: number | undefined) {
     this.isEditor = true;
-    //   if (servicesId) this.loadFormBuilder(servicesId);
+    if (servicesId) {
+      this.loadFormBuilder(servicesId);
+      this.getCategoriesSection();
+    }
   }
   closeUpDate() {
     this.isEditor = false;
   }
-  // loadFormBuilder(articleId: number) {
-  //   const id: string = '' + articleId;
-  //   const pathUri = '/api/services/';
-  //   let serviceUri: string[] = [];
-
-  //   this.serviceTypesService.fetchById(id).subscribe({
-  //     next: (data) => {
-  //       this.form.patchValue({
-  //         name: data.name,
-  //         description: data.description,
-  //         price: data.price,
-  //         category: data.category.id,
-  //         picture: [''],
-  //         services: data.services,
-  //       });
-  //     },
-  //     error: (err) => console.log(err),
-  //   });
-  // }
 
   // Récupération Data
 

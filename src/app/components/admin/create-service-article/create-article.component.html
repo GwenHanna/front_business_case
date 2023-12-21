@@ -34,7 +34,7 @@
       </div>
       <div class="col-md-8">
         <div class="bc-card-header card-header">
-          <h6>{{ article.name }}</h6>
+          <h6>{{ article.name }} - {{ article.serviceType?.name }}</h6>
           <span (click)="deleteArticle(article.id)" class="delete"
             ><svg
               width="25px"

@@ -1,5 +1,6 @@
 import { prestationInterface } from './prestationsInterface';
 import { sectionInterface } from './sectionInterface';
+import { serviceTypesInterface } from './service_types';
 
 export interface serviceInterface {
   id?: number;
@@ -7,7 +8,6 @@ export interface serviceInterface {
   description?: string;
   price?: number;
   picture?: string;
-  prestations?: prestationInterface;
-  category?: string;
+  serviceType?: serviceTypesInterface;
   section?: sectionInterface;
 }

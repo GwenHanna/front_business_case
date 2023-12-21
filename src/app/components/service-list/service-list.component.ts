@@ -19,12 +19,11 @@ export class ServiceListComponent implements OnInit {
   }
 
   refreachService() {
-    this.sectionsService.fetchAllSection().subscribe({
+    this.sectionsService.getSection();
+    this.sectionsService.$section.subscribe({
       next: (data) => {
-        data.forEach((section) => {
-          this.sections.push(section);
-        });
-
+        console.log(data);
+        this.sections = data;
         this.isLoading = false;
       },
       error: (err) => console.log(err),

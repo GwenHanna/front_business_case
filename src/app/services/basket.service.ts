@@ -27,9 +27,7 @@ export class BasketService {
     console.log(prestation);
 
     let existElem: selection | undefined = this.basket.find(
-      (item) =>
-        item.articleName === prestation.articleName &&
-        item.serviceName === prestation.serviceName
+      (item) => item.name === prestation.articleName
     );
 
     if (existElem) {

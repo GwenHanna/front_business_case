@@ -13,6 +13,7 @@ export class SectionService {
   private sectionsSubject = new BehaviorSubject<sectionInterface[]>([]);
   public $section: Observable<sectionInterface[]> =
     this.sectionsSubject.asObservable();
+  token = localStorage.getItem('token');
 
   constructor(private http: HttpClient) {}
 
@@ -47,6 +48,11 @@ export class SectionService {
   }
 
   fetchAllSection() {
-    return this.http.get<sectionInterface[]>(this.apiUrl);
+    const options = {
+      headers: new HttpHeaders({
+        Authorization: `Bearer ${this.token}`,
+      }),
+    };
+    return this.http.get<sectionInterface[]>(this.apiUrl, options);
   }
 }

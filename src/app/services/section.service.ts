@@ -48,11 +48,15 @@ export class SectionService {
   }
 
   fetchAllSection() {
-    const options = {
-      headers: new HttpHeaders({
-        Authorization: `Bearer ${this.token}`,
-      }),
-    };
+    let options = {};
+    if (this.token) {
+      options = {
+        headers: new HttpHeaders({
+          Authorization: `Bearer ${this.token}`,
+        }),
+      };
+    }
+
     return this.http.get<sectionInterface[]>(this.apiUrl, options);
   }
 }

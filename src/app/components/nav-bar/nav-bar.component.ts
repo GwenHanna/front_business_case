@@ -7,6 +7,8 @@ import { BasketService } from 'src/app/services/basket.service';
 import { SectionService } from 'src/app/services/section.service';
 import { sectionInterface } from 'src/app/entities/sectionInterface';
 import { UserService } from 'src/app/services/user.service';
+import { selectionInterface } from 'src/app/entities/selectionInterface';
+import { UserInterface } from 'src/app/entities/userInterface';
 
 @Component({
   selector: 'app-nav-bar',
@@ -17,10 +19,10 @@ import { UserService } from 'src/app/services/user.service';
 export class NavBarComponent implements OnInit {
   isAdmin: boolean = false;
   isLogin: boolean = false;
-  user: any;
+  user: UserInterface | undefined;
 
   sections: sectionInterface[] = [];
-  basket: selection[] = [];
+  basket: selectionInterface[] = [];
   basketFilter: { [key: string]: { article: string; quantity: number }[] } = {};
 
   constructor(
@@ -36,12 +38,18 @@ export class NavBarComponent implements OnInit {
     this.refreashSectionService();
     this.getLoggin();
     this.getBasket();
+    console.log(this.user);
+
     if (this.isLogin) {
       this.userService.getUser();
+      this.userService.$user.subscribe({
+        next: (data) => {
+          console.log(data);
+
+          return (this.user = data);
+        },
+      });
     }
-    this.userService.$user.subscribe({
-      next: (data) => (this.user = data),
-    });
   }
 
   refreashSectionService() {

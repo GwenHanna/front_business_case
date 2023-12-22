@@ -2,6 +2,7 @@
   <div *ngIf="isLoading" class="loading">
     <p>Chargement en cours ...</p>
   </div>
+
   <div
     *ngFor="let article of prestations.services"
     class="card mb-3"
@@ -19,9 +20,10 @@
         <div class="card-body">
           <h5 class="card-title">{{ article.name }}</h5>
           <div *ngFor="let b of basket">
-            <div *ngIf="b.name === article.name">
-              <p>{{ b.quantity }}</p>
-              <p>{{ b.priceTotal }} €</p>
+            <div *ngIf="b.service.id === article.id">
+              <p>Prix : {{ b.service.price }} €</p>
+              <p>Quantité : {{ b.quantity }}</p>
+              <p>Prix Total{{ b.priceTotal }} €</p>
             </div>
           </div>
           <div class="btn-card">

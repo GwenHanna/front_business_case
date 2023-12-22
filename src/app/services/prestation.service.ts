@@ -19,24 +19,14 @@ export class PrestationService {
     private serviceService: ServiceTypeService
   ) {}
 
-  getPrestation() {
-    this.fetchPrestationByquelquechose().subscribe({
+  refreashPricing(idService: string, quantity: number) {
+    this.operationPricing(idService, quantity).subscribe({
       next: (prestation) => this.prestationSubject.next(prestation),
     });
   }
 
-  fetchPrestationByquelquechose() {
-    const headers = new HttpHeaders().set(
-      'Authorization',
-      `Bearer ${this.token}`
-    );
-    const options = {
-      headers: headers,
-    };
-
-    return this.http.get(
-      'http://localhost:8000/api/services/43/pricing',
-      options
-    );
+  operationPricing(id: string, quantity: number) {
+    const url = `http://localhost:8000/api/services/${id}/pricing?quantity=${quantity}`;
+    return this.http.get(url);
   }
 }

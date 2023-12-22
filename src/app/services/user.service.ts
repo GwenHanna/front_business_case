@@ -11,24 +11,37 @@ import { BehaviorSubject } from 'rxjs';
 export class UserService {
   constructor(private http: HttpClient) {}
 
-  private apiUrl: string = environment.apiUrl;
+  private apiUrl: string = environment.apiUrl + 'users';
   private userSubject = new BehaviorSubject<any>(null);
   public $user = this.userSubject.asObservable();
 
   /** User */
 
+  fetchUserByEmail(email: string) {
+    return this.http.get(`${this.apiUrl}?email=${email}`);
+  }
+
   getUser() {
-    const userId = this.getUserInfo().id;
-    if (userId) {
-      this.fetchUserById(userId).subscribe({
-        next: (data) => {
-          this.userSubject.next(data);
-        },
-        complete: () => this.userSubject.subscribe((data) => console.log(data)),
-      });
-    } else {
-      this.userSubject.next(null);
-    }
+    const userEmail = this.getUserInfo().email;
+    this.fetchUserByEmail(userEmail).subscribe({
+      next: (data) => {
+        console.log(data);
+
+        this.userSubject.next(data);
+      },
+    });
+    // console.log(userId);
+
+    // if (userId) {
+    //   this.fetchUserById(userId).subscribe({
+    //     next: (data) => {
+    //       this.userSubject.next(data);
+    //       this.userSubject.subscribe((data) => console.log(data));
+    //     },
+    //   });
+    // } else {
+    //   this.userSubject.next(null);
+    // }
   }
 
   getUserInfo() {

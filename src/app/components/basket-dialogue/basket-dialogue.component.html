@@ -1,6 +1,6 @@
 <div class="basket" *ngFor="let article of prestationData">
-  <h6>{{ article.name }}</h6>
-  <p>{{ article.serviceTypes }}</p>
+  <h6>{{ article.service.name }}</h6>
+  <p>{{ article.service.serviceType }}</p>
   <p>{{ article.quantity }}</p>
   <p>{{ article.priceTotal }}</p>
 </div>

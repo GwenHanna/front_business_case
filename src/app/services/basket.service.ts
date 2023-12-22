@@ -4,14 +4,15 @@ import { BasketDialogueComponent } from '../components/basket-dialogue/basket-di
 import { PrestationService } from './prestation.service';
 import { selection } from '../models/selection';
 import { BehaviorSubject } from 'rxjs';
+import { selectionInterface } from '../entities/selectionInterface';
 
 @Injectable({
   providedIn: 'root',
 })
 export class BasketService {
-  private basket: selection[] = [];
+  private basket: selectionInterface[] = [];
   private storeBasket: any = localStorage.getItem('basket');
-  private subjectBasket = new BehaviorSubject<selection[]>([]);
+  private subjectBasket = new BehaviorSubject<selectionInterface[]>([]);
 
   constructor(
     private dialoguService: DialogService,
@@ -23,11 +24,9 @@ export class BasketService {
   updateBasket() {
     this.subjectBasket.next(this.basket);
   }
-  addPrestation(prestation: any) {
-    console.log(prestation);
-
-    let existElem: selection | undefined = this.basket.find(
-      (item) => item.name === prestation.articleName
+  addPrestationInLocalStorage(prestation: selectionInterface) {
+    let existElem: selectionInterface | undefined = this.basket.find(
+      (item) => item.service.id === prestation.service.id
     );
 
     if (existElem) {

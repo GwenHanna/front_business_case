@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
+import { selectionInterface } from 'src/app/entities/selectionInterface';
 import { selection } from 'src/app/models/selection';
 
 @Component({
@@ -8,7 +9,7 @@ import { selection } from 'src/app/models/selection';
   styleUrls: ['./basket-dialogue.component.css'],
 })
 export class BasketDialogueComponent implements OnInit {
-  prestationData: selection[] = [];
+  prestationData: selectionInterface[] = [];
 
   constructor(
     private ref: DynamicDialogRef,
@@ -17,5 +18,6 @@ export class BasketDialogueComponent implements OnInit {
 
   ngOnInit(): void {
     this.prestationData = this.config.data.prestation;
+    console.log('this.prestationData', this.prestationData);
   }
 }

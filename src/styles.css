@@ -133,6 +133,25 @@ a:hover {
   /* height: 55px; */
   padding: 8px 24px;
 }
+.btn-third-active,
+.btn-third:hover {
+  color: var(--white);
+  background: var(--thirdly);
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--thirdly);
+}
+
+.btn-third,
+.btn-third-active:hover {
+  color: var(--thirdly);
+  background: var(--white);
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--thirdly);
+}
 
 .primary,
 .secondary:hover {

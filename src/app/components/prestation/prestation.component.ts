@@ -23,6 +23,7 @@ export class PrestationComponent implements OnInit, OnDestroy {
   basket: selectionInterface[] = [];
   private destroy$ = new Subject<void>();
   public prestation: any;
+  idPrestation: string = '';
 
   public priceTotal: number = 0;
 
@@ -38,6 +39,15 @@ export class PrestationComponent implements OnInit, OnDestroy {
     this.idPrestation$ = this.route.paramMap.pipe(
       map((params: ParamMap) => params.get('id'))
     );
+
+    this.basketService.getPrestation().subscribe({
+      next: (data) => {
+        if (data) {
+          this.basket = data;
+        }
+      },
+      error: (err) => console.log('err', err),
+    });
 
     this.idPrestation$.pipe(takeUntil(this.destroy$)).subscribe({
       next: (data: any) => {

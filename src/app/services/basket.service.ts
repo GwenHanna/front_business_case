@@ -11,16 +11,19 @@ import { selectionInterface } from '../entities/selectionInterface';
 })
 export class BasketService {
   private basket: selectionInterface[] = [];
-  private storeBasket: any = localStorage.getItem('basket');
-  private subjectBasket = new BehaviorSubject<selectionInterface[]>([]);
 
-  constructor(
-    private dialoguService: DialogService,
-    private prestationService: PrestationService
-  ) {
+  private storeBasket: any = localStorage.getItem('basket');
+  private subjectStoreBasket = new BehaviorSubject<any>([]);
+  stroreBasket$ = this.subjectStoreBasket.asObservable();
+
+  private subjectBasket = new BehaviorSubject<selectionInterface[]>([]);
+  basket$ = this.subjectBasket.asObservable();
+
+  constructor(private dialoguService: DialogService) {
     this.basket = JSON.parse(this.storeBasket) || [];
     this.updateBasket();
   }
+
   updateBasket() {
     this.subjectBasket.next(this.basket);
   }
@@ -36,6 +39,12 @@ export class BasketService {
     }
 
     localStorage.setItem('basket', JSON.stringify(this.basket));
+    this.updateBasket();
+  }
+
+  deleteBasket() {
+    localStorage.removeItem('basket');
+    this.basket = [];
     this.updateBasket();
   }
 

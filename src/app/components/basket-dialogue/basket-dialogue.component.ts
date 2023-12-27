@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
 import { selectionInterface } from 'src/app/entities/selectionInterface';
 import { selection } from 'src/app/models/selection';
+import { BasketService } from 'src/app/services/basket.service';
 
 @Component({
   selector: 'app-basket-dialogue',
@@ -13,11 +14,22 @@ export class BasketDialogueComponent implements OnInit {
 
   constructor(
     private ref: DynamicDialogRef,
-    private config: DynamicDialogConfig
+    private config: DynamicDialogConfig,
+    private basketService: BasketService
   ) {}
 
   ngOnInit(): void {
-    this.prestationData = this.config.data.prestation;
+    this.basketService.getPrestation().subscribe({
+      next: (data) => (this.prestationData = data),
+      error: (err) => console.log('err', err),
+    });
     console.log('this.prestationData', this.prestationData);
   }
+
+  emptyBasket() {
+    console.log('prestationData', this.prestationData);
+    this.basketService.deleteBasket();
+  }
+
+  submitBasket() {}
 }

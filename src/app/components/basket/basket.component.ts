@@ -1,16 +1,10 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Input,
-  OnInit,
-} from '@angular/core';
-import { prestationInterface } from 'src/app/entities/prestationsInterface';
-import { selection } from 'src/app/models/selection';
-import { PrestationService } from 'src/app/services/prestation.service';
-import { DynamicDialogRef } from 'primeng/dynamicdialog';
-import { DynamicDialogConfig } from 'primeng/dynamicdialog';
-
-import { BasketDialogueComponent } from '../basket-dialogue/basket-dialogue.component';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { BasketInterface } from 'src/app/entities/basket-interface';
+import { DataBasketInterface } from 'src/app/entities/dataBasketInterface';
+import { selectionInterface } from 'src/app/entities/selectionInterface';
+import { BasketService } from 'src/app/services/basket.service';
+import { ServiceTypeService } from 'src/app/services/service-type.service';
+import { ArticleService } from 'src/app/services/serviceArticle.service';
 
 @Component({
   selector: 'app-basket',
@@ -19,10 +13,26 @@ import { BasketDialogueComponent } from '../basket-dialogue/basket-dialogue.comp
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BasketComponent implements OnInit {
-  @Input() basket: selection[] = [];
-  prestationData: any;
+  baskets: DataBasketInterface[] = [];
+  pricaTotal = 0;
+  constructor(
+    private basketService: BasketService,
+    private serviceTypeService: ServiceTypeService
+  ) {
+    this.basketService.basket$.subscribe({
+      next: (data) => {
+        console.log('data', data);
+        data.forEach((element) => {
+          this.pricaTotal += element.priceTotal;
+        });
+        this.baskets = basketService.dataService(data);
+        console.log('basket', this.baskets);
+      },
+      error: (err) => console.log('err', err),
+    });
+  }
 
-  constructor() {}
-
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log(this.baskets);
+  }
 }

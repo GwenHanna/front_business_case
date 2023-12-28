@@ -14,6 +14,8 @@ import { registerGuard } from './gards/register.guard';
 import { AffectationComponent } from './components/admin/affectation/affectation.component';
 import { AccountComponent } from './components/account-user/account/account.component';
 import { AdminCrudComponent } from './components/admin/admin-crud/admin-crud.component';
+import { BasketComponent } from './components/basket/basket.component';
+import { guestAuthGuard } from './gards/guest-auth.guard';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -25,6 +27,7 @@ const routes: Routes = [
     canActivate: [registerGuard],
   },
   { path: 'login', component: LoginComponent, canActivate: [authGuard] },
+  { path: 'basket', component: BasketComponent, canActivate: [guestAuthGuard] },
   // { path: 'account', component: AccountComponent },
   { path: 'admin', component: AdminComponent, canActivate: [adminGuard] },
   // {

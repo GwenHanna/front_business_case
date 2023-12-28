@@ -5,6 +5,7 @@ import { PrestationService } from './prestation.service';
 import { selection } from '../models/selection';
 import { BehaviorSubject } from 'rxjs';
 import { selectionInterface } from '../entities/selectionInterface';
+import { DataBasketInterface } from '../entities/dataBasketInterface';
 
 @Injectable({
   providedIn: 'root',
@@ -22,6 +23,24 @@ export class BasketService {
   constructor(private dialoguService: DialogService) {
     this.basket = JSON.parse(this.storeBasket) || [];
     this.updateBasket();
+  }
+
+  dataService(data: selectionInterface[]): DataBasketInterface[] {
+    const newData: DataBasketInterface[] = [];
+    data.forEach((el) => {
+      for (let i = 0; i < el.quantity; i++) {
+        newData.push({
+          serviceName: el.service.name,
+          serviceTypeName: el.service.serviceTypeName,
+          state: '',
+          note: '',
+          repassage: false,
+          price: el.service.price,
+        });
+      }
+    });
+
+    return newData;
   }
 
   updateBasket() {

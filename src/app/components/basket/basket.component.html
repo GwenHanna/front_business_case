@@ -1,1 +1,26 @@
-
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Nom</th>
+      <th scope="col">Type de service</th>
+      <th scope="col">Repassage</th>
+      <th scope="col">Prix unitaire</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let basket of baskets">
+      <td>{{ basket.serviceName }}</td>
+      <td>{{ basket.serviceTypeName }}</td>
+      <td>
+        <input type="checkbox" name="" id="" [checked]="basket.repassage" />
+      </td>
+      <td>{{ basket.price }}</td>
+    </tr>
+    <tr>
+      Prix total
+      {{
+        pricaTotal
+      }}
+    </tr>
+  </tbody>
+</table>

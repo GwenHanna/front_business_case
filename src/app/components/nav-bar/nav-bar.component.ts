@@ -38,14 +38,11 @@ export class NavBarComponent implements OnInit {
     this.refreashSectionService();
     this.getLoggin();
     this.getBasket();
-    console.log(this.user);
 
     if (this.isLogin) {
       this.userService.getUser();
       this.userService.$user.subscribe({
         next: (data) => {
-          console.log(data);
-
           return (this.user = data);
         },
       });
@@ -80,14 +77,12 @@ export class NavBarComponent implements OnInit {
     this.authService.getIsAdmin().subscribe({
       next: (data) => {
         this.isAdmin = data;
-        console.log('isAdmin' + data);
       },
       error: (err) => console.log(err + 'err'),
     });
     this.authService.getIsLogged().subscribe({
       next: (data) => {
         this.isLogin = data;
-        console.log('isLoogin' + data);
       },
     });
   }

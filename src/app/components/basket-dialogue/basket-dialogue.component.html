@@ -1,7 +1,7 @@
 <div *ngIf="prestationData.length <= 0">Votre panier est vide</div>
 <div class="basket" *ngFor="let article of prestationData">
   <h6>{{ article.service.name }}</h6>
-  <p>{{ article.service.serviceType }}</p>
+  <p>{{ article.service.serviceTypeName }}</p>
   <p>{{ article.quantity }}</p>
   <p>{{ article.priceTotal }}</p>
 </div>

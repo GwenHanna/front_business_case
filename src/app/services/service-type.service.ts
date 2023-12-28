@@ -13,8 +13,21 @@ export class ServiceTypeService {
 
   // url = 'http://vps206.tyrolium.fr:2022/api';
   private apiUrl: string = environment.apiUrl + 'service_types';
+  private apiUrlUri: string = environment.apiUrlUri;
   private subjectServices = new BehaviorSubject<serviceTypesInterface[]>([]);
+  private subjectServicesTypeUri = new BehaviorSubject<any>(null);
+  public $servicesTypeUri = this.subjectServicesTypeUri.asObservable();
   public $services = this.subjectServices.asObservable();
+
+  getByUri(uri: string): void {
+    this.fetchByUri(uri).subscribe({
+      next: (data: any) => this.subjectServicesTypeUri.next(data),
+      error: (err) => console.log('err', err),
+    });
+  }
+  fetchByUri(uri: string) {
+    return this.http.get(`${this.apiUrlUri}${uri}`);
+  }
 
   getServices() {
     this.fetchAllService().subscribe({

@@ -18,7 +18,10 @@ export class ArticleService {
 
   getServiceUri(id: number) {
     this.fetchServiceByServiceType(id).subscribe({
-      next: (data) => this.subjectArticle.next(data),
+      next: (data) => {
+        console.log('data', data);
+        this.subjectArticle.next(data);
+      },
       error: (err) => {
         console.log(err);
       },

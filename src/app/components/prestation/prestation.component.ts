@@ -62,19 +62,15 @@ export class PrestationComponent implements OnInit, OnDestroy {
       next: (data) => {
         this.prestations = data;
         this.isLoading = false;
-        console.log(data);
+        console.log('data', data);
       },
       error: (err) => console.log(err),
     });
   }
 
   addPrestation(article: articleInterface) {
-    console.log(article);
     // Ajout de la quantity en dur pour test
-
     let existElem = this.basket.find((element) => {
-      console.log(element);
-
       return element.service.id === article.id;
     });
 
@@ -83,12 +79,9 @@ export class PrestationComponent implements OnInit, OnDestroy {
       this.basketService.addPrestationInLocalStorage(existElem);
       let articleId = '' + existElem.service.id;
 
-      console.log('quantity', quantity);
       this.prestationService.refreashPricing(articleId, quantity);
       this.prestationService.prestation$.subscribe({
         next: (prestation: any) => {
-          console.log(prestation);
-
           if (existElem && existElem.service.id == prestation.serviceId)
             existElem.priceTotal = prestation.priceTotal;
         },
@@ -100,13 +93,10 @@ export class PrestationComponent implements OnInit, OnDestroy {
         quantity: 1,
         priceTotal: article.price,
       };
-      console.log('ok');
 
       this.basket.push(newSelection);
       this.basketService.addPrestationInLocalStorage(newSelection);
     }
-
-    console.log(this.basket);
   }
 
   ngOnDestroy(): void {

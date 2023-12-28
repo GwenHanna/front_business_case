@@ -45,6 +45,7 @@ export class CreateArticleComponent implements OnInit {
   ngOnInit(): void {
     // this.getCategories();
     this.getServices();
+
     this.formAddArticle = this.buildFormBuilder();
   }
 

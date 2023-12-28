@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
 import { selectionInterface } from 'src/app/entities/selectionInterface';
 import { selection } from 'src/app/models/selection';
@@ -15,7 +16,8 @@ export class BasketDialogueComponent implements OnInit {
   constructor(
     private ref: DynamicDialogRef,
     private config: DynamicDialogConfig,
-    private basketService: BasketService
+    private basketService: BasketService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -31,5 +33,7 @@ export class BasketDialogueComponent implements OnInit {
     this.basketService.deleteBasket();
   }
 
-  submitBasket() {}
+  submitBasket() {
+    this.router.navigateByUrl('/basket');
+  }
 }

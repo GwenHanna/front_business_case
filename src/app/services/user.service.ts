@@ -18,7 +18,7 @@ export class UserService {
   /** User */
 
   fetchUserByEmail(email: string) {
-    return this.http.get(`${this.apiUrl}?email=${email}`);
+    return this.http.get(`${this.apiUrl}/?email=${email}`);
   }
 
   getUser() {
@@ -57,17 +57,17 @@ export class UserService {
   }
   /** CRUD */
   upUserById(userId: number, body: UserInterface) {
-    return this.http.patch(`${this.apiUrl}users/${userId}`, body);
+    return this.http.patch(`${this.apiUrl}/${userId}`, body);
   }
 
   fetchUserById(userId: string) {
-    return this.http.get(`${this.apiUrl}users/${userId}`);
+    return this.http.get(`${this.apiUrl}/${userId}`);
   }
 
   addUser(user: RegisterForm) {
-    return this.http.post<RegisterForm>(`${this.apiUrl}users`, user);
+    return this.http.post<RegisterForm>(this.apiUrl, user);
   }
   removeUser(userId: string) {
-    return this.http.delete(`${this.apiUrl}users/${userId}`);
+    return this.http.delete(`${this.apiUrl}/${userId}`);
   }
 }

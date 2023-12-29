@@ -14,10 +14,10 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
-  form!: FormGroup;
-  formObservable$!: Observable<LoginForm>;
-  messageErrorEmail = '';
-  feedback: string = '';
+  // Création d'un formulaire reactive
+  public form!: FormGroup;
+  public messageError: string = '';
+
   constructor(
     private fb: FormBuilder,
     private loginService: AuthService,
@@ -26,6 +26,7 @@ export class LoginComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    // Initialisation du formulaire avec l'ajout des Validators
     this.form = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]],
@@ -33,13 +34,19 @@ export class LoginComponent implements OnInit {
   }
 
   onLogin() {
+    // Vérification de la validité du formulaire
     if (this.form.valid) {
+      // Mon service LoginService fait une requête a mon api avec les valeurs du formulaire
       this.loginService.login(this.form.value).subscribe({
         next: (data) => {
+          // Si la response ne m'envoie pas d'erreur je sauvegarde la token
           this.loginService.saveToken(data.token);
-          this.userService.getUser();
         },
-        error: (error: HttpResponse<any>) => console.log(error),
+        // Gestion des erreur avec un Interceptor
+        error: (error: HttpResponse<any>) => {
+          this.messageError = error.toString();
+          console.log(error.toString());
+        },
         complete: () => {
           this.router.navigateByUrl('/');
           this.loginService.setIsLogged(true);

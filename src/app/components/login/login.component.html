@@ -1,4 +1,9 @@
 <form [formGroup]="form" (ngSubmit)="onLogin()">
+  <div *ngIf="messageError">
+    <p>
+      {{ messageError }}
+    </p>
+  </div>
   <div class="mb-3 form-control">
     <label for="email" class="form-label">Email</label>
     <input

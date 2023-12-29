@@ -67,8 +67,7 @@ export class RegisterComponent implements OnInit {
           this.navigateService.navigate('login');
         },
         error: (err) => {
-          this.messageEmail = err.error.detail;
-          console.log(err.error.detail);
+          console.log(err);
         },
       });
       this.form.reset();

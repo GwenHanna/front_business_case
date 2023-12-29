@@ -90,7 +90,8 @@
         </button>
         <p><a class="register" routerLink="/register">S'inscrire</a></p>
       </div>
-      <li class="nav-item dropdown" *ngIf="user && isLogin">
+
+      <li *ngIf="isLogin" class="nav-item dropdown">
         <a
           class="nav-link dropdown-toggle"
           href="#"
@@ -99,12 +100,13 @@
           data-bs-toggle="dropdown"
           aria-expanded="false"
         >
-          {{ user.firstname }}
+          Mon compte
         </a>
         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <li><a class="dropdown-item" routerLink="/account">Mon compte</a></li>
-
-          <div *ngIf="isLogin" class="">
+          <li>
+            <hr class="dropdown-item" />
+          </li>
+          <li>
             <button
               (click)="logout()"
               class="btn btn-outline-success btn-default secondary"
@@ -112,10 +114,9 @@
             >
               DECONNEXION
             </button>
-          </div>
+          </li>
         </ul>
       </li>
-
       <button
         *ngIf="isLogin && !isAdmin"
         pButton

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './components/app/app.component';
@@ -33,6 +33,7 @@ import { AdminCrudComponent } from './components/admin/admin-crud/admin-crud.com
 import { CreateArticleComponent } from './components/admin/create-service-article/create-article.component';
 import { CreateServiceComponent } from './components/admin/create-service/create-service.component';
 import { NoteDialogueComponent } from './components/note-dialogue/note-dialogue.component';
+import { ErrorsInterceptor } from './interceptor/errors.interceptor';
 @NgModule({
   declarations: [
     AppComponent,
@@ -70,7 +71,12 @@ import { NoteDialogueComponent } from './components/note-dialogue/note-dialogue.
     DynamicDialogModule,
     ButtonModule,
   ],
-  providers: [AuthInterceptor, DialogService, BasketService],
+  providers: [
+    AuthInterceptor,
+    DialogService,
+    BasketService,
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorsInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

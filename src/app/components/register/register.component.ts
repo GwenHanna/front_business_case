@@ -5,6 +5,7 @@ import { Observable, map, switchMap } from 'rxjs';
 import { RegisterForm } from '../../entities/registerForm';
 import { NavigateService } from '../../services/navigate.service';
 import { UserService } from 'src/app/services/user.service';
+import { FormulaireService } from 'src/app/services/formulaire.service';
 
 @Component({
   selector: 'app-register',
@@ -17,11 +18,25 @@ export class RegisterComponent implements OnInit {
   messageEmail = '';
   isAdmin = false;
 
+  // Initialisation des placeholder du formulaire
+  placeholder: { [key: string]: string } = {
+    email: 'Email',
+    firstname: 'Prénom',
+    lastname: 'Nom',
+    birthdate: "Votre date d'anniversaire",
+    street: 'Rue',
+    city: 'Ville',
+    zipcode: 'Code postal',
+    gender: 'Sexe',
+    password: 'Mot de passe',
+  };
+
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
     private userService: UserService,
-    private navigateService: NavigateService
+    private navigateService: NavigateService,
+    private formulaireService: FormulaireService
   ) {}
 
   ngOnInit(): void {
@@ -67,7 +82,7 @@ export class RegisterComponent implements OnInit {
           this.navigateService.navigate('login');
         },
         error: (err) => {
-          console.log(err);
+          this.messageEmail = err;
         },
       });
       this.form.reset();

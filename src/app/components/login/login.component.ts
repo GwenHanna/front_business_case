@@ -17,11 +17,14 @@ export class LoginComponent implements OnInit {
   // Création d'un formulaire reactive
   public form!: FormGroup;
   public messageError: string = '';
+  public placeholder = {
+    email: 'Email',
+    password: 'Mot de passe',
+  };
 
   constructor(
     private fb: FormBuilder,
     private loginService: AuthService,
-    private userService: UserService,
     private router: Router
   ) {}
 

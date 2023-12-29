@@ -1,37 +1,50 @@
-<form [formGroup]="form" (ngSubmit)="onLogin()">
-  <div *ngIf="messageError">
-    <p>
-      {{ messageError }}
-    </p>
-  </div>
-  <div class="mb-3 form-control">
-    <label for="email" class="form-label">Email</label>
-    <input
-      type="email"
-      class="form-control"
-      id="email"
-      aria-describedby="emailHelp"
-      formControlName="email"
-    />
-    <div
-      id="emailHelp"
-      class="form-text"
-      *ngIf="form?.get('email')?.invalid && form.touched"
-    >
-      L'email saisi est incorrect
+<div class="bc-container container-login">
+  <h3 class="title-h3 text-align-center">connexion</h3>
+  <form class="form-login" [formGroup]="form" (ngSubmit)="onLogin()">
+    <div *ngIf="messageError">
+      <p>
+        {{ messageError }}
+      </p>
     </div>
-  </div>
-  <div class="mb-3">
-    <label for="password" class="form-label">Mot de passe</label>
-    <input
-      type="password"
-      class="form-control"
-      id="password"
-      formControlName="password"
-    />
-    <div *ngIf="form?.get('password')?.invalid && form.touched">
-      Votre mot de passe doit contenir au minimum 6 caractère.
+    <div class="item-login mb-3">
+      <input
+        [placeholder]="placeholder.email"
+        type="email"
+        class="input-form form-control"
+        id="email"
+        aria-describedby="emailHelp"
+        formControlName="email"
+      />
+      <div
+        id="emailHelp"
+        class="form-text"
+        *ngIf="form?.get('email')?.invalid && form.touched"
+      >
+        L'email saisi est incorrect
+      </div>
     </div>
-  </div>
-  <button type="submit" class="btn-primary">Connexion</button>
-</form>
+    <div class="item-login mb-3">
+      <input
+        [placeholder]="placeholder.password"
+        type="password"
+        class="input-form form-control"
+        id="password"
+        formControlName="password"
+      />
+      <div *ngIf="form?.get('password')?.invalid && form.touched">
+        Votre mot de passe doit contenir au minimum 6 caractère.
+      </div>
+    </div>
+    <div class="item-login pb-4">
+      <a routerLink="/register" class="d-flex justify-content-center w-100"
+        >Toujours pas de compte ?</a
+      >
+    </div>
+    <div class="d-flex justify-content-around w-100 p-3">
+      <button type="submit" class="text-btn-default btn-third-active">
+        Connexion
+      </button>
+      <button class="text-btn-default btn-third">retour</button>
+    </div>
+  </form>
+</div>

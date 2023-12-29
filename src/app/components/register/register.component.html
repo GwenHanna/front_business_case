@@ -1,180 +1,193 @@
-<div class="container-register">
+<div class="bc-container container-register">
   <h3 class="title-h3">inscription</h3>
-  <h5 class="title-h5-secondary">Coordonnée</h5>
-  <form [formGroup]="form" (ngSubmit)="onSubmit()">
-    <div class="mb-3 col-12 email">
-      <label for="email" class="form-label">Email</label>
-      <input
-        type="email"
-        class="form-control"
-        id="email"
-        formControlName="email"
-        aria-describedby="emailHelp"
-      />
-      <div
-        id="email-alert"
-        class="form-text"
-        *ngIf="form?.get('email')?.invalid && form?.get('email')?.touched"
-      >
-        Adresse email invalid.
-      </div>
-      <div id="email-alert" class="form-text" *ngIf="messageEmail">
-        {{ messageEmail }}
-      </div>
-    </div>
-
-    <div class="row w-100 p-0 w-100">
-      <div class="mb-3 col-md-6 col-sm-12 lastname">
-        <label for="lastname" class="form-label">Nom</label>
+  <div class="form-register">
+    <h5 class="title-h5-secondary onglet-default">Coordonnée</h5>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="mb-3 col-12 email">
         <input
-          type="text"
-          class="form-control"
-          id="lastname"
-          formControlName="lastname"
-          aria-describedby="lastname"
+          [placeholder]="placeholder['email']"
+          type="email"
+          class="input-form form-control"
+          id="email"
+          formControlName="email"
+          aria-describedby="emailHelp"
         />
         <div
-          id="lastname-alert"
+          id="email-alert"
           class="form-text"
-          *ngIf="
-            form?.get('lastname')?.invalid && form?.get('lastname')?.touched
-          "
+          *ngIf="form?.get('email')?.invalid && form?.get('email')?.touched"
         >
-          Veuillez entrer votre nom.
+          Adresse email invalid.
+        </div>
+        <div
+          id="email-alert"
+          class="form-text bc-alert-danger"
+          *ngIf="messageEmail"
+        >
+          {{ messageEmail }}
         </div>
       </div>
 
-      <div class="mb-3 col-md-6 col-sm-12 firstname">
-        <label for="firstname" class="form-label">Prénom</label>
-        <input
-          type="text"
-          class="form-control"
-          id="firstname"
-          formControlName="firstname"
-          aria-describedby="firstname"
-        />
-        <div
-          id="firstname-alert"
-          class="form-text"
-          *ngIf="
-            form?.get('firstname')?.invalid && form?.get('firstname')?.touched
-          "
-        >
-          Veuillez entrez votre Prénom.
+      <div class="d-flex justify-content-between align-items-center gap-2">
+        <div class="mb-3 col-md-6 col-sm-12 lastname">
+          <input
+            [placeholder]="placeholder['lastname']"
+            type="text"
+            class="input-form form-control"
+            id="lastname"
+            formControlName="lastname"
+            aria-describedby="lastname"
+          />
+          <div
+            id="lastname-alert"
+            class="form-text"
+            *ngIf="
+              form?.get('lastname')?.invalid && form?.get('lastname')?.touched
+            "
+          >
+            Veuillez entrer votre nom.
+          </div>
+        </div>
+
+        <div class="mb-3 col-md-6 col-sm-12 firstname">
+          <input
+            [placeholder]="placeholder['firstname']"
+            type="text"
+            class="input-form form-control"
+            id="firstname"
+            formControlName="firstname"
+            aria-describedby="firstname"
+          />
+          <div
+            id="firstname-alert"
+            class="form-text"
+            *ngIf="
+              form?.get('firstname')?.invalid && form?.get('firstname')?.touched
+            "
+          >
+            Veuillez entrez votre Prénom.
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="mb-3 birthdate">
-      <label for="street" class="">Date d'anniversaire</label>
-      <input
-        type="date"
-        class="form-control"
-        id="birthdate"
-        formControlName="birthdate"
-        aria-describedby="birthdate"
-      />
-      <div
-        id="birthdate-alert"
-        class="form-text"
-        *ngIf="
-          form?.get('birthdate')?.invalid && form?.get('birthdate')?.touched
-        "
-      >
-        Votre d'anniverssaire.
+      <div class="d-flex justify-content-between align-items-center gap-2">
+        <div class="mb-3 birthdate w-100">
+          <label for="birthdate">{{ placeholder["birthdate"] }}</label>
+          <input
+            type="date"
+            class="form-control"
+            id="birinput-form thdate"
+            formControlName="birthdate"
+            aria-describedby="birthdate"
+          />
+          <div
+            id="birthdate-alert"
+            class="form-text"
+            *ngIf="
+              form?.get('birthdate')?.invalid && form?.get('birthdate')?.touched
+            "
+          >
+            Votre d'anniverssaire.
+          </div>
+        </div>
+
+        <div class="gender w-100">
+          <select class="w-100 p-1" formControlName="gender" id="">
+            <option value="">-- {{ placeholder["gender"] }} --</option>
+            <option value="mr">Mr</option>
+            <option value="mlle">Mlle</option>
+            <option value="ng">Non genré</option>
+          </select>
+        </div>
       </div>
-    </div>
 
-    <div class="mb-3 street">
-      <label for="street" class="form-label">Rue</label>
-      <input
-        type="text"
-        class="form-control"
-        id="street"
-        formControlName="street"
-        aria-describedby="street"
-      />
-      <div
-        id="street-alert"
-        class="form-text"
-        *ngIf="form?.get('street')?.invalid && form?.get('street')?.touched"
-      >
-        Veuillez entrez un nom de rue.
+      <div class="mb-3 street">
+        <input
+          [placeholder]="placeholder['street']"
+          type="text"
+          class="input-form form-control"
+          id="street"
+          formControlName="street"
+          aria-describedby="street"
+        />
+        <div
+          id="street-alert"
+          class="form-text"
+          *ngIf="form?.get('street')?.invalid && form?.get('street')?.touched"
+        >
+          Veuillez entrez un nom de rue.
+        </div>
       </div>
-    </div>
 
-    <div class="mb-3 zipcode">
-      <label for="zipcode" class="form-label">Code postal</label>
-      <input
-        type="text"
-        class="form-control"
-        id="zipcode"
-        formControlName="zipcode"
-        aria-describedby="zipcode"
-      />
-      <div
-        id="street-alert"
-        class="form-text"
-        *ngIf="form?.get('zipcode')?.invalid && form?.get('zipcode')?.touched"
-      >
-        Veuillez entrez un code postal.
+      <div class="d-flex justify-content-between gap-2">
+        <div class="mb-3 w-100 zipcode">
+          <input
+            [placeholder]="placeholder['zipcode']"
+            type="text"
+            class="input-form form-control"
+            id="zipcode"
+            formControlName="zipcode"
+            aria-describedby="zipcode"
+          />
+          <div
+            id="street-alert"
+            class="form-text"
+            *ngIf="
+              form?.get('zipcode')?.invalid && form?.get('zipcode')?.touched
+            "
+          >
+            Veuillez entrez un code postal.
+          </div>
+        </div>
+
+        <div class="mb-3 w-100 city">
+          <input
+            [placeholder]="placeholder['city']"
+            type="text"
+            class="input-form form-control"
+            id="city"
+            formControlName="city"
+            aria-describedby="city"
+          />
+          <div
+            id="city-alert"
+            class="form-text"
+            *ngIf="form?.get('city')?.invalid && form?.get('city')?.touched"
+          >
+            Veuillez entrez une ville.
+          </div>
+        </div>
       </div>
-    </div>
 
-    <div class="mb-3 city">
-      <label for="city" class="form-label">Ville</label>
-      <input
-        type="text"
-        class="form-control"
-        id="city"
-        formControlName="city"
-        aria-describedby="city"
-      />
-      <div
-        id="city-alert"
-        class="form-text"
-        *ngIf="form?.get('city')?.invalid && form?.get('city')?.touched"
-      >
-        Veuillez entrez une ville.
+      <div class="mb-3 password">
+        <input
+          [placeholder]="placeholder['password']"
+          type="password"
+          class="input-form form-control"
+          id="password"
+          formControlName="plainPassword"
+        />
+        <div
+          id="password-alert"
+          class="form-text"
+          *ngIf="
+            form?.get('plainPassword')?.invalid &&
+            form?.get('plainPassword')?.touched
+          "
+        >
+          Votre mot de passe doit contenire au minimum 6 caractères.
+        </div>
       </div>
-    </div>
 
-    <div class="gender">
-      <select formControlName="gender" id="">
-        <option value="mr">Mr</option>
-        <option value="mlle">Mlle</option>
-        <option value="ng">Non genré</option>
-      </select>
-    </div>
-
-    <div class="mb-3 password">
-      <label for="password" class="form-label">Password</label>
-      <input
-        type="password"
-        class="form-control"
-        id="password"
-        formControlName="plainPassword"
-      />
-      <div
-        id="password-alert"
-        class="form-text"
-        *ngIf="
-          form?.get('plainPassword')?.invalid &&
-          form?.get('plainPassword')?.touched
-        "
-      >
-        Votre mot de passe doit contenire au minimum 6 caractères.
+      <div *ngIf="isAdmin" class="role">
+        <select formControlName="roles" id="role">
+          <option [ngValue]="['ROLE_EMPLOYEE']">Employée</option>
+          <option [ngValue]="['ROLE_ADMIN']">Admin</option>
+        </select>
       </div>
-    </div>
 
-    <div *ngIf="isAdmin" class="role">
-      <select formControlName="roles" id="role">
-        <option [ngValue]="['ROLE_EMPLOYEE']">Employée</option>
-        <option [ngValue]="['ROLE_ADMIN']">Admin</option>
-      </select>
-    </div>
-
-    <div class="mb-3 form-check"></div>
-    <button class="btn btn-primary">Inscription</button>
-  </form>
+      <div class="mb-3 form-check"></div>
+      <button class="text-btn-default btn-third-active">Inscription</button>
+    </form>
+  </div>
 </div>

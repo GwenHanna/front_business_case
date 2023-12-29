@@ -12,8 +12,10 @@ import { UserService } from './user.service';
   providedIn: 'root',
 })
 export class AuthService {
-  private isLogged$: BehaviorSubject<boolean>;
-  private isAdmin$: BehaviorSubject<boolean>;
+  // Observable
+  private $isLogged: BehaviorSubject<boolean>;
+  private $isAdmin: BehaviorSubject<boolean>;
+
   private apiUrl: string = environment.apiUrl;
 
   constructor(
@@ -21,29 +23,31 @@ export class AuthService {
     private router: Router,
     private userService: UserService
   ) {
-    this.isLogged$ = new BehaviorSubject<boolean>(
+    // Initialisation des observable
+    this.$isLogged = new BehaviorSubject<boolean>(
       !!localStorage.getItem('token')
     );
-    this.isAdmin$ = new BehaviorSubject<boolean>(
+    this.$isAdmin = new BehaviorSubject<boolean>(
       !!localStorage.getItem('roles')?.includes('ROLE_ADMIN')
     );
   }
 
   // url = 'http://vps206.tyrolium.fr:2022/api';
 
-  //** Observable sur le login plus sur les admins */
+  // Renvoie l'Observable si l'utilisateur est logger ou non
   getIsLogged(): Observable<boolean> {
-    return this.isLogged$.asObservable();
+    return this.$isLogged.asObservable();
   }
+  // Modifie l'observable
   setIsLogged(bool: boolean) {
-    this.isLogged$.next(bool);
+    this.$isLogged.next(bool);
   }
 
   getIsAdmin(): Observable<boolean> {
-    return this.isAdmin$.asObservable();
+    return this.$isAdmin.asObservable();
   }
   setIsAdmin(bool: boolean) {
-    this.isAdmin$.next(bool);
+    this.$isAdmin.next(bool);
   }
 
   /** Connexion */
@@ -59,8 +63,8 @@ export class AuthService {
     localStorage.removeItem('token');
     localStorage.removeItem('roles');
     localStorage.removeItem('basket');
-    this.isLogged$.next(false);
-    this.isAdmin$.next(false);
+    this.$isLogged.next(false);
+    this.$isAdmin.next(false);
   }
 
   /** Token */
@@ -68,7 +72,7 @@ export class AuthService {
     localStorage.setItem('token', token);
     const userInfo = this.userService.getUserInfo();
     this.saveRoles(userInfo.roles);
-    this.isAdmin$.next(userInfo.roles.includes('ROLE_ADMIN'));
+    this.$isAdmin.next(userInfo.roles.includes('ROLE_ADMIN'));
     this.router.navigate(['/']);
   }
 

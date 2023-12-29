@@ -1,13 +1,19 @@
 .container-register {
-  width: 100%;
   max-width: 878px;
   height: auto;
+  margin: auto;
+  margin-bottom: 20px;
 }
-input {
-  border-style: none;
-  border-bottom: var(--border-input);
+h3 {
+  padding: 10px;
   width: 100%;
+  text-align: center;
 }
+.form-register {
+  width: 100%;
+  padding-top: 30px;
+}
+
 form div {
   position: relative;
 }

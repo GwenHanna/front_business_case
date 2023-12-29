@@ -8,9 +8,10 @@
   --thirdly: #3e3e3e;
   --white: #fff;
   --black: #0000;
-  --border-btn-default: 1px solid var(--primary);
+  --border-text-btn-default: 1px solid var(--primary);
   --border-title: 1px solid var(--secondary);
   --border-input: 1px solid var(--thirdly);
+  --border-onglet: 1px solid var(--thirdly)
   --gradient-primary: linear-gradient(
     179deg,
     rgba(0, 0, 0, 0.7) 0.77%,
@@ -21,7 +22,13 @@
 
 .body {
   font-family: "Montserrat";
-  margin: 50px 200px;
+  width: 100vw;
+
+}
+.bc-container{
+  overflow: hidden;
+  margin: 0 200px;
+  padding-top: 20px;
 }
 .content {
   position: relative;
@@ -122,7 +129,7 @@ a:hover {
   color: var(--white);
 }
 
-.btn-default {
+.text-btn-default {
   letter-spacing: 10;
   font-size: 1em;
   font-weight: 300;
@@ -138,8 +145,9 @@ a:hover {
   color: var(--white);
   background: var(--thirdly);
   padding: 10px;
+  width: 167px;
   display: flex;
-  align-items: center;
+  justify-content: center;
   border: 1px solid var(--thirdly);
 }
 
@@ -148,8 +156,9 @@ a:hover {
   color: var(--thirdly);
   background: var(--white);
   padding: 10px;
+  width: 167px;
   display: flex;
-  align-items: center;
+  justify-content: center;
   border: 1px solid var(--thirdly);
 }
 
@@ -163,7 +172,28 @@ a:hover {
 .primary:hover {
   background-color: var(--white);
   color: var(--primary);
-  border: var(--border-btn-default);
+  border: var(--border-text-btn-default);
+}
+
+.onglet-default {
+  border-bottom: var(--border-onglet);
+  padding-bottom: 10px;
+}
+select {
+  border: none;
+  border-bottom: 1px solid var(--thirdly);
+}
+
+.input-form {
+  border-style: none;
+  border-bottom: var(--border-input);
+  width: 100%;
+  padding: 2px;
+  margin-top: 10px;
+}
+
+.bc-alert-danger {
+  color: red;
 }
 
 /* Media Querries */

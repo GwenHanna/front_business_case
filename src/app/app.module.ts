@@ -32,6 +32,7 @@ import { UpDateAccountComponent } from './components/account-user/up-date-accoun
 import { AdminCrudComponent } from './components/admin/admin-crud/admin-crud.component';
 import { CreateArticleComponent } from './components/admin/create-service-article/create-article.component';
 import { CreateServiceComponent } from './components/admin/create-service/create-service.component';
+import { NoteDialogueComponent } from './components/note-dialogue/note-dialogue.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -57,6 +58,7 @@ import { CreateServiceComponent } from './components/admin/create-service/create
     AdminCrudComponent,
     CreateArticleComponent,
     CreateServiceComponent,
+    NoteDialogueComponent,
   ],
   imports: [
     BrowserModule,

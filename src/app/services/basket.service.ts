@@ -30,6 +30,7 @@ export class BasketService {
     data.forEach((el) => {
       for (let i = 0; i < el.quantity; i++) {
         newData.push({
+          id: el.service.id,
           serviceName: el.service.name,
           serviceTypeName: el.service.serviceTypeName,
           state: '',

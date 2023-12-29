@@ -1,26 +1,48 @@
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">Nom</th>
-      <th scope="col">Type de service</th>
-      <th scope="col">Repassage</th>
-      <th scope="col">Prix unitaire</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let basket of baskets">
-      <td>{{ basket.serviceName }}</td>
-      <td>{{ basket.serviceTypeName }}</td>
-      <td>
-        <input type="checkbox" name="" id="" [checked]="basket.repassage" />
-      </td>
-      <td>{{ basket.price }}</td>
-    </tr>
-    <tr>
-      Prix total
-      {{
-        pricaTotal
-      }}
-    </tr>
-  </tbody>
-</table>
+<form [formGroup]="stateForm" (ngSubmit)="validOrder()">
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Type de service</th>
+        <th scope="col">Nom</th>
+        <th scope="col">Repassage</th>
+        <th scope="col">Prix unitaire</th>
+        <th scope="col">Etat du vêtement</th>
+        <th scope="col">Note</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let basket of baskets; let i = index">
+        <td>{{ basket.serviceTypeName }}</td>
+        <td>{{ basket.serviceName }}</td>
+        <td>
+          <input
+            type="checkbox"
+            formControlName="ironing"
+            id=""
+            [checked]="basket.repassage"
+          />
+        </td>
+        <td>{{ basket.price }}</td>
+        <td>
+          <select formControlName="state" id="state">
+            <option [ngValue]="">-- choisir un état --</option>
+            <option [ngValue]="basket.id + 'good'">Bon</option>
+            <option [ngValue]="basket.id + 'average'">Moyen</option>
+            <option [ngValue]="basket.id + 'bad'">Mauvais</option>
+          </select>
+        </td>
+        <td>
+          <button (click)="openModalNote(basket)">Ajouter une note</button>
+        </td>
+      </tr>
+      <tr>
+        Prix total
+        {{
+          pricaTotal
+        }}
+      </tr>
+    </tbody>
+  </table>
+
+  <button>Valider commande</button>
+</form>

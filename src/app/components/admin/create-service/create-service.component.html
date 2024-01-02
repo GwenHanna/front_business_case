@@ -65,7 +65,7 @@
   <form
     *ngIf="isEditor || displayAddService"
     [formGroup]="form"
-    (ngSubmit)="addService()"
+    (ngSubmit)="isEditor ? addService() : upDateService(form.value)"
   >
     <div class="mb-3">
       <label for="name" class="form-label">Nom</label>

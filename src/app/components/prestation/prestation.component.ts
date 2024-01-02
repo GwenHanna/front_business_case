@@ -71,15 +71,16 @@ export class PrestationComponent implements OnInit, OnDestroy {
   addPrestation(article: articleInterface) {
     // Ajout de la quantity en dur pour test
     let existElem = this.basket.find((element) => {
+      console.log('basket', element.quantity);
       return element.service.id === article.id;
     });
 
     if (existElem) {
-      let quantity = existElem.quantity++;
+      existElem.quantity++;
       this.basketService.addPrestationInLocalStorage(existElem);
       let articleId = '' + existElem.service.id;
 
-      this.prestationService.refreashPricing(articleId, quantity);
+      this.prestationService.refreashPricing(articleId, existElem.quantity);
       this.prestationService.prestation$.subscribe({
         next: (prestation: any) => {
           if (existElem && existElem.service.id == prestation.serviceId)
@@ -96,6 +97,31 @@ export class PrestationComponent implements OnInit, OnDestroy {
 
       this.basket.push(newSelection);
       this.basketService.addPrestationInLocalStorage(newSelection);
+    }
+  }
+
+  deletePrestation(article: articleInterface) {
+    let existElem = this.basket.find((element) => {
+      return element.service.id === article.id;
+    });
+
+    if (existElem) {
+      if (existElem.quantity > 0) {
+        existElem.quantity--;
+        this.basketService.addPrestationInLocalStorage(existElem);
+        let articleId = '' + existElem.service.id;
+
+        this.prestationService.refreashPricing(articleId, existElem.quantity);
+        this.prestationService.prestation$.subscribe({
+          next: (prestation: any) => {
+            if (existElem && existElem.service.id == prestation.serviceId)
+              existElem.priceTotal = prestation.priceTotal;
+          },
+          error: (err) => console.log(err),
+        });
+      }
+    } else {
+      return;
     }
   }
 

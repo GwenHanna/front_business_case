@@ -106,6 +106,15 @@ export class CreateServiceComponent implements OnInit {
     }
   }
 
+  upDateService(service: serviceTypesInterface) {
+    if (this.form.valid) {
+      this.serviceTypesService.upDateService(service).subscribe({
+        next: (data) => console.log('data', data),
+        error: (err) => console.log('err', err),
+      });
+    }
+  }
+
   // INIT FORM BUILDER
   formBuilder() {
     return this.fb.group({

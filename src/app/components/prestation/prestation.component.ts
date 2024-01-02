@@ -77,7 +77,6 @@ export class PrestationComponent implements OnInit, OnDestroy {
 
     if (existElem) {
       existElem.quantity++;
-      this.basketService.addPrestationInLocalStorage(existElem);
       let articleId = '' + existElem.service.id;
 
       this.prestationService.refreashPricing(articleId, existElem.quantity);
@@ -85,6 +84,9 @@ export class PrestationComponent implements OnInit, OnDestroy {
         next: (prestation: any) => {
           if (existElem && existElem.service.id == prestation.serviceId)
             existElem.priceTotal = prestation.priceTotal;
+          if (existElem) {
+            this.basketService.addPrestationInLocalStorage(existElem);
+          }
         },
         error: (err) => console.log(err),
       });

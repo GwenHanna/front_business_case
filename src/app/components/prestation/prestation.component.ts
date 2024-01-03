@@ -2,11 +2,9 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { articleInterface } from '../../entities/articleInterface';
 import { Observable, Subject, map, take, takeUntil } from 'rxjs';
-import { selection } from 'src/app/models/selection';
 import { BasketService } from 'src/app/services/basket.service';
 import { ArticleService } from 'src/app/services/serviceArticle.service';
 import { PrestationService } from 'src/app/services/prestation.service';
-import { serviceInterface } from 'src/app/entities/serviceInterface';
 import { selectionInterface } from 'src/app/entities/selectionInterface';
 
 @Component({
@@ -42,6 +40,7 @@ export class PrestationComponent implements OnInit, OnDestroy {
 
     this.basketService.getPrestation().subscribe({
       next: (data) => {
+        console.log('data', data);
         if (data) {
           this.basket = data;
         }
@@ -69,7 +68,6 @@ export class PrestationComponent implements OnInit, OnDestroy {
   }
 
   addPrestation(article: articleInterface) {
-    // Ajout de la quantity en dur pour test
     let existElem = this.basket.find((element) => {
       console.log('basket', element.quantity);
       return element.service.id === article.id;
@@ -125,6 +123,16 @@ export class PrestationComponent implements OnInit, OnDestroy {
     } else {
       return;
     }
+  }
+
+  getQuantityForArticleService(article: any) {
+    if (this.basket && article && article.id) {
+      const matchItemQuantity = this.basket.find((b: any) => {
+        return b.service.id === article.id;
+      });
+      return matchItemQuantity ? matchItemQuantity.quantity : 0;
+    }
+    return 0;
   }
 
   ngOnDestroy(): void {

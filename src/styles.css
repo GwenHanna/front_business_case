@@ -11,7 +11,8 @@
   --border-text-btn-default: 1px solid var(--primary);
   --border-title: 1px solid var(--secondary);
   --border-input: 1px solid var(--thirdly);
-  --border-onglet: 1px solid var(--thirdly)
+  --border-onglet: 1px solid var(--thirdly);
+  --border-btn-card-prestation: 0.5px solid var(--secondary);
   --gradient-primary: linear-gradient(
     179deg,
     rgba(0, 0, 0, 0.7) 0.77%,
@@ -19,16 +20,21 @@
     rgba(255, 255, 255, 0) 101.2%
   );
 }
+* {
+  margin: 0;
+  padding: 0;
+}
 
 .body {
   font-family: "Montserrat";
   width: 100vw;
-
 }
-.bc-container{
+.bc-container {
   overflow: hidden;
   margin: 0 200px;
   padding-top: 20px;
+  min-height: 65vh;
+  /* background: red; */
 }
 .content {
   position: relative;
@@ -59,9 +65,10 @@ a:hover {
 }
 .title-h3 {
   text-transform: uppercase;
-  font-size: 32px;
-  letter-spacing: 1;
+  font-size: 1.5em;
+  letter-spacing: 1px;
   font-weight: 500;
+  font-family: "Montserrat";
   color: var(--secondary);
 }
 .title-h4 {
@@ -140,6 +147,8 @@ a:hover {
   /* height: 55px; */
   padding: 8px 24px;
 }
+
+/* Button */
 .btn-third-active,
 .btn-third:hover {
   color: var(--white);
@@ -160,6 +169,20 @@ a:hover {
   display: flex;
   justify-content: center;
   border: 1px solid var(--thirdly);
+}
+
+.btn-card-prestation {
+  border: var(--border-btn-card-prestation);
+  display: inline-block;
+  padding: 2px 12px;
+  min-width: 25%;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 18px;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  background: var(--white);
 }
 
 .primary,
@@ -195,6 +218,13 @@ select {
 .bc-alert-danger {
   color: red;
 }
+.custom-dialog-header {
+  justify-content: center !important;
+}
+.p-dialog-header {
+  margin: auto !important;
+  width: 100%;
+}
 
 /* Media Querries */
 
@@ -203,6 +233,9 @@ select {
     padding: 0;
     margin: 100px;
     font-size: 0.9rem;
+  }
+  .title-h3 {
+    font-size: 1em;
   }
 }
 
@@ -224,6 +257,9 @@ select {
 @media screen and (min-width: 992px) {
   .body {
     font-size: 0.9rem;
+  }
+  .title-h3 {
+    font-size: 1.5em;
   }
 }
 /* Extra large devices (large laptops and desktops, 1200px and up) */

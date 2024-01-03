@@ -34,6 +34,7 @@ import { CreateArticleComponent } from './components/admin/create-service-articl
 import { CreateServiceComponent } from './components/admin/create-service/create-service.component';
 import { NoteDialogueComponent } from './components/note-dialogue/note-dialogue.component';
 import { ErrorsInterceptor } from './interceptor/errors.interceptor';
+import { DialogModule } from 'primeng/dialog';
 @NgModule({
   declarations: [
     AppComponent,
@@ -70,6 +71,7 @@ import { ErrorsInterceptor } from './interceptor/errors.interceptor';
     BrowserAnimationsModule,
     DynamicDialogModule,
     ButtonModule,
+    DialogModule,
   ],
   providers: [
     AuthInterceptor,

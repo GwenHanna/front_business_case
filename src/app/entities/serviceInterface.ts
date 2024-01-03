@@ -10,5 +10,4 @@ export interface serviceInterface {
   picture?: string;
   serviceType?: serviceTypesInterface;
   section?: sectionInterface;
-  serviceTypeName?: string;
 }

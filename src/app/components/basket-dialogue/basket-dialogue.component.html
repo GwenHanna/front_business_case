@@ -1,11 +1,16 @@
-<div *ngIf="prestationData.length <= 0">Votre panier est vide</div>
-<div class="basket" *ngFor="let article of prestationData">
-  <h6>{{ article.service.name }}</h6>
-  <p>{{ article.service.serviceTypeName }}</p>
-  <p>{{ article.quantity }}</p>
-  <p>{{ article.priceTotal }}</p>
-</div>
-<div class="d-flex justify-content-around">
-  <button (click)="submitBasket()" class="btn-third-active">Valider</button>
-  <button (click)="emptyBasket()" class="btn-third">Supprimer</button>
+<div class="container-basket-modale">
+  <h4 class="title-h3">Mon panier</h4>
+  <div *ngIf="prestationData.length <= 0">Votre panier est vide</div>
+  <div class="basket" *ngFor="let group of prestationData">
+    <div *ngFor="let article of group">
+      <p class="title-h5-secondary"></p>
+      <h6>{{ article.service.name }}</h6>
+      <p>{{ article.quantity }}</p>
+      <p>{{ article.priceTotal }}</p>
+    </div>
+  </div>
+  <div class="d-flex justify-content-around">
+    <button (click)="submitBasket()" class="btn-third-active">Valider</button>
+    <button (click)="emptyBasket()" class="btn-third">Supprimer</button>
+  </div>
 </div>

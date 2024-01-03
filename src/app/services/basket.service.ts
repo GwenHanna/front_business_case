@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { DialogService } from 'primeng/dynamicdialog';
 import { BasketDialogueComponent } from '../components/basket-dialogue/basket-dialogue.component';
-import { PrestationService } from './prestation.service';
-import { selection } from '../models/selection';
 import { BehaviorSubject } from 'rxjs';
 import { selectionInterface } from '../entities/selectionInterface';
 import { DataBasketInterface } from '../entities/dataBasketInterface';
@@ -22,6 +20,7 @@ export class BasketService {
 
   constructor(private dialoguService: DialogService) {
     this.basket = JSON.parse(this.storeBasket) || [];
+    console.log('this.basket', this.basket);
     this.updateBasket();
   }
 
@@ -32,7 +31,6 @@ export class BasketService {
         newData.push({
           id: el.service.id,
           serviceName: el.service.name,
-          serviceTypeName: el.service.serviceTypeName,
           state: '',
           note: '',
           repassage: false,
@@ -74,7 +72,6 @@ export class BasketService {
 
   openModal(prestationData: any) {
     const ref = this.dialoguService.open(BasketDialogueComponent, {
-      header: 'Mon panier',
       width: '25%',
       height: '90vh',
       position: 'right',

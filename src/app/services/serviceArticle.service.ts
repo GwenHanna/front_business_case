@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { articleInterface } from '../entities/articleInterface';
 import { environment } from 'src/environments/environment.development';
 import { BehaviorSubject, Observable, catchError, of, tap } from 'rxjs';
+import { serviceInterface } from '../entities/serviceInterface';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +12,7 @@ export class ArticleService {
   private apiUrl: string = environment.apiUrl + 'services';
   private apiUrlService: string = environment.apiUrl;
 
-  private subjectArticle = new BehaviorSubject<articleInterface[]>([]);
+  private subjectArticle = new BehaviorSubject<serviceInterface[]>([]);
   public $articles = this.subjectArticle.asObservable();
 
   constructor(private http: HttpClient) {}
@@ -43,20 +44,20 @@ export class ArticleService {
   // URL_API_ARTICLE = 'http://vps206.tyrolium.fr:2022/api/articles';
 
   fetchById(idArticle: string) {
-    return this.http.get<articleInterface>(`${this.apiUrl}/${idArticle}`);
+    return this.http.get<serviceInterface>(`${this.apiUrl}/${idArticle}`);
   }
   deleteArticle(idArticle: string) {
     return this.http.delete(`${this.apiUrl}/${idArticle}`);
   }
 
   fetchAllArticle() {
-    return this.http.get<articleInterface[]>(this.apiUrl);
+    return this.http.get<serviceInterface[]>(this.apiUrl);
   }
 
-  addArticle(article: articleInterface) {
-    return this.http.post<articleInterface>(this.apiUrl, article);
+  addArticle(article: serviceInterface) {
+    return this.http.post<serviceInterface>(this.apiUrl, article);
   }
-  upDateArticle(article: articleInterface) {
-    return this.http.patch<articleInterface>(this.apiUrl, article);
+  upDateArticle(article: serviceInterface) {
+    return this.http.patch<serviceInterface>(this.apiUrl, article);
   }
 }

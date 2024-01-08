@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import {
+  FormArray,
   FormBuilder,
   FormControl,
   FormGroup,
@@ -23,6 +24,7 @@ export class BasketComponent implements OnInit {
   baskets: DataBasketInterface[] = [];
   pricaTotal = 0;
   stateForm!: FormGroup;
+  stateForms: FormGroup[] = [];
 
   constructor(
     private basketService: BasketService,
@@ -34,32 +36,44 @@ export class BasketComponent implements OnInit {
       next: (data) => {
         console.log('data', data);
         data.forEach((element) => {
-          this.pricaTotal += element.priceTotal;
+          if (element.priceTotal) this.pricaTotal += element.priceTotal;
         });
         this.baskets = basketService.dataService(data);
         console.log('basket', this.baskets);
+        this.initializeForm();
       },
       error: (err) => console.log('err', err),
     });
   }
 
   ngOnInit(): void {
-    console.log(this.baskets);
+    this.initializeForm();
+  }
 
+  initializeForm() {
+    // Initialize the main form
     this.stateForm = this.fb.group({
-      state: ['', Validators.required],
-      ironing: [false],
+      item: this.fb.array([]),
+    });
+
+    // Add form controls for each basket
+    this.baskets.forEach((basket) => {
+      this.addItem(basket);
     });
   }
 
+  addItem(basket: DataBasketInterface) {
+    const itemFormGroup = this.fb.group({
+      state: this.fb.control(''),
+      ironing: this.fb.control(false),
+    });
+
+    (this.stateForm.get('item') as FormArray).push(itemFormGroup);
+  }
+
   validOrder() {
-    // if (this.stateForm.valid) {
-    //   console.log('state.value', this.stateForm.value);
-    //   this.baskets.forEach((el) => {
-    //     el.state = this.stateForm.value;
-    //   });
-    // }
-    console.log(this.stateForm.value);
+    const formArray = this.stateForm.get('item') as FormArray;
+    console.log(formArray.value);
   }
 
   openModalNote(basket: DataBasketInterface) {

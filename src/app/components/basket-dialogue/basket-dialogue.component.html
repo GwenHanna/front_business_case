@@ -1,16 +1,41 @@
-<div class="container-basket-modale">
+<div class="container-basket-modale w-100">
   <h4 class="title-h3">Mon panier</h4>
   <div *ngIf="prestationData.length <= 0">Votre panier est vide</div>
-  <div class="basket" *ngFor="let group of prestationData">
-    <div *ngFor="let article of group">
-      <p class="title-h5-secondary"></p>
-      <h6>{{ article.service.name }}</h6>
-      <p>{{ article.quantity }}</p>
-      <p>{{ article.priceTotal }}</p>
+  <div
+    class="bc-menu-basket"
+    *ngFor="let serviceType of servicesTypes; let i = index"
+  >
+    <h3 (click)="toggleMenuBasket(serviceType)">
+      {{ serviceType }}
+    </h3>
+    <div
+      class="basket d-flex justify-content-around w-100"
+      *ngFor="let article of prestationData[i]"
+    >
+      <div class="" *ngIf="stateMenuServiceTyype[serviceType]">
+        <div>
+          <h6>{{ article.quantity }} {{ article.service.name }}</h6>
+        </div>
+        <div>
+          <p>{{ article.priceTotal }}</p>
+        </div>
+      </div>
     </div>
   </div>
   <div class="d-flex justify-content-around">
     <button (click)="submitBasket()" class="btn-third-active">Valider</button>
     <button (click)="emptyBasket()" class="btn-third">Supprimer</button>
   </div>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="516"
+    height="97"
+    viewBox="0 0 516 97"
+    fill="none"
+  >
+    <path
+      d="M0 0V97H516V16.5918C516 16.5918 475.175 -8.04108e-05 390.739 0C306.303 8.04108e-05 247.425 24.1459 131.493 24.1459C58.2986 24.1459 0 0 0 0Z"
+      fill="#253F3C"
+    />
+  </svg>
 </div>

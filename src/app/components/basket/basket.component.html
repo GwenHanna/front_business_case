@@ -10,8 +10,9 @@
         <th scope="col">Note</th>
       </tr>
     </thead>
-    <tbody>
+    <tbody formArrayName="item">
       <tr *ngFor="let basket of baskets; let i = index">
+        <div></div>
         <td>{{ basket.serviceTypeName }}</td>
         <td>{{ basket.serviceName }}</td>
         <td>
@@ -25,10 +26,14 @@
         <td>{{ basket.price }}</td>
         <td>
           <select formControlName="state" id="state">
-            <option [ngValue]="">-- choisir un état --</option>
-            <option [ngValue]="basket.id + 'good'">Bon</option>
-            <option [ngValue]="basket.id + 'average'">Moyen</option>
-            <option [ngValue]="basket.id + 'bad'">Mauvais</option>
+            <option>-- choisir un état --</option>
+            <option [ngValue]="stateForm.get('id')?.value + 'good'">Bon</option>
+            <option [ngValue]="stateForm.get('id')?.value + 'average'">
+              Moyen
+            </option>
+            <option [ngValue]="stateForm.get('id')?.value + 'bad'">
+              Mauvais
+            </option>
           </select>
         </td>
         <td>

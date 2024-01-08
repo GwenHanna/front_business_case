@@ -1,52 +1,54 @@
+<h2 class="title-h3">{{ serviceName }}</h2>
 <div *ngIf="isLoading" class="loading">
   <p>Chargement en cours ...</p>
 </div>
 <div class="d-flex flex-wrap container-prestation">
   <div
     *ngFor="let article of prestations.services"
-    class="card mb-3 item-prestation"
+    class="item-prestation"
     style="max-width: 540px"
   >
-    <div class="d-flex justify-content-between">
+    <div class="d-flex justify-content-between w-100">
       <div class="item-prestation-header">
         <img
           src="../../assets/articles/{{ article.picture }}"
           class="img-fluid rounded-start"
           alt="..."
         />
-        <h5 class="card-title">{{ article.name }}</h5>
       </div>
-      <div class="col-md-8">
-        <div class="card-body">
-          <div class="container-btn-card">
-            <div class="item-btn-card">
-              <div class="bc-btn">
-                <button
-                  (click)="deletePrestation(article)"
-                  class="btn-card-prestation"
-                >
-                  -
-                </button>
-              </div>
-              <div class="d-flex justify-content-center container-quantity">
-                <p>{{ getQuantityForArticleService(article) }}</p>
-              </div>
-              <div class="bc-btn">
-                <button
-                  (click)="addPrestation(article)"
-                  class="btn-card-prestation"
-                >
-                  +
-                </button>
-              </div>
+
+      <div class="card-body">
+        <h5 class="title-h6">{{ article.name }}</h5>
+        <div class="container-btn-card">
+          <div class="item-btn-card">
+            <div class="bc-btn">
+              <button
+                (click)="deletePrestation(article)"
+                class="btn-card-prestation"
+              >
+                -
+              </button>
             </div>
-          </div>
-          <div *ngFor="let b of basket">
-            <div *ngIf="b.service.id === article.id">
-              <p>{{ b.priceTotal }} €</p>
+            <div class="d-flex justify-content-center container-quantity">
+              <input
+                type="text"
+                (ngModelChange)="upDateQuantity($event, article)"
+                [ngModel]="getQuantityForArticleService(article)"
+              />
+            </div>
+            <div class="bc-btn">
+              <button
+                (click)="addPrestation(article)"
+                class="btn-card-prestation"
+              >
+                +
+              </button>
             </div>
           </div>
         </div>
+        <p *ngIf="getPriceTotalForArticleService(article)" class="mb-0">
+          {{ getPriceTotalForArticleService(article) }} €
+        </p>
       </div>
     </div>
   </div>

@@ -1,11 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
-import { articleInterface } from '../../entities/articleInterface';
-import { Observable, Subject, map, take, takeUntil } from 'rxjs';
+import { Observable, Subject, map, takeUntil } from 'rxjs';
 import { BasketService } from 'src/app/services/basket.service';
 import { ArticleService } from 'src/app/services/serviceArticle.service';
 import { PrestationService } from 'src/app/services/prestation.service';
 import { selectionInterface } from 'src/app/entities/selectionInterface';
+import { serviceInterface } from 'src/app/entities/serviceInterface';
+import { ServiceTypeService } from 'src/app/services/service-type.service';
 
 @Component({
   selector: 'app-prestation',
@@ -13,44 +14,40 @@ import { selectionInterface } from 'src/app/entities/selectionInterface';
   styleUrls: ['./prestation.component.css'],
 })
 export class PrestationComponent implements OnInit, OnDestroy {
+  // Type de prestation ????
   prestations: any = [];
   isLoading = false;
-  servicePrice!: number;
   serviceName: string = '';
   idPrestation$ = new Observable();
+  // basket ? ou selectionBasket ??????????
   basket: selectionInterface[] = [];
   private destroy$ = new Subject<void>();
-  public prestation: any;
-  idPrestation: string = '';
-
-  public priceTotal: number = 0;
 
   constructor(
     private articleService: ArticleService,
     private basketService: BasketService,
     private prestationService: PrestationService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private serviceTypeService: ServiceTypeService
   ) {}
 
   ngOnInit(): void {
     this.isLoading = true;
+
+    // Récupération de l'ID du service_type dans l'url
     this.idPrestation$ = this.route.paramMap.pipe(
       map((params: ParamMap) => params.get('id'))
     );
 
-    this.basketService.getPrestation().subscribe({
-      next: (data) => {
-        console.log('data', data);
-        if (data) {
-          this.basket = data;
-        }
-      },
-      error: (err) => console.log('err', err),
-    });
-
     this.idPrestation$.pipe(takeUntil(this.destroy$)).subscribe({
       next: (data: any) => {
         this.refreashPrestation(data);
+        // console.log(data);
+        this.serviceTypeService.fetchById(data).subscribe({
+          next: (serviceType) => {
+            this.serviceName = serviceType.name;
+          },
+        });
       },
     });
   }
@@ -61,80 +58,43 @@ export class PrestationComponent implements OnInit, OnDestroy {
       next: (data) => {
         this.prestations = data;
         this.isLoading = false;
-        console.log('data', data);
+        console.log(this.basket);
+        // console.log('dtestata', this.prestations.services);
       },
       error: (err) => console.log(err),
     });
   }
 
-  addPrestation(article: articleInterface) {
-    let existElem = this.basket.find((element) => {
-      console.log('basket', element.quantity);
-      return element.service.id === article.id;
-    });
-
-    if (existElem) {
-      existElem.quantity++;
-      let articleId = '' + existElem.service.id;
-
-      this.prestationService.refreashPricing(articleId, existElem.quantity);
-      this.prestationService.prestation$.subscribe({
-        next: (prestation: any) => {
-          if (existElem && existElem.service.id == prestation.serviceId)
-            existElem.priceTotal = prestation.priceTotal;
-          if (existElem) {
-            this.basketService.addPrestationInLocalStorage(existElem);
-          }
-        },
-        error: (err) => console.log(err),
-      });
-    } else {
-      let newSelection: selectionInterface = {
-        service: article,
-        quantity: 1,
-        priceTotal: article.price,
-      };
-
-      this.basket.push(newSelection);
-      this.basketService.addPrestationInLocalStorage(newSelection);
-    }
+  addPrestation(articleService: serviceInterface) {
+    this.prestationService.addPrestation(articleService);
   }
 
-  deletePrestation(article: articleInterface) {
-    let existElem = this.basket.find((element) => {
-      return element.service.id === article.id;
-    });
-
-    if (existElem) {
-      if (existElem.quantity > 0) {
-        existElem.quantity--;
-        this.basketService.addPrestationInLocalStorage(existElem);
-        let articleId = '' + existElem.service.id;
-
-        this.prestationService.refreashPricing(articleId, existElem.quantity);
-        this.prestationService.prestation$.subscribe({
-          next: (prestation: any) => {
-            if (existElem && existElem.service.id == prestation.serviceId)
-              existElem.priceTotal = prestation.priceTotal;
-          },
-          error: (err) => console.log(err),
-        });
-      }
-    } else {
-      return;
-    }
+  deletePrestation(articleService: serviceInterface) {
+    this.prestationService.deletePrestation(articleService);
   }
 
-  getQuantityForArticleService(article: any) {
-    if (this.basket && article && article.id) {
-      const matchItemQuantity = this.basket.find((b: any) => {
-        return b.service.id === article.id;
-      });
-      return matchItemQuantity ? matchItemQuantity.quantity : 0;
-    }
-    return 0;
+  // UTILS
+  // Récupérer la quantité en fonction du service
+  getQuantityForArticleService(articleService: serviceInterface) {
+    return this.prestationService.getQuantityForArticleService(articleService);
   }
 
+  upDateQuantity = (event: any, article: serviceInterface) => {
+    this.prestationService.upDateQuantity(event, article);
+  };
+
+  // Récupérer le prix total en fonction du service
+  getPriceTotalForArticleService(articleService: serviceInterface) {
+    console.log(
+      this.prestationService.getPriceTotalForArticleService(articleService)
+    );
+
+    return this.prestationService.getPriceTotalForArticleService(
+      articleService
+    );
+  }
+
+  // Desinscription
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();

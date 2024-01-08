@@ -8,7 +8,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { ArticleComponent } from './components/article/article.component';
 import { LoginComponent } from './components/login/login.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CreateCategoryComponent } from './components/admin/create-section/create-category.component';
 import { RegisterComponent } from './components/register/register.component';
 import { AuthInterceptor } from './interceptor/auth.interceptor';
@@ -67,6 +67,7 @@ import { DialogModule } from 'primeng/dialog';
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
+    FormsModule,
     BrowserModule,
     BrowserAnimationsModule,
     DynamicDialogModule,

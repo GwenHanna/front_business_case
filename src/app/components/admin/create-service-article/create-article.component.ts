@@ -171,9 +171,9 @@ export class CreateArticleComponent implements OnInit {
           name: data.name,
           description: data.description,
           price: data.price,
-          category: data.category.id,
+          category: data.section,
           picture: [''],
-          services: data.services,
+          services: data.serviceType,
         });
       },
     });

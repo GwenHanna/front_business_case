@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ArticleService } from '../../services/serviceArticle.service';
 import { articleInterface } from '../../entities/articleInterface';
+import { serviceInterface } from 'src/app/entities/serviceInterface';
 
 @Component({
   selector: 'app-article',
@@ -8,7 +9,7 @@ import { articleInterface } from '../../entities/articleInterface';
   styleUrls: ['./article.component.css'],
 })
 export class ArticleComponent implements OnInit {
-  articleList: articleInterface[] = [];
+  articleList: serviceInterface[] = [];
 
   constructor(private articleService: ArticleService) {}
 

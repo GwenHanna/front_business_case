@@ -1,5 +1,20 @@
+.container-prestation {
+  justify-content: center;
+  gap: 40px;
+  height: auto;
+  margin: 20px 0;
+}
+
 .item-prestation {
-  width: 475px;
+  display: flex;
+  width: 476px;
+  height: 136px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  background: var(--white);
+  /* Drop card */
+  box-shadow: -1px 1px 15px 0px rgba(0, 0, 0, 0.25);
 }
 
 .item-prestation-header {
@@ -8,16 +23,23 @@
   align-items: center;
   position: relative;
   /* background: red; */
+  flex: 1;
 }
 .item-prestation-header img {
   z-index: 100;
+  object-fit: contain;
+  width: 100%;
+}
+.card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 132px;
+  flex: 1;
+  gap: 8px;
 }
 
-h5 {
-  position: absolute;
-  z-index: 90000;
-  background: rgba(0, 0, 0, 0.7);
-}
 .container-btn-card {
   display: flex;
   justify-content: center;
@@ -28,10 +50,12 @@ h5 {
   justify-content: space-around;
   align-items: center;
   /* background: red; */
-  width: 40%;
+  width: 50%;
 }
 
 .bc-btn,
 .container-quantity {
   flex: 1;
+  justify-content: center;
+  display: flex;
 }

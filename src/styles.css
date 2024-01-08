@@ -70,6 +70,8 @@ a:hover {
   font-weight: 500;
   font-family: "Montserrat";
   color: var(--secondary);
+  text-align: center;
+  margin-bottom: 80px;
 }
 .title-h4 {
   text-transform: uppercase;
@@ -94,8 +96,9 @@ a:hover {
 .title-h6 {
   font-size: 1em;
   letter-spacing: 0.95px;
-  font-weight: 300;
+  font-weight: 400;
   color: var(--thirdly);
+  text-transform: uppercase;
 }
 .item-navbar {
   text-transform: uppercase;
@@ -225,26 +228,34 @@ select {
   margin: auto !important;
   width: 100%;
 }
+.ng-trigger {
+  overflow: hidden !important;
+}
 
 /* Media Querries */
 
 @media screen and (max-width: 900px) {
-  .body {
-    padding: 0;
-    margin: 100px;
-    font-size: 0.9rem;
-  }
   .title-h3 {
+    font-size: 1em;
+  }
+  .footer {
     font-size: 1em;
   }
 }
 
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
-  .body {
+  .bc-container {
     padding: 0;
     margin: 50px;
     font-size: 0.7rem;
+  }
+  .footer {
+    font-size: 0.75em;
+  }
+  .ng-trigger {
+    width: 98% !important ;
+    overflow: hidden !important;
   }
 }
 /* Small devices (portrait tablets and large phones, 600px and up) */

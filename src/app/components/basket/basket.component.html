@@ -1,53 +1,61 @@
-<form [formGroup]="stateForm" (ngSubmit)="validOrder()">
-  <table class="table">
-    <thead>
-      <tr>
-        <th scope="col">Type de service</th>
-        <th scope="col">Nom</th>
-        <th scope="col">Repassage</th>
-        <th scope="col">Prix unitaire</th>
-        <th scope="col">Etat du vêtement</th>
-        <th scope="col">Note</th>
-      </tr>
-    </thead>
-    <tbody formArrayName="item">
-      <tr *ngFor="let basket of baskets; let i = index">
-        <div></div>
-        <td>{{ basket.serviceTypeName }}</td>
-        <td>{{ basket.serviceName }}</td>
-        <td>
-          <input
-            type="checkbox"
-            formControlName="ironing"
-            id=""
-            [checked]="basket.repassage"
-          />
-        </td>
-        <td>{{ basket.price }}</td>
-        <td>
-          <select formControlName="state" id="state">
-            <option>-- choisir un état --</option>
-            <option [ngValue]="stateForm.get('id')?.value + 'good'">Bon</option>
-            <option [ngValue]="stateForm.get('id')?.value + 'average'">
-              Moyen
-            </option>
-            <option [ngValue]="stateForm.get('id')?.value + 'bad'">
-              Mauvais
-            </option>
-          </select>
-        </td>
-        <td>
-          <button (click)="openModalNote(basket)">Ajouter une note</button>
-        </td>
-      </tr>
-      <tr>
-        Prix total
-        {{
-          pricaTotal
-        }}
-      </tr>
-    </tbody>
-  </table>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Type de service</th>
+      <th scope="col">Nom</th>
+      <th scope="col">Repassage</th>
+      <th scope="col">Prix unitaire</th>
+      <th scope="col">Quantité</th>
+      <th scope="col">Prix total</th>
+      <th>index</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let b of baskets; let index">
+      <td>{{ b.service.service.serviceType.name }}</td>
+      <td>{{ b.service.service.name }}</td>
+      <td>
+        <input
+          type="checkbox"
+          name="checkbox{{ index }}"
+          id=""
+          [checked]="b.isIroning"
+          ngModel="getQuantityForArticleService(b.service)"
+          (ngModelChange)="upDateQuantity($event, b.service)"
+        />
+      </td>
+      <td>{{ b.service.service.price }}</td>
+      <td>
+        <input type="text" name="" id="" [ngModel]="b.service.quantity" />
+      </td>
+      <td>{{ getPriceTotalForArticleService(b.service) }} €</td>
+      <td>{{ index.service.id }}</td>
+      <td>
+        <input
+          type="checkbox"
+          name="checkbox{{ index }}"
+          id=""
+          [(ngModel)]="b.isDelete"
+          [checked]="b.isDelete"
+        />
+      </td>
+    </tr>
+  </tbody>
+  <tr>
+    <td colspan="5">
+      Prix total
+      {{ pricaTotal }}
+      €
+    </td>
+    <td colspan="1"><button>Suprimmer</button></td>
+  </tr>
+</table>
+<div>
+  <button (click)="dialog.showModal()">Onvrire Modal</button>
+  <dialog #dialog>
+    <app-note-dialogue (note)="handleNoteEvent($event)"></app-note-dialogue>
+    <button (click)="closeModal()">Fermer</button>
+  </dialog>
+</div>
 
-  <button>Valider commande</button>
-</form>
+<button (click)="submitOrder()">Valider commande</button>

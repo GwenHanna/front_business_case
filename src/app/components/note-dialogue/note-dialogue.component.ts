@@ -1,7 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { DataBasketInterface } from 'src/app/entities/dataBasketInterface';
 
 @Component({
   selector: 'app-note-dialogue',
@@ -9,24 +14,35 @@ import { DataBasketInterface } from 'src/app/entities/dataBasketInterface';
   styleUrls: ['./note-dialogue.component.css'],
 })
 export class NoteDialogueComponent implements OnInit {
-  formNote!: FormGroup;
-  currentBasket: DataBasketInterface | undefined;
+  @Output() note = new EventEmitter<string>();
+  @Input() dialog!: ElementRef<HTMLDialogElement>;
 
-  constructor(
-    private fb: FormBuilder,
-    public ref: DynamicDialogRef,
-    public config: DynamicDialogConfig
-  ) {}
+  sendNote() {
+    this.note.emit(this.formNote.value);
+  }
+  formNote!: FormGroup;
+  // currentBasket: DataBasketInterface | undefined;
+
+  constructor(private fb: FormBuilder) {}
 
   ngOnInit(): void {
     this.formNote = this.fb.group({
       note: [''],
     });
-    this.currentBasket = this.config.data;
   }
+  //   this.currentBasket = this.config.data;
 
   onSubmit() {
-    // Émettre la note et le service
-    this.ref.close({ note: this.formNote.value, basket: this.currentBasket });
+    if (this.formNote.value) {
+      this.sendNote();
+    }
   }
+
+  closeModal() {
+    console.log(this.dialog);
+
+    this.dialog.nativeElement.close();
+  }
+
+  //   this.ref.close({ note: this.formNote.value, basket: this.currentBasket });
 }

@@ -70,7 +70,7 @@ export class PrestationComponent implements OnInit, OnDestroy {
   }
 
   deletePrestation(articleService: serviceInterface) {
-    this.prestationService.deletePrestation(articleService);
+    this.prestationService.decremantQuantity(articleService);
   }
 
   // UTILS
@@ -85,10 +85,6 @@ export class PrestationComponent implements OnInit, OnDestroy {
 
   // Récupérer le prix total en fonction du service
   getPriceTotalForArticleService(articleService: serviceInterface) {
-    console.log(
-      this.prestationService.getPriceTotalForArticleService(articleService)
-    );
-
     return this.prestationService.getPriceTotalForArticleService(
       articleService
     );

@@ -1,11 +1,7 @@
-import { serviceTypesInterface } from './service_types';
-
+import { selectionInterface } from './selectionInterface';
+import { serviceInterface } from './serviceInterface';
 export interface DataBasketInterface {
-  id?: number;
-  serviceTypeName?: string;
-  serviceName: string;
-  state?: string;
-  note?: string;
-  repassage?: boolean;
-  price?: number;
+  isIroning?: boolean;
+  service?: selectionInterface;
+  isDelete: boolean;
 }

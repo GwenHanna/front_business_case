@@ -1,18 +1,18 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import {
-  FormArray,
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
-import { BasketInterface } from 'src/app/entities/basket-interface';
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { DataBasketInterface } from 'src/app/entities/dataBasketInterface';
+import { prestationInterface } from 'src/app/entities/prestationsInterface';
 import { selectionInterface } from 'src/app/entities/selectionInterface';
+import { serviceInterface } from 'src/app/entities/serviceInterface';
+import { selection } from 'src/app/models/selection';
+
 import { BasketService } from 'src/app/services/basket.service';
-import { ModaleService } from 'src/app/services/modale.service';
-import { ServiceTypeService } from 'src/app/services/service-type.service';
-import { ArticleService } from 'src/app/services/serviceArticle.service';
+import { PrestationService } from 'src/app/services/prestation.service';
 
 @Component({
   selector: 'app-basket',
@@ -21,75 +21,66 @@ import { ArticleService } from 'src/app/services/serviceArticle.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BasketComponent implements OnInit {
-  baskets: DataBasketInterface[] = [];
+  @ViewChild('dialog') dialog!: ElementRef<HTMLDialogElement>;
+  baskets: any;
   pricaTotal = 0;
-  stateForm!: FormGroup;
-  stateForms: FormGroup[] = [];
+  noteOrder: string = '';
 
   constructor(
     private basketService: BasketService,
-    private serviceTypeService: ServiceTypeService,
-    private modaleService: ModaleService,
-    private fb: FormBuilder
-  ) {
+    private prestationsService: PrestationService
+  ) {}
+
+  getQuantityForArticleService(articleService: serviceInterface) {
+    console.log(articleService);
+
+    return this.prestationsService.getQuantityForArticleService(articleService);
+  }
+  getPriceTotalForArticleService(articleService: serviceInterface) {
+    console.log(articleService);
+
+    return this.prestationsService.getPriceTotalForArticleService(
+      articleService
+    );
+  }
+  upDateQuantity(event: any, article: serviceInterface) {
+    return this.prestationsService.upDateQuantity(event, article);
+  }
+
+  handleNoteEvent(data: string) {
+    this.noteOrder = data;
+    this.closeModal();
+  }
+  openModal() {
+    this.dialog.nativeElement.showModal();
+  }
+  closeModal() {
+    console.log(this.dialog);
+
+    this.dialog.nativeElement.close();
+  }
+
+  ngOnInit(): void {
     this.basketService.basket$.subscribe({
       next: (data) => {
         console.log('data', data);
         data.forEach((element) => {
           if (element.priceTotal) this.pricaTotal += element.priceTotal;
         });
-        this.baskets = basketService.dataService(data);
-        console.log('basket', this.baskets);
-        this.initializeForm();
+        console.log(this.baskets);
+        this.baskets = data;
+        // this.baskets = data.map((basket): DataBasketInterface => {
+        //   return { service: basket, isIroning: false, isDelete: true };
+        // });
       },
       error: (err) => console.log('err', err),
     });
   }
 
-  ngOnInit(): void {
-    this.initializeForm();
-  }
+  deleteBasket() {}
 
-  initializeForm() {
-    // Initialize the main form
-    this.stateForm = this.fb.group({
-      item: this.fb.array([]),
-    });
-
-    // Add form controls for each basket
-    this.baskets.forEach((basket) => {
-      this.addItem(basket);
-    });
-  }
-
-  addItem(basket: DataBasketInterface) {
-    const itemFormGroup = this.fb.group({
-      state: this.fb.control(''),
-      ironing: this.fb.control(false),
-    });
-
-    (this.stateForm.get('item') as FormArray).push(itemFormGroup);
-  }
-
-  validOrder() {
-    const formArray = this.stateForm.get('item') as FormArray;
-    console.log(formArray.value);
-  }
-
-  openModalNote(basket: DataBasketInterface) {
-    const modalRef = this.modaleService.openModalNote(basket);
-    modalRef.onClose.subscribe({
-      next: (result) => {
-        if (result !== undefined) {
-          this.baskets.forEach((el) => {
-            if (el.id === result.basket.id) el.note = result.note.note;
-            console.log('el', el);
-          });
-        }
-        console.log('result', result);
-
-        console.log(this.baskets);
-      },
-    });
+  submitOrder() {
+    console.log(this.baskets);
+    // this.baskets = this.baskets.map((basket: any) => {});
   }
 }

@@ -24,23 +24,23 @@ export class BasketService {
     this.updateBasket();
   }
 
-  dataService(data: selectionInterface[]): DataBasketInterface[] {
-    const newData: DataBasketInterface[] = [];
-    data.forEach((el) => {
-      for (let i = 0; i < el.quantity; i++) {
-        newData.push({
-          id: el.service.id,
-          serviceName: el.service.name,
-          state: '',
-          note: '',
-          repassage: false,
-          price: el.service.price,
-        });
-      }
-    });
+  // dataService(data: selectionInterface[]): DataBasketInterface[] {
+  //   const newData: DataBasketInterface[] = [];
+  //   data.forEach((el) => {
+  //     for (let i = 0; i < el.quantity; i++) {
+  //       newData.push({
+  //         id: el.service.id,
+  //         serviceName: el.service.name,
+  //         state: '',
+  //         note: '',
+  //         repassage: false,
+  //         price: el.service.price,
+  //       });
+  //     }
+  //   });
 
-    return newData;
-  }
+  //   return newData;
+  // }
 
   updateBasket() {
     this.subjectBasket.next(this.basket);

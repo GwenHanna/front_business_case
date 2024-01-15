@@ -1,8 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~primeng/resources/primeng.min.css";
 @import "~primeicons/primeicons.css";
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
 :root {
+  --font-family: "Montserrat";
   --primary: #377d75;
   --secondary: #253f3c;
   --thirdly: #3e3e3e;
@@ -19,28 +21,32 @@
     rgba(0, 0, 0, 0.47) 100.99%,
     rgba(255, 255, 255, 0) 101.2%
   );
+  --background-nav-hover: rgba(55, 125, 117, 0.2);
+  --border-box-shadow-menu-nav: 3px 4px 6px 0px rgba(55, 125, 117, 0.5);
+  --border-box-shadow-item: 1px -1px 6px 0px rgba(55, 125, 117, 0.2);
+}
+*,
+body,
+html {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: var(--font-family);
 }
 * {
   margin: 0;
   padding: 0;
-}
-
-.body {
-  font-family: "Montserrat";
-  width: 100vw;
 }
 .bc-container {
   overflow: hidden;
   margin: 0 200px;
   padding-top: 20px;
   min-height: 65vh;
-  /* background: red; */
+  background: red;
 }
-.content {
-  position: relative;
-  margin: 50px 0 50px 0;
-}
-a {
+
+a,
+li {
   list-style-type: none;
   color: inherit;
   text-decoration: none;
@@ -48,6 +54,21 @@ a {
 a:hover {
   color: inherit !important;
 }
+
+/* Classe responsive */
+.mobile {
+  margin: 0 50px;
+}
+.tablet {
+  margin: 0 100px;
+}
+/* 
+
+.content {
+  position: relative;
+  margin: 50px 0 50px 0;
+}
+
 
 .title-h1 {
   font-size: 4em;
@@ -100,17 +121,7 @@ a:hover {
   color: var(--thirdly);
   text-transform: uppercase;
 }
-.item-navbar {
-  text-transform: uppercase;
-  font-size: 1.1em;
-  letter-spacing: 5px;
-  transform: scaleY(1.05);
-  -webkit-transform: scaleY(1.05);
-  -moz-transform: scaleY(1.5);
-  -o-transform: scaleY(1.5);
-  font-weight: 300;
-  color: var(--secondary);
-}
+
 .paragraph-primary {
   font-size: 1em;
   font-weight: 300;
@@ -147,12 +158,11 @@ a:hover {
   letter-spacing: 1px;
   font-weight: 500;
   max-width: 220px;
-  /* height: 55px; */
   padding: 8px 24px;
-}
+} */
 
 /* Button */
-.btn-third-active,
+/* .btn-third-active,
 .btn-third:hover {
   color: var(--white);
   background: var(--thirdly);
@@ -230,21 +240,21 @@ select {
 }
 .ng-trigger {
   overflow: hidden !important;
-}
+} */
 
 /* Media Querries */
 
-@media screen and (max-width: 900px) {
+/* @media screen and (max-width: 900px) {
   .title-h3 {
     font-size: 1em;
   }
   .footer {
     font-size: 1em;
   }
-}
+} */
 
 /* Extra small devices (phones, 600px and down) */
-@media only screen and (max-width: 600px) {
+/* @media only screen and (max-width: 600px) {
   .bc-container {
     padding: 0;
     margin: 50px;
@@ -257,7 +267,7 @@ select {
     width: 98% !important ;
     overflow: hidden !important;
   }
-}
+} */
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (min-width: 600px) {
 }
@@ -265,14 +275,23 @@ select {
 @media only screen and (min-width: 768px) {
 }
 /* Large devices (laptops/desktops, 992px and up) */
-@media screen and (min-width: 992px) {
+/* @media screen and (min-width: 992px) {
   .body {
     font-size: 0.9rem;
   }
   .title-h3 {
     font-size: 1.5em;
   }
-}
+} */
 /* Extra large devices (large laptops and desktops, 1200px and up) */
-@media only screen and (min-width: 1200px) {
+/* @media only screen and (min-width: 1200px) {
 }
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+} */

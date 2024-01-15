@@ -35,6 +35,7 @@ import { CreateServiceComponent } from './components/admin/create-service/create
 import { NoteDialogueComponent } from './components/note-dialogue/note-dialogue.component';
 import { ErrorsInterceptor } from './interceptor/errors.interceptor';
 import { DialogModule } from 'primeng/dialog';
+import { MatSliderModule } from '@angular/material/slider';
 @NgModule({
   declarations: [
     AppComponent,
@@ -73,6 +74,7 @@ import { DialogModule } from 'primeng/dialog';
     DynamicDialogModule,
     ButtonModule,
     DialogModule,
+    MatSliderModule,
   ],
   providers: [
     AuthInterceptor,

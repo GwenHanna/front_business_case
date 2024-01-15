@@ -1,85 +1,111 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">Clean&Chic</a>
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0 item-navbar">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" routerLink="">Home</a>
-        </li>
+<nav class="nav-bar">
+  <div class="container-nav-bar">
+    <div class="logo">
+      <a routerLink="/">Clean&Chic</a>
+    </div>
 
-        <!-- SERVICES -->
+    <!-- TODO BUTTON -->
 
-        <li *ngFor="let section of sections" class="nav-item dropdown">
-          <a
-            class="nav-link dropdown-toggle item"
-            id="navbarDropdown"
-            role="button"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
+    <div class="container-menu-nav-bar">
+      <ul class="menu-nav-bar">
+        <!-- Ajout du ng-container pour le event hover -->
+
+        <ng-container *ngFor="let section of sections">
+          <li
+            (mouseenter)="onMouseEnter(section)"
+            (mouseleave)="leaveMouse(section)"
+            class="container-item-navbar"
           >
-            {{ section.name }}
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li *ngFor="let service of section.serviceTypes">
-              <a class="dropdown-item" routerLink="service/{{ service?.id }}">{{
-                service.name
-              }}</a>
-            </li>
-          </ul>
-        </li>
+            <div
+              class="item-navbar"
+              [ngClass]="{
+                isOverflow: section.isActive
+              }"
+            >
+              <a class="">{{ section.name }}</a>
+              <ul
+                [ngClass]="{
+                  'in-active': !section.isActive,
+                  active: section.isActive
+                }"
+                class="menu-hamburger-navbar active"
+              >
+                <li
+                  *ngFor="let service of section.serviceTypes"
+                  class="container-item-service-type"
+                >
+                  <a
+                    class="item-service-type"
+                    routerLink="service/{{ service?.id }}"
+                    >{{ service.name }}</a
+                  >
+                </li>
+              </ul>
+            </div>
+          </li>
+        </ng-container>
 
-        <li>
-          <a class="dropdown-item item" routerLink="/">contact</a>
+        <li class="container-item-navbar">
+          <div class="item-navbar">
+            <a class="" routerLink="/">contact</a>
+          </div>
         </li>
 
         <!--ADMINISTRATION-->
 
-        <li class="nav-item dropdown" *ngIf="isAdmin && isLogin">
-          <a
-            class="nav-link dropdown-toggle item"
-            href="#"
-            id="navbarDropdown"
-            role="button"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
+        <li class="container-item-navbar" *ngIf="isAdmin && isLogin">
+          <div
+            (mouseenter)="onMouseEnterCompte($event)"
+            (mouseleave)="leaveMouseCompte()"
+            class="item-navbar administration"
+            [ngClass]="{
+              isOverflow: isToggleMenuCompteAdmin
+            }"
           >
-            Administration
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li>
-              <a class="dropdown-item" routerLink="/register"
-                >Ajouter Employée</a
-              >
-            </li>
-            <li>
-              <a class="dropdown-item" routerLink="/assign">Affectation</a>
-            </li>
-            <li>
-              <a class="dropdown-item" routerLink="/crud-admin">CRUD</a>
-            </li>
-            <li>
-              <a class="dropdown-item" routerLink="/article">Article</a>
-            </li>
-            <li>
-              <a class="dropdown-item" routerLink="/service">Service</a>
-            </li>
-            <li>
-              <a class="dropdown-item" routerLink="/category">Catégorie</a>
-            </li>
-          </ul>
+            <a> Administration </a>
+
+            <ul
+              [ngClass]="{
+                'in-active': !isToggleMenuCompteAdmin,
+                active: isToggleMenuCompteAdmin
+              }"
+              class="menu-hamburger-navbar active"
+            >
+              <li>
+                <a class="container-item-service-type" routerLink="/register"
+                  >Ajouter Employée</a
+                >
+              </li>
+              <li>
+                <a class="container-item-service-type" routerLink="/assign"
+                  >Affectation</a
+                >
+              </li>
+              <li>
+                <a class="container-item-service-type" routerLink="/crud-admin"
+                  >CRUD</a
+                >
+              </li>
+              <li>
+                <a class="container-item-service-type" routerLink="/article"
+                  >Article</a
+                >
+              </li>
+              <li>
+                <a class="container-item-service-type" routerLink="/service"
+                  >Service</a
+                >
+              </li>
+              <li>
+                <a class="container-item-service-type" routerLink="/category"
+                  >Catégorie</a
+                >
+              </li>
+            </ul>
+          </div>
         </li>
       </ul>
+
       <div *ngIf="!isLogin" class="btns">
         <button
           routerLink="/login"
@@ -91,22 +117,24 @@
         <p><a class="register" routerLink="/register">S'inscrire</a></p>
       </div>
 
-      <li *ngIf="isLogin" class="nav-item dropdown">
-        <a
-          class="nav-link dropdown-toggle"
-          href="#"
-          id="navbarDropdown"
-          role="button"
-          data-bs-toggle="dropdown"
-          aria-expanded="false"
+      <div
+        (mouseenter)="onMouseEnterCompte($event)"
+        (mouseleave)="leaveMouseCompte()"
+        *ngIf="isLogin"
+        class="btns compte"
+        [ngClass]="{
+          isOverflow: isToggleMenuCompte
+        }"
+      >
+        <a class="btn-compte"> Mon compte </a>
+        <ul
+          class="menu-compte in-active"
+          [ngClass]="{
+            'in-active': !isToggleMenuCompte,
+            active: isToggleMenuCompte
+          }"
         >
-          Mon compte
-        </a>
-        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <li>
-            <hr class="dropdown-item" />
-          </li>
-          <li>
+          <li class="">
             <button
               (click)="logout()"
               class="btn btn-outline-success text-btn-default secondary"
@@ -116,15 +144,7 @@
             </button>
           </li>
         </ul>
-      </li>
-      <button
-        *ngIf="isLogin && !isAdmin"
-        pButton
-        type="button"
-        (click)="openBasket(basket)"
-      >
-        Panier
-      </button>
+      </div>
     </div>
   </div>
 </nav>

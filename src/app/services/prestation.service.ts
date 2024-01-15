@@ -21,8 +21,6 @@ export class PrestationService {
     });
   }
 
-  getPrestation() {}
-
   refreashPricing(idService: string, quantity: number) {
     this.operationPricing(idService, quantity).subscribe({
       next: (prestation) => this.prestationSubject.next(prestation),
@@ -55,7 +53,7 @@ export class PrestationService {
     return 0;
   }
 
-  deletePrestation(articleService: serviceInterface) {
+  decremantQuantity(articleService: serviceInterface) {
     let existElem = this.basket.find((element) => {
       return element.service.id === articleService.id;
     });
@@ -65,7 +63,8 @@ export class PrestationService {
         existElem.quantity--;
         this.basketService.addPrestationInLocalStorage(existElem);
         let articleId = '' + existElem.service.id;
-        setTimeout(() => {
+        clearTimeout(this.debounceId);
+        this.debounceId = setTimeout(() => {
           if (existElem) this.refreashPricing(articleId, existElem.quantity);
           this.prestation$.subscribe({
             next: (prestation: any) => {

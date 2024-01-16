@@ -5,7 +5,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './components/app/app.component';
 import { HomeComponent } from './pages/home/home.component';
-import { NavBarComponent } from './components/nav-bar/nav-bar.component';
+import { NavBarComponent } from './components/navigation/nav-bar/nav-bar.component';
 import { ArticleComponent } from './components/article/article.component';
 import { LoginComponent } from './components/login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -37,6 +37,7 @@ import { ErrorsInterceptor } from './interceptor/errors.interceptor';
 import { DialogModule } from 'primeng/dialog';
 import { MatSliderModule } from '@angular/material/slider';
 import { FooterMobileComponent } from './components/footer/footer_mobile/footer-mobile.component';
+import { NavBarMobileComponent } from './components/navigation/nav-bar-mobile/nav-bar-mobile.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -64,6 +65,7 @@ import { FooterMobileComponent } from './components/footer/footer_mobile/footer-
     CreateArticleComponent,
     CreateServiceComponent,
     NoteDialogueComponent,
+    NavBarMobileComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,5 +1,6 @@
 <div class="bc-container">
   <app-nav-bar *ngIf="!isTablet && !isHandset"></app-nav-bar>
+  <app-nav-bar-mobile *ngIf="isTablet || isHandset"></app-nav-bar-mobile>
   <div
     class="bc-main-container"
     [ngClass]="{
@@ -7,9 +8,7 @@
       tablet: isTablet
     }"
   >
-    <!--
     <router-outlet></router-outlet>
-    -->
   </div>
 
   <app-footer *ngIf="!isHandset"></app-footer>

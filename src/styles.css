@@ -37,15 +37,26 @@ html {
   margin: 0;
   padding: 0;
 }
+ul {
+  padding: 0;
+}
+
 .bc-main-container {
   /* overflow: hidden; */
-  margin: 0 200px;
   padding-top: 20px;
   min-height: 65vh;
   background: red;
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: auto;
 }
 .bc-container {
   width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
 }
 
 a,
@@ -60,33 +71,17 @@ a:hover {
 
 /* Classe responsive */
 .mobile {
-  margin: 0 0;
+  width: 100%;
 }
 .tablet {
-  margin: 0 100px;
+  width: 90%;
 }
 
-/*  */
-
-.paragraph-card {
-  font-size: 0.95em;
-  letter-spacing: 1.4px;
-  font-weight: 300;
-  color: var(--white);
-}
-
-/* 
-
-.content {
-  position: relative;
-  margin: 50px 0 50px 0;
-}
-
-
+/* Title */
 .title-h1 {
   font-size: 4em;
   font-weight: 500;
-  letter-spacing: 1;
+  letter-spacing: 1px;
   text-transform: uppercase;
   color: var(--secondary);
 }
@@ -135,14 +130,42 @@ a:hover {
   text-transform: uppercase;
 }
 
+/* Title Mobile */
+.title-mobile {
+  font-family: var(--font-family);
+  font-size: 19px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: 0.95px;
+  text-transform: uppercase;
+}
+
+/* 
 .paragraph-primary {
   font-size: 1em;
   font-weight: 300;
   color: var(--secondary);
 }
+.paragraph-card {
+  font-size: 0.95em;
+  letter-spacing: 1.4px;
+  font-weight: 300;
+  color: var(--white);
+}
 
 
 
+.content {
+  position: relative;
+  margin: 50px 0 50px 0;
+}
+
+
+
+ */
+
+/* Button */
 .text-btn-default {
   letter-spacing: 10;
   font-size: 1em;
@@ -152,29 +175,27 @@ a:hover {
   font-weight: 500;
   max-width: 220px;
   padding: 8px 24px;
-} */
-
-/* Button */
-/* .btn-third-active,
-.btn-third:hover {
+}
+.btn-primary-active,
+.btn-primary:hover {
   color: var(--white);
-  background: var(--thirdly);
+  background: var(--primary);
   padding: 10px;
   width: 167px;
   display: flex;
   justify-content: center;
-  border: 1px solid var(--thirdly);
+  border: 1px solid var(--primary);
 }
 
-.btn-third,
-.btn-third-active:hover {
-  color: var(--thirdly);
+.btn-primary,
+.btn-primary-active:hover {
+  color: var(--primary);
   background: var(--white);
   padding: 10px;
   width: 167px;
   display: flex;
   justify-content: center;
-  border: 1px solid var(--thirdly);
+  border: 1px solid var(--primary);
 }
 
 .btn-card-prestation {
@@ -190,7 +211,7 @@ a:hover {
   outline: none;
   background: var(--white);
 }
-
+/* 
 .primary,
 .secondary:hover {
   background-color: var(--primary);

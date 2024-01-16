@@ -12,8 +12,8 @@
         <ng-container *ngFor="let section of sections">
           <!-- Ici j'utilise des évenements du DOM -->
           <li
-            (mouseenter)="onMouseEnter(section)"
-            (mouseleave)="leaveMouse(section)"
+            (mouseenter)="onMenuSectionType(section)"
+            (mouseleave)="leaveMenuSectionType(section)"
             class="container-item-navbar"
           >
             <!-- Utilisation de la directive ngClass pour injecter la classe isOverflow si la section est active -->
@@ -56,8 +56,8 @@
 
         <li class="container-item-navbar" *ngIf="isAdmin && isLogin">
           <div
-            (mouseenter)="onMouseEnterCompte($event)"
-            (mouseleave)="leaveMouseCompte()"
+            (mouseenter)="onMenuCompte($event)"
+            (mouseleave)="leaveMenuCompte()"
             class="item-navbar administration"
             [ngClass]="{
               isOverflow: isToggleMenuCompteAdmin
@@ -70,37 +70,25 @@
                 'in-active': !isToggleMenuCompteAdmin,
                 active: isToggleMenuCompteAdmin
               }"
-              class="menu-hamburger-navbar active"
+              class="menu-hamburger-navbar"
             >
-              <li>
-                <a class="container-item-service-type" routerLink="/register"
-                  >Ajouter Employée</a
-                >
+              <li class="container-item-service-type">
+                <a class="" routerLink="/register">Ajouter Employée</a>
               </li>
-              <li>
-                <a class="container-item-service-type" routerLink="/assign"
-                  >Affectation</a
-                >
+              <li class="container-item-service-type">
+                <a routerLink="/assign">Affectation</a>
               </li>
-              <li>
-                <a class="container-item-service-type" routerLink="/crud-admin"
-                  >CRUD</a
-                >
+              <li class="container-item-service-type">
+                <a routerLink="/crud-admin">CRUD</a>
               </li>
-              <li>
-                <a class="container-item-service-type" routerLink="/article"
-                  >Article</a
-                >
+              <li class="container-item-service-type">
+                <a routerLink="/article">Article</a>
               </li>
-              <li>
-                <a class="container-item-service-type" routerLink="/service"
-                  >Service</a
-                >
+              <li class="container-item-service-type">
+                <a routerLink="/service">Service</a>
               </li>
-              <li>
-                <a class="container-item-service-type" routerLink="/category"
-                  >Catégorie</a
-                >
+              <li class="container-item-service-type">
+                <a routerLink="/category">Catégorie</a>
               </li>
             </ul>
           </div>
@@ -108,19 +96,15 @@
       </ul>
 
       <div *ngIf="!isLogin" class="btns">
-        <button
-          routerLink="/login"
-          class="btn btn-outline-success text-btn-default primary"
-          id=""
-        >
+        <button routerLink="/login" class="btn btn-primary" id="">
           CONNEXION
         </button>
         <p><a class="register" routerLink="/register">S'inscrire</a></p>
       </div>
 
       <div
-        (mouseenter)="onMouseEnterCompte($event)"
-        (mouseleave)="leaveMouseCompte()"
+        (mouseenter)="onMenuCompte($event)"
+        (mouseleave)="leaveMenuCompte()"
         *ngIf="isLogin"
         class="btns compte"
         [ngClass]="{
@@ -135,10 +119,13 @@
             active: isToggleMenuCompte
           }"
         >
+          <li>
+            <button (click)="openBasket()">Mon panier</button>
+          </li>
           <li class="">
             <button
               (click)="logout()"
-              class="btn btn-outline-success text-btn-default secondary"
+              class="text-btn-default btn-primary"
               id=""
             >
               DECONNEXION

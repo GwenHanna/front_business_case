@@ -1,23 +1,20 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../services/auth.service';
+import { AuthService } from '../../../services/auth.service';
 import { Router } from '@angular/router';
 import { DialogService } from 'primeng/dynamicdialog';
-import { selection } from 'src/app/models/selection';
 import { BasketService } from 'src/app/services/basket.service';
 import { SectionService } from 'src/app/services/section.service';
 import { sectionInterface } from 'src/app/entities/sectionInterface';
 import { UserService } from 'src/app/services/user.service';
 import { selectionInterface } from 'src/app/entities/selectionInterface';
 import { UserInterface } from 'src/app/entities/userInterface';
-import { SectionNavInterface } from 'src/app/entities/sectionNavInterface';
 
 @Component({
-  selector: 'app-nav-bar',
-  templateUrl: './nav-bar.component.html',
-  styleUrls: ['./nav-bar.component.css'],
-  providers: [DialogService],
+  selector: 'app-nav-bar-mobile',
+  templateUrl: './nav-bar-mobile.component.html',
+  styleUrls: ['./nav-bar-mobile.component.css'],
 })
-export class NavBarComponent implements OnInit {
+export class NavBarMobileComponent implements OnInit {
   isAdmin: boolean = false;
   isLogin: boolean = false;
   user: UserInterface | undefined;
@@ -26,8 +23,12 @@ export class NavBarComponent implements OnInit {
   basket: selectionInterface[] = [];
   basketFilter: { [key: string]: { article: string; quantity: number }[] } = {};
   sectionActive: sectionInterface | null = null;
-  isToggleMenuCompte: boolean = false;
-  isToggleMenuCompteAdmin: boolean = false;
+
+  // Variable Menu
+  isToggleAccount: boolean = false;
+  isToggleAccountAdmin: boolean = false;
+  isToggleMenu: boolean = false;
+  isToggleMenuAccount: boolean = false;
 
   constructor(
     private authService: AuthService,
@@ -36,12 +37,8 @@ export class NavBarComponent implements OnInit {
     private basketService: BasketService,
     private sectionService: SectionService,
     private userService: UserService
-  ) {}
-
-  ngOnInit(): void {
-    this.refreashSectionService();
+  ) {
     this.getLoggin();
-    this.getBasket();
 
     if (this.isLogin) {
       this.userService.getUser();
@@ -51,6 +48,11 @@ export class NavBarComponent implements OnInit {
         },
       });
     }
+  }
+
+  ngOnInit(): void {
+    this.refreashSectionService();
+    this.getBasket();
   }
 
   refreashSectionService() {
@@ -67,6 +69,7 @@ export class NavBarComponent implements OnInit {
     });
   }
 
+  // Basket
   getBasket() {
     return this.basketService.getPrestation().subscribe({
       next: (basket) => (this.basket = basket),
@@ -74,12 +77,13 @@ export class NavBarComponent implements OnInit {
     });
   }
 
-  openBasket(prestation: any) {
-    this.basketService.openModal(prestation);
+  openBasket() {
+    this.basketService.openModal(this.basket);
 
     this.getBasket();
   }
 
+  // Fonction de connexion
   getLoggin() {
     this.authService.getIsAdmin().subscribe({
       next: (data) => {
@@ -94,33 +98,60 @@ export class NavBarComponent implements OnInit {
     });
   }
 
+  login() {
+    this.router.navigateByUrl('/login');
+    this.toggleMenuCompte();
+  }
+
   logout() {
     this.authService.logout();
     this.router.navigateByUrl('/');
   }
 
-  // Utils
-  onMouseEnter(section: any) {
+  // Fonction de selection
+  selectService(serviceId: any) {
+    this.router.navigateByUrl(`service/${serviceId}`);
+
+    this.toggleMenu();
+  }
+
+  updateAccount() {
+    this.router.navigateByUrl('/account');
+    this.toggleMenuCompte();
+  }
+
+  // Fonction Evenement
+
+  toggleMenu() {
+    this.isToggleMenu = !this.isToggleMenu;
+    console.log(this.isToggleMenu);
+  }
+
+  toggleMenuCompte() {
+    this.isToggleMenuAccount = !this.isToggleMenuAccount;
+  }
+
+  onMenuSectionType(section: any) {
     this.sectionActive = section;
     section.isActive = true;
     console.log(section);
     console.log(this.sectionActive);
   }
-  leaveMouse(section: any) {
+  leaveMenuSectionType(section: any) {
     this.sectionActive = null;
     section.isActive = false;
   }
-  onMouseEnterCompte(event: any) {
+
+  onAccount(event: any) {
     let target = event.target.classList;
     if (target.contains('administration'))
-      this.isToggleMenuCompteAdmin = !this.isToggleMenuCompteAdmin;
-    if (target.contains('compte'))
-      this.isToggleMenuCompte = !this.isToggleMenuCompte;
+      this.isToggleAccountAdmin = !this.isToggleAccountAdmin;
+    if (target.contains('compte')) this.isToggleAccount = !this.isToggleAccount;
     console.log(target);
   }
-  leaveMouseCompte() {
-    this.isToggleMenuCompte = false;
-    this.isToggleMenuCompteAdmin = false;
-    console.log('isToggleMenuCompte', this.isToggleMenuCompte);
+  leaveAccount() {
+    this.isToggleAccount = false;
+    this.isToggleAccountAdmin = false;
+    console.log('isToggleAccount', this.isToggleAccount);
   }
 }

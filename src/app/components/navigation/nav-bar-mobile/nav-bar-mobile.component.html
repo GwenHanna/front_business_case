@@ -1,0 +1,228 @@
+<nav class="nav-bar">
+  <div class="container-nav-bar">
+    <div class="container-account" (click)="toggleMenuCompte()">
+      <svg
+        width="25"
+        height="25"
+        viewBox="0 0 34 34"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M16.9643 19.8214C26.3286 19.8214 33.9286 23.2792 33.9286 27.5298V33.0357H0V27.5298C0 23.2792 7.6 19.8214 16.9643 19.8214ZM31.6667 27.5298C31.6667 24.4905 25.0845 22.0238 16.9643 22.0238C8.84405 22.0238 2.2619 24.4905 2.2619 27.5298V30.8333H31.6667V27.5298ZM16.9643 0C19.0639 0 21.0776 0.812126 22.5622 2.25772C24.0469 3.70331 24.881 5.66396 24.881 7.70833C24.881 9.75271 24.0469 11.7134 22.5622 13.1589C21.0776 14.6045 19.0639 15.4167 16.9643 15.4167C14.8647 15.4167 12.851 14.6045 11.3664 13.1589C9.88169 11.7134 9.04762 9.75271 9.04762 7.70833C9.04762 5.66396 9.88169 3.70331 11.3664 2.25772C12.851 0.812126 14.8647 0 16.9643 0ZM16.9643 2.20238C15.4645 2.20238 14.0262 2.78247 12.9658 3.81504C11.9053 4.8476 11.3095 6.24806 11.3095 7.70833C11.3095 9.1686 11.9053 10.5691 12.9658 11.6016C14.0262 12.6342 15.4645 13.2143 16.9643 13.2143C18.464 13.2143 19.9023 12.6342 20.9628 11.6016C22.0233 10.5691 22.619 9.1686 22.619 7.70833C22.619 6.24806 22.0233 4.8476 20.9628 3.81504C19.9023 2.78247 18.464 2.20238 16.9643 2.20238Z"
+          fill="black"
+        />
+      </svg>
+    </div>
+
+    <div
+      [ngClass]="{ 'in-active': !isToggleMenuAccount }"
+      class="container-menu-account"
+    >
+      <div class="menu-header-nav-bar">
+        <div class="logo"><h1 class="title-h1 mobile">Clean&Chic</h1></div>
+        <div class="close-menu" (click)="toggleMenuCompte()">
+          <svg
+            width="40"
+            height="40"
+            viewBox="0 0 40 40"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M14.1067 25.8917L25.8934 14.1084M14.1067 14.1084L25.8934 25.8917"
+              stroke="black"
+              stroke-width="1.25"
+              stroke-linecap="round"
+            />
+          </svg>
+        </div>
+      </div>
+      <div *ngIf="!isLogin" class="container-login">
+        <div class="login">
+          <h5 class="title-h6">connexion</h5>
+          <div
+            class="d-flex justify-content-center flex-column align-items-center"
+          >
+            <button
+              (click)="login()"
+              class="btn btn-primary-active text-btn-default"
+              id=""
+            >
+              CONNEXION
+            </button>
+            <p><a class="register" routerLink="/register">S'inscrire</a></p>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="isLogin" class="btns account">
+        <h5 class="btn-account title-h5">Mon Compte</h5>
+        <ul class="menu-account">
+          <li (click)="updateAccount()">modifier mon compte</li>
+          <li>mes commandes</li>
+          <li>mon panier</li>
+          <li class="">
+            <button
+              (click)="logout()"
+              class="btn btn-primary text-btn-default secondary"
+              id=""
+            >
+              DECONNEXION
+            </button>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="logo">
+      <h1 class="title-h1 mobile">Clean&Chic</h1>
+    </div>
+
+    <div class="btn-menu" (click)="toggleMenu()">
+      <svg
+        width="40"
+        height="40"
+        viewBox="0 0 40 40"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M32.666 13.25H7.33398C7.20138 13.25 7.0742 13.1973 6.98043 13.1036C6.88666 13.0098 6.83398 12.8826 6.83398 12.75C6.83398 12.6174 6.88666 12.4902 6.98043 12.3964C7.0742 12.3027 7.20138 12.25 7.33398 12.25H32.666C32.7986 12.25 32.9258 12.3027 33.0195 12.3964C33.1133 12.4902 33.166 12.6174 33.166 12.75C33.166 12.8826 33.1133 13.0098 33.0195 13.1036C32.9258 13.1973 32.7986 13.25 32.666 13.25ZM32.666 20.5H7.33398C7.20138 20.5 7.0742 20.4473 6.98043 20.3536C6.88666 20.2598 6.83398 20.1326 6.83398 20C6.83398 19.8674 6.88666 19.7402 6.98043 19.6464C7.0742 19.5527 7.20138 19.5 7.33398 19.5H32.666C32.7986 19.5 32.9258 19.5527 33.0195 19.6464C33.1133 19.7402 33.166 19.8674 33.166 20C33.166 20.1326 33.1133 20.2598 33.0195 20.3536C32.9258 20.4473 32.7986 20.5 32.666 20.5ZM32.666 27.75H7.33398C7.20138 27.75 7.0742 27.6973 6.98043 27.6036C6.88666 27.5098 6.83398 27.3826 6.83398 27.25C6.83398 27.1174 6.88666 26.9902 6.98043 26.8964C7.0742 26.8027 7.20138 26.75 7.33398 26.75H32.666C32.7986 26.75 32.9258 26.8027 33.0195 26.8964C33.1133 26.9902 33.166 27.1174 33.166 27.25C33.166 27.3826 33.1133 27.5098 33.0195 27.6036C32.9258 27.6973 32.7986 27.75 32.666 27.75Z"
+          fill="black"
+        />
+      </svg>
+    </div>
+
+    <div
+      class="container-menu-nav-bar"
+      [ngClass]="{ 'in-active': !isToggleMenu }"
+    >
+      <div class="menu-header-nav-bar">
+        <div class="logo"><h3 class="title-mobile">Clean&Chic</h3></div>
+        <div class="close-menu" (click)="toggleMenu()">
+          <svg
+            width="40"
+            height="40"
+            viewBox="0 0 40 40"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M14.1067 25.8917L25.8934 14.1084M14.1067 14.1084L25.8934 25.8917"
+              stroke="black"
+              stroke-width="1.25"
+              stroke-linecap="round"
+            />
+          </svg>
+        </div>
+      </div>
+      <ul class="menu-nav-bar">
+        <div class="item-navbar">
+          <a class="title-mobile" routerLink="/" (click)="toggleMenu()"
+            >accueil</a
+          >
+        </div>
+        <!-- Ajout du ng-container pour l'évenement du hover -->
+        <ng-container *ngFor="let section of sections">
+          <!-- Ici j'utilise des évenements du DOM -->
+          <li
+            (click)="onMenuSectionType(section)"
+            (mouseleave)="leaveMenuSectionType(section)"
+            class="container-item-navbar"
+          >
+            <!-- Utilisation de la directive ngClass pour injecter la classe isOverflow si la section est active -->
+            <div
+              class="item-navbar"
+              [ngClass]="{
+                isOverflow: section.isActive
+              }"
+            >
+              <a class="title-mobile">{{ section.name }}</a>
+              <ul
+                [ngClass]="{
+                  'in-active': !section.isActive,
+                  active: section.isActive
+                }"
+                class="menu-hamburger-navbar active"
+              >
+                <li
+                  *ngFor="let service of section.serviceTypes"
+                  class="container-item-service-type"
+                >
+                  <a
+                    class="item-service-type"
+                    (click)="selectService(service?.id)"
+                    >{{ service.name }}</a
+                  >
+                </li>
+              </ul>
+            </div>
+          </li>
+        </ng-container>
+
+        <li class="container-item-navbar">
+          <div class="item-navbar">
+            <a class="title-mobile" routerLink="/" (click)="toggleMenu()"
+              >contact</a
+            >
+          </div>
+        </li>
+
+        <!--ADMINISTRATION-->
+
+        <li class="container-item-navbar" *ngIf="isAdmin && isLogin">
+          <div
+            (click)="onAccount($event)"
+            (mouseleave)="leaveAccount()"
+            class="item-navbar administration"
+            [ngClass]="{
+              isOverflow: isToggleAccountAdmin
+            }"
+          >
+            <a class="title-h3"> Administration </a>
+
+            <ul
+              [ngClass]="{
+                'in-active': !isToggleAccountAdmin,
+                active: isToggleAccountAdmin
+              }"
+              class="menu-hamburger-navbar active"
+            >
+              <li>
+                <a class="container-item-service-type" routerLink="/register"
+                  >Ajouter Employée</a
+                >
+              </li>
+              <li>
+                <a class="container-item-service-type" routerLink="/assign"
+                  >Affectation</a
+                >
+              </li>
+              <li>
+                <a class="container-item-service-type" routerLink="/crud-admin"
+                  >CRUD</a
+                >
+              </li>
+              <li>
+                <a class="container-item-service-type" routerLink="/article"
+                  >Article</a
+                >
+              </li>
+              <li>
+                <a class="container-item-service-type" routerLink="/service"
+                  >Service</a
+                >
+              </li>
+              <li>
+                <a class="container-item-service-type" routerLink="/category"
+                  >Catégorie</a
+                >
+              </li>
+            </ul>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

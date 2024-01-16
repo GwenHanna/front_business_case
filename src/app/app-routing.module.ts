@@ -28,7 +28,7 @@ const routes: Routes = [
   },
   { path: 'login', component: LoginComponent, canActivate: [authGuard] },
   { path: 'basket', component: BasketComponent, canActivate: [guestAuthGuard] },
-  // { path: 'account', component: AccountComponent },
+  { path: 'account', component: AccountComponent },
   { path: 'admin', component: AdminComponent, canActivate: [adminGuard] },
   // {
   //   path: 'assign',

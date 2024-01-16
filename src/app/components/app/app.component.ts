@@ -8,12 +8,18 @@ import { ResponsiveService } from 'src/app/services/responsive.service';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
-  isHandset!: Observable<boolean>;
-  isTablet!: Observable<boolean>;
+  isHandset!: boolean;
+  isTablet!: boolean;
 
   constructor(private reponsiveService: ResponsiveService) {
-    this.isHandset = this.reponsiveService.isHandset;
-    this.isTablet = reponsiveService.isTablet;
+    this.reponsiveService.isHandset.subscribe({
+      next: (data) => (this.isHandset = data),
+    });
+    reponsiveService.isTablet.subscribe({
+      next: (data) => (this.isTablet = data),
+    });
+    console.log(this.isHandset);
+    console.log(this.isTablet);
   }
 
   ngOnInit(): void {}

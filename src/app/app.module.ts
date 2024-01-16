@@ -15,7 +15,7 @@ import { AuthInterceptor } from './interceptor/auth.interceptor';
 import { AdminComponent } from './pages/admin/admin.component';
 import { ServiceListComponent } from './components/service-list/service-list.component';
 import { SortServicesPipe } from './pipes/sort-services.pipe';
-import { FooterComponent } from './components/footer/footer.component';
+import { FooterComponent } from './components/footer/footer_desktop/footer.component';
 import { CommentComponent } from './components/comment/comment.component';
 import { PrestationComponent } from './components/prestation/prestation.component';
 import { AffectationComponent } from './components/admin/affectation/affectation.component';
@@ -36,6 +36,7 @@ import { NoteDialogueComponent } from './components/note-dialogue/note-dialogue.
 import { ErrorsInterceptor } from './interceptor/errors.interceptor';
 import { DialogModule } from 'primeng/dialog';
 import { MatSliderModule } from '@angular/material/slider';
+import { FooterMobileComponent } from './components/footer/footer_mobile/footer-mobile.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -49,6 +50,7 @@ import { MatSliderModule } from '@angular/material/slider';
     ServiceListComponent,
     SortServicesPipe,
     FooterComponent,
+    FooterMobileComponent,
     CommentComponent,
     PrestationComponent,
     AffectationComponent,

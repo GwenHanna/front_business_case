@@ -6,8 +6,9 @@
   gap: 10px;
   width: 100%;
   height: 25vh;
+  color: var(--white);
 }
-/*
+
 .footer-nav {
   list-style-type: none;
 }
@@ -16,12 +17,12 @@
   flex-direction: column;
   align-items: center;
   gap: 6px;
+  background: red;
 }
 .container-footer-img {
   display: flex;
   justify-content: space-around;
   gap: 10px;
-  background: red;
   min-width: 300px;
 }
 .container-contact {
@@ -38,4 +39,20 @@
   font-weight: 500;
   font-size: 16px;
   letter-spacing: 1.12px !important;
-} */
+}
+.title-footer {
+  text-transform: uppercase;
+  font-family: "Roboto", sans-serif;
+  font-size: 1.15em;
+  letter-spacing: 1.4px;
+  font-weight: 500;
+  color: var(--white);
+}
+.footer-nav {
+  text-transform: uppercase;
+  font-size: 0.95em;
+  letter-spacing: 1.05px;
+  line-height: 44px;
+  font-weight: 300;
+  color: var(--white);
+}

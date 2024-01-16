@@ -1,11 +1,17 @@
-<app-nav-bar></app-nav-bar>
-<div
-  class="bc-container"
-  [ngClass]="{
-    mobile: (isHandset | async),
-    tablet: (isTablet | async)
-  }"
->
-  <router-outlet></router-outlet>
+<div class="bc-container">
+  <app-nav-bar *ngIf="!isTablet && !isHandset"></app-nav-bar>
+  <div
+    class="bc-main-container"
+    [ngClass]="{
+      mobile: isHandset,
+      tablet: isTablet
+    }"
+  >
+    <!--
+    <router-outlet></router-outlet>
+    -->
+  </div>
+
+  <app-footer *ngIf="!isHandset"></app-footer>
+  <app-footer-mobile *ngIf="isHandset"></app-footer-mobile>
 </div>
-<app-footer></app-footer>

@@ -31,18 +31,21 @@ html {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: var(--font-family);
 }
 * {
+  font-family: var(--font-family);
   margin: 0;
   padding: 0;
 }
-.bc-container {
-  overflow: hidden;
+.bc-main-container {
+  /* overflow: hidden; */
   margin: 0 200px;
   padding-top: 20px;
   min-height: 65vh;
   background: red;
+}
+.bc-container {
+  width: 100vw;
 }
 
 a,
@@ -57,11 +60,21 @@ a:hover {
 
 /* Classe responsive */
 .mobile {
-  margin: 0 50px;
+  margin: 0 0;
 }
 .tablet {
   margin: 0 100px;
 }
+
+/*  */
+
+.paragraph-card {
+  font-size: 0.95em;
+  letter-spacing: 1.4px;
+  font-weight: 300;
+  color: var(--white);
+}
+
 /* 
 
 .content {
@@ -127,28 +140,8 @@ a:hover {
   font-weight: 300;
   color: var(--secondary);
 }
-.paragraph-card {
-  font-size: 0.95em;
-  letter-spacing: 1.4px;
-  font-weight: 300;
-  color: var(--white);
-}
-.title-footer {
-  text-transform: uppercase;
-  font-family: "Roboto", sans-serif;
-  font-size: 1.15em;
-  letter-spacing: 1.4px;
-  font-weight: 500;
-  color: var(--white);
-}
-.footer-nav {
-  text-transform: uppercase;
-  font-size: 0.95em;
-  letter-spacing: 1.05px;
-  line-height: 44px;
-  font-weight: 300;
-  color: var(--white);
-}
+
+
 
 .text-btn-default {
   letter-spacing: 10;

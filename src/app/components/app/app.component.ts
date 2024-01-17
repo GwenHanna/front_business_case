@@ -12,14 +12,13 @@ export class AppComponent implements OnInit {
   isTablet!: boolean;
 
   constructor(private reponsiveService: ResponsiveService) {
+    // Souscription aux observable du responsive
     this.reponsiveService.isHandset.subscribe({
       next: (data) => (this.isHandset = data),
     });
     reponsiveService.isTablet.subscribe({
       next: (data) => (this.isTablet = data),
     });
-    console.log(this.isHandset);
-    console.log(this.isTablet);
   }
 
   ngOnInit(): void {}

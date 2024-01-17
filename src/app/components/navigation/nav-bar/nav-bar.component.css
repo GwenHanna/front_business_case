@@ -89,7 +89,7 @@ ul {
   top: 100%;
   left: 0;
 }
-.isOverflow {
+.removeOverflow {
   overflow: visible;
 }
 

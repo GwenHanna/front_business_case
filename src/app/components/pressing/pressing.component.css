@@ -1,0 +1,8 @@
+.container-pressing {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.mobile {
+  flex-direction: column-reverse;
+}

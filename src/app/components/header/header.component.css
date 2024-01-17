@@ -26,3 +26,6 @@ p {
   width: 90%;
   height: auto;
 }
+.addDisplayNone {
+  display: none;
+}

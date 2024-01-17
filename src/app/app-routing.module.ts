@@ -6,7 +6,7 @@ import { LoginComponent } from './components/login/login.component';
 import { CreateCategoryComponent } from './components/admin/create-section/create-category.component';
 import { RegisterComponent } from './components/register/register.component';
 import { AdminComponent } from './components/admin/admin/admin.component';
-import { ServiceListComponent } from './components/service-list/service-list.component';
+import { ServiceListComponent } from './components/list-services/service-list/service-list.component';
 import { authGuard } from './gards/auth.guard';
 import { PrestationComponent } from './components/prestation/prestation.component';
 import { adminGuard } from './gards/admin.guard';

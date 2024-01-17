@@ -13,7 +13,7 @@ import { CreateCategoryComponent } from './components/admin/create-section/creat
 import { RegisterComponent } from './components/register/register.component';
 import { AuthInterceptor } from './interceptor/auth.interceptor';
 import { AdminComponent } from './components/admin/admin/admin.component';
-import { ServiceListComponent } from './components/service-list/service-list.component';
+import { ServiceListComponent } from './components/list-services/service-list/service-list.component';
 import { SortServicesPipe } from './pipes/sort-services.pipe';
 import { FooterComponent } from './components/footer/footer_desktop/footer.component';
 import { CommentComponent } from './components/comment/comment.component';
@@ -38,6 +38,7 @@ import { DialogModule } from 'primeng/dialog';
 import { MatSliderModule } from '@angular/material/slider';
 import { FooterMobileComponent } from './components/footer/footer_mobile/footer-mobile.component';
 import { NavBarMobileComponent } from './components/navigation/nav-bar-mobile/nav-bar-mobile.component';
+import { ServiceListMobileComponent } from './components/list-services/service-list-mobile/service-list-mobile.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -66,6 +67,7 @@ import { NavBarMobileComponent } from './components/navigation/nav-bar-mobile/na
     CreateServiceComponent,
     NoteDialogueComponent,
     NavBarMobileComponent,
+    ServiceListMobileComponent,
   ],
   imports: [
     BrowserModule,

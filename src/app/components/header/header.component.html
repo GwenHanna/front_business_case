@@ -13,7 +13,7 @@
       nos services
     </button>
   </div>
-  <div class="header-img">
+  <div [ngClass]="{ addDisplayNone: isHandset || isTablet }" class="header-img">
     <img src="../../../assets/articles/header.jpg" alt="" />
   </div>
 </div>

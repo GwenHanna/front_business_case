@@ -1,3 +1,12 @@
-<app-header></app-header>
-<app-service-list></app-service-list>
-<app-comment></app-comment>
+<div class="container-pressing">
+  <ng-container *ngIf="isHandset; else otherView">
+    <app-service-list-mobile></app-service-list-mobile>
+    <app-header></app-header>
+    <app-comment></app-comment>
+  </ng-container>
+  <ng-template #otherView>
+    <app-header></app-header>
+    <app-service-list></app-service-list>
+    <app-comment></app-comment>
+  </ng-template>
+</div>

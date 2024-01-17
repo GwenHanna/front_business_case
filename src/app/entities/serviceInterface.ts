@@ -10,4 +10,5 @@ export interface serviceInterface {
   picture?: string;
   serviceType?: serviceTypesInterface;
   section?: sectionInterface;
+  icon?: string;
 }

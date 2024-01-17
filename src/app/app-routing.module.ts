@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from './pages/home/home.component';
+import { HomeComponent } from './components/home/home.component';
 import { ArticleComponent } from './components/article/article.component';
 import { LoginComponent } from './components/login/login.component';
 import { CreateCategoryComponent } from './components/admin/create-section/create-category.component';
 import { RegisterComponent } from './components/register/register.component';
-import { AdminComponent } from './pages/admin/admin.component';
+import { AdminComponent } from './components/admin/admin/admin.component';
 import { ServiceListComponent } from './components/service-list/service-list.component';
 import { authGuard } from './gards/auth.guard';
 import { PrestationComponent } from './components/prestation/prestation.component';

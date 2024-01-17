@@ -211,6 +211,12 @@ a:hover {
   outline: none;
   background: var(--white);
 }
+
+/* Permet d'injecter du style à tout les composants appelé dynamiquement par router outlet */
+router-outlet + * {
+  width: 100%;
+}
+
 /* 
 .primary,
 .secondary:hover {

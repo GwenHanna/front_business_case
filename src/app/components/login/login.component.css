@@ -1,9 +1,14 @@
+app-login_nghost-ng-c1084904883 {
+  width: 100%;
+  background: #000;
+}
 .container-login {
   align-content: center;
   display: flex;
   flex-wrap: wrap;
   height: 65vh;
   justify-content: center;
+  width: 100%;
 }
 
 form {

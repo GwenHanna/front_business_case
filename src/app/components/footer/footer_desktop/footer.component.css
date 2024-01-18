@@ -17,7 +17,6 @@
   flex-direction: column;
   align-items: center;
   gap: 6px;
-  background: red;
 }
 .container-footer-img {
   display: flex;

@@ -47,7 +47,6 @@
 }
 .container-login,
 .account {
-  background: red;
   display: flex;
   flex-direction: column;
   flex-grow: 1;

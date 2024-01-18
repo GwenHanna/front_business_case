@@ -2,7 +2,6 @@
   z-index: 9000000;
 }
 .container-basket-modale {
-  background: red;
   min-height: 55vh;
   justify-content: space-between;
   display: flex;

@@ -46,7 +46,7 @@ ul {
   /* overflow: hidden; */
   padding-top: 20px;
   min-height: 65vh;
-  background: red;
+ 
   width: 80%;
   display: flex;
   flex-direction: column;
@@ -78,7 +78,7 @@ a:hover {
   width: 90%;
 }
 
-/* Title */
+/* Typo */
 .title-h1 {
   font-size: 4em;
   font-weight: 500;
@@ -95,8 +95,8 @@ a:hover {
 }
 .title-h3 {
   text-transform: uppercase;
-  font-size: 1.5em;
-  letter-spacing: 1px;
+  font-size: 32px;
+  letter-spacing: 1.6px;
   font-weight: 500;
   font-family: "Montserrat";
   color: var(--secondary);
@@ -148,6 +148,16 @@ a:hover {
   font-weight: 300;
   color: var(--white);
 }
+.item-navbar{
+  font-family: Montserrat;
+font-size: 20px;
+font-style: normal;
+font-weight: 300;
+line-height: 44px; /* 220% */
+letter-spacing: 1.4px;
+text-transform: uppercase;
+}
+
 
 /* 
 .paragraph-primary {
@@ -176,8 +186,6 @@ a:hover {
   text-transform: uppercase;
   letter-spacing: 1px;
   font-weight: 500;
-  max-width: 220px;
-  padding: 8px 24px;
 }
 .btn-primary-active,
 .btn-primary:hover {
@@ -188,6 +196,7 @@ a:hover {
   display: flex;
   justify-content: center;
   border: 1px solid var(--primary);
+      border-radius: 2px
 }
 
 .btn-primary,
@@ -199,6 +208,7 @@ a:hover {
   display: flex;
   justify-content: center;
   border: 1px solid var(--primary);
+      border-radius: 2px
 }
 
 .btn-card-prestation {

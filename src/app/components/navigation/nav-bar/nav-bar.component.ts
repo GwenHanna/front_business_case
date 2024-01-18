@@ -8,6 +8,7 @@ import { sectionInterface } from 'src/app/entities/sectionInterface';
 import { UserService } from 'src/app/services/user.service';
 import { selectionInterface } from 'src/app/entities/selectionInterface';
 import { UserInterface } from 'src/app/entities/userInterface';
+import { TmplAstRecursiveVisitor } from '@angular/compiler';
 
 @Component({
   selector: 'app-nav-bar',
@@ -24,8 +25,10 @@ export class NavBarComponent implements OnInit {
   basket: selectionInterface[] = [];
   basketFilter: { [key: string]: { article: string; quantity: number }[] } = {};
   sectionActive: sectionInterface | null = null;
-  isToggleMenuCompte: boolean = false;
-  isToggleMenuCompteAdmin: boolean = false;
+
+  // Variable Menu
+  isToggleMenuAccount: boolean = false;
+  isToggleAccountAdmin: boolean = false;
 
   constructor(
     private authService: AuthService,
@@ -109,17 +112,16 @@ export class NavBarComponent implements OnInit {
     this.sectionActive = null;
     section.isActive = false;
   }
-  onMenuCompte(event: any) {
+  onAccount(event: any) {
     let target = event.target.classList;
     if (target.contains('administration'))
-      this.isToggleMenuCompteAdmin = !this.isToggleMenuCompteAdmin;
-    if (target.contains('compte'))
-      this.isToggleMenuCompte = !this.isToggleMenuCompte;
+      this.isToggleAccountAdmin = !this.isToggleAccountAdmin;
+    if (target.contains('account'))
+      this.isToggleMenuAccount = !this.isToggleMenuAccount;
     console.log(target);
   }
-  leaveMenuCompte() {
-    this.isToggleMenuCompte = false;
-    this.isToggleMenuCompteAdmin = false;
-    console.log('isToggleMenuCompte', this.isToggleMenuCompte);
+  leaveAccount() {
+    this.isToggleMenuAccount = false;
+    this.isToggleAccountAdmin = false;
   }
 }

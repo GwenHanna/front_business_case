@@ -4,8 +4,6 @@
       <a routerLink="/">Clean&Chic</a>
     </div>
 
-    <!-- TODO BUTTON -->
-
     <div class="container-menu-nav-bar">
       <ul class="menu-nav-bar">
         <!-- Ajout du ng-container pour l'évenement du hover -->
@@ -16,7 +14,7 @@
             (mouseleave)="leaveMenuSectionType(section)"
             class="container-item-navbar"
           >
-            <!-- Utilisation de la directive ngClass pour injecter la classe isOverflow si la section est active -->
+            <!-- Utilisation de la directive ngClass pour injecter la classe removeOverflow si la section est active -->
             <div
               class="item-navbar"
               [ngClass]="{
@@ -38,6 +36,7 @@
                   <a
                     class="item-service-type"
                     routerLink="service/{{ service?.id }}"
+                    (click)="leaveMenuSectionType(section)"
                     >{{ service.name }}</a
                   >
                 </li>
@@ -56,19 +55,19 @@
 
         <li class="container-item-navbar" *ngIf="isAdmin && isLogin">
           <div
-            (mouseenter)="onMenuCompte($event)"
-            (mouseleave)="leaveMenuCompte()"
+            (mouseenter)="onAccount($event)"
+            (mouseleave)="leaveAccount()"
             class="item-navbar administration"
             [ngClass]="{
-              isOverflow: isToggleMenuCompteAdmin
+              removeOverflow: isToggleAccountAdmin
             }"
           >
             <a> Administration </a>
 
             <ul
               [ngClass]="{
-                'in-active': !isToggleMenuCompteAdmin,
-                active: isToggleMenuCompteAdmin
+                'in-active': !isToggleAccountAdmin,
+                'active-account': isToggleAccountAdmin
               }"
               class="menu-hamburger-navbar"
             >
@@ -96,33 +95,37 @@
       </ul>
 
       <div *ngIf="!isLogin" class="btns">
-        <button routerLink="/login" class="btn btn-primary" id="">
+        <button routerLink="/login" class="btn-primary-active" id="">
           CONNEXION
         </button>
         <p><a class="register" routerLink="/register">S'inscrire</a></p>
       </div>
 
       <div
-        (mouseenter)="onMenuCompte($event)"
-        (mouseleave)="leaveMenuCompte()"
+        (mouseenter)="onAccount($event)"
+        (mouseleave)="leaveAccount()"
         *ngIf="isLogin"
-        class="btns compte"
+        class="account item-navbar"
         [ngClass]="{
-          isOverflow: isToggleMenuCompte
+          removeOverflow: isToggleMenuAccount
         }"
       >
-        <a class="btn-compte"> Mon compte </a>
+        <a class=""> Mon compte </a>
         <ul
-          class="menu-compte in-active"
+          class="menu-compte menu-hamburger-navbar"
           [ngClass]="{
-            'in-active': !isToggleMenuCompte,
-            active: isToggleMenuCompte
+            'in-active': !isToggleMenuAccount,
+            'active-account': isToggleMenuAccount
           }"
         >
-          <li>
-            <button (click)="openBasket()">Mon panier</button>
+          <li class="container-item-service-type">
+            <a (click)="openBasket()">Mon panier</a>
           </li>
-          <li class="">
+          <li class="container-item-service-type">
+            <a routerLink="account">modifier mon compte</a>
+          </li>
+          <li class="container-item-service-type">mes commandes</li>
+          <li class="container-item-service-type">
             <button
               (click)="logout()"
               class="text-btn-default btn-primary"

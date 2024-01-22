@@ -9,21 +9,18 @@
         <!-- Ajout du ng-container pour l'évenement du hover -->
         <ng-container *ngFor="let section of sections">
           <!-- Ici j'utilise des évenements du DOM -->
-          <div class="test2">
-            <li
-              (mouseenter)="onMenuSectionType(section)"
-              (mouseleave)="leaveMenuSectionType(section)"
-              class="container-item-navbar"
-              [ngClass]="{
-                removeOverflow: section.isActive
-              }"
-            >
-              <!-- Utilisation de la directive ngClass pour injecter la classe removeOverflow si la section est active -->
-              <div class="item-navbar">
-                <a class="blockA">{{ section.name }}</a>
-              </div>
-            </li>
-            <div class="test">
+          <li
+            (mouseenter)="onMenuSectionType(section)"
+            (mouseleave)="leaveMenuSectionType(section)"
+            class="container-item-navbar"
+            [ngClass]="{
+              removeOverflow: section.isActive
+            }"
+          >
+            <!-- Utilisation de la directive ngClass pour injecter la classe removeOverflow si la section est active -->
+            <div class="item-navbar">
+              <a class="blockA">{{ section.name }}</a>
+
               <div
                 [@fadeIn]="section.isActive ? 'hovered' : 'initial'"
                 class="menu-after"
@@ -45,16 +42,14 @@
                 </li>
               </ul>
             </div>
-          </div>
+          </li>
         </ng-container>
 
-        <div class="test2">
-          <li class="container-item-navbar">
-            <div class="item-navbar">
-              <a class="" routerLink="/">contact</a>
-            </div>
-          </li>
-        </div>
+        <li class="container-item-navbar">
+          <div class="item-navbar">
+            <a class="" routerLink="/">contact</a>
+          </div>
+        </li>
 
         <!--ADMINISTRATION-->
 
@@ -106,40 +101,39 @@
         <p><a class="register" routerLink="/register">S'inscrire</a></p>
       </div>
 
-      <div
-        (mouseenter)="onAccount($event)"
-        (mouseleave)="leaveAccount()"
-        *ngIf="isLogin"
-        class="account item-navbar"
-        [ngClass]="{
-          removeOverflow: isToggleMenuAccount
-        }"
-      >
-        <a class=""> Mon compte </a>
-        <ul
-          class="menu-compte menu-hamburger-navbar"
+      <div class="">
+        <div
+          (mouseenter)="onAccount($event)"
+          (mouseleave)="leaveAccount()"
+          *ngIf="isLogin"
+          class="account item-navbar"
           [ngClass]="{
-            'in-active': !isToggleMenuAccount,
-            'active-account': isToggleMenuAccount
+            removeOverflow: isToggleMenuAccount
           }"
         >
-          <li class="container-item-service-type">
-            <a (click)="openBasket()">Mon panier</a>
-          </li>
-          <li class="container-item-service-type">
-            <a routerLink="account">modifier mon compte</a>
-          </li>
-          <li class="container-item-service-type">mes commandes</li>
-          <li class="container-item-service-type">
-            <button
-              (click)="logout()"
-              class="text-btn-default btn-primary"
-              id=""
-            >
-              DECONNEXION
-            </button>
-          </li>
-        </ul>
+          <a class="blockA"> Mon compte </a>
+          <ul
+            [@openClose]="isToggleMenuAccount ? 'active' : 'in-active'"
+            class="menu-compte menu-hamburger-navbar"
+          >
+            <li class="container-item-service-type">
+              <a (click)="openBasket()">Mon panier</a>
+            </li>
+            <li class="container-item-service-type">
+              <a routerLink="account">modifier mon compte</a>
+            </li>
+            <li class="container-item-service-type">mes commandes</li>
+            <li class="container-item-service-type">
+              <button
+                (click)="logout()"
+                class="text-btn-default btn-primary"
+                id=""
+              >
+                DECONNEXION
+              </button>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>

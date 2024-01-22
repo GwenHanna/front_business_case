@@ -28,18 +28,15 @@ import {
       state('initial', style({ width: '0%' })),
       state('hovered', style({ width: '100%' })),
       transition('initial => hovered', [
-        animate('500ms', style({ width: '100%' })),
+        animate('1s', style({ width: '100%' })),
       ]),
-      transition('hovered => initial', [
-        animate('500ms', style({ width: '0%' })),
-      ]),
+      transition('hovered => initial', [animate('1s', style({ width: '0%' }))]),
     ]),
     trigger('openClose', [
       state(
         'in-active',
         style({
           bottom: 0,
-          opacity: 0,
         })
       ),
       state(
@@ -48,8 +45,8 @@ import {
           transform: 'translateY(100%)',
         })
       ),
-      transition('in-active => active', [animate('1.5s')]),
-      transition('active => in-active', [animate('1s')]),
+      transition('in-active => active', [animate('900ms ease')]),
+      transition('active => in-active', [animate('800ms ease-in')]),
     ]),
   ],
 })
@@ -101,7 +98,7 @@ export class NavBarComponent implements OnInit {
         // this.sections = data;
         this.sections = data.map((section) => ({
           ...section,
-          isActive: true,
+          isActive: false,
         }));
         console.log(this.sections);
       },

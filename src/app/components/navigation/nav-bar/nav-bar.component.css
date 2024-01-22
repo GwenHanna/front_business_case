@@ -12,6 +12,7 @@ ul {
 
 .logo {
   font-size: 1.3rem;
+  margin: 0 20px;
 }
 .btn-compte {
   display: inline-block;
@@ -27,9 +28,9 @@ ul {
   z-index: 999;
   flex-grow: 1;
   display: flex;
-  justify-content: end;
   align-items: center;
   height: 70px;
+  margin: 0 20px;
 }
 .menu-nav-bar {
   background: var(--white);
@@ -78,29 +79,21 @@ ul {
 
 .btns {
   position: relative;
-  padding-top: 20px;
-  padding-right: 20px;
-}
-.menu-compte {
-  position: absolute;
-  right: 0;
-}
-.menu-compte li:last-child {
-  padding: 0;
+  margin-top: 45px;
 }
 .account {
-  padding-right: 20px;
+  width: fit-content;
 }
-.btn-primary {
+.account .menu-compte {
+  position: absolute;
+  right: 0;
+  width: 100%;
+}
+.menu-compte .btn-primary {
   width: 100%;
   padding: 0;
 }
 /**/
-
-.test {
-  position: relative;
-  width: 50%;
-}
 
 .blockA {
   position: relative;
@@ -138,6 +131,9 @@ ul {
 .test2 {
   display: flex;
   flex-direction: column;
+}
+.removeOverflow {
+  overflow: visible;
 }
 /* 
 

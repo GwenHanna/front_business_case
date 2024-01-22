@@ -22,7 +22,10 @@ import { AffectationComponent } from './components/admin/affectation/affectation
 import { BasketComponent } from './components/basket/basket.component';
 import { ButtonModule } from 'primeng/button';
 import { DialogService, DynamicDialogModule } from 'primeng/dynamicdialog';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {
+  BrowserAnimationsModule,
+  provideAnimations,
+} from '@angular/platform-browser/animations';
 import { BasketDialogueComponent } from './components/basket-dialogue/basket-dialogue.component';
 import { BasketService } from './services/basket.service';
 import { HeaderComponent } from './components/header/header.component';
@@ -39,6 +42,7 @@ import { MatSliderModule } from '@angular/material/slider';
 import { FooterMobileComponent } from './components/footer/footer_mobile/footer-mobile.component';
 import { NavBarMobileComponent } from './components/navigation/nav-bar-mobile/nav-bar-mobile.component';
 import { ServiceListMobileComponent } from './components/list-services/service-list-mobile/service-list-mobile.component';
+import { BorderAnimateDirective } from './directives/border-animate.directive';
 @NgModule({
   declarations: [
     AppComponent,
@@ -68,6 +72,7 @@ import { ServiceListMobileComponent } from './components/list-services/service-l
     NoteDialogueComponent,
     NavBarMobileComponent,
     ServiceListMobileComponent,
+    BorderAnimateDirective,
   ],
   imports: [
     BrowserModule,
@@ -75,7 +80,6 @@ import { ServiceListMobileComponent } from './components/list-services/service-l
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
-    BrowserModule,
     BrowserAnimationsModule,
     DynamicDialogModule,
     ButtonModule,
@@ -86,6 +90,7 @@ import { ServiceListMobileComponent } from './components/list-services/service-l
     AuthInterceptor,
     DialogService,
     BasketService,
+    provideAnimations(),
     { provide: HTTP_INTERCEPTORS, useClass: ErrorsInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],

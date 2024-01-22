@@ -1,11 +1,9 @@
-.basket {
-  z-index: 9000000;
-}
 .container-basket-modale {
   min-height: 55vh;
   justify-content: space-between;
   display: flex;
   flex-direction: column;
+  z-index: 999999999999999999999999999999;
 }
 .title-h3 {
   border-bottom: var(--border-title);

@@ -7,29 +7,38 @@
       <th scope="col">Prix unitaire</th>
       <th scope="col">Quantité</th>
       <th scope="col">Prix total</th>
-      <th>index</th>
+      <th>Suprimmer</th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let b of baskets; let index">
+    <tr *ngFor="let b of test; let index">
       <td>{{ b.service.service.serviceType.name }}</td>
       <td>{{ b.service.service.name }}</td>
+
       <td>
         <input
           type="checkbox"
           name="checkbox{{ index }}"
           id=""
           [checked]="b.isIroning"
-          ngModel="getQuantityForArticleService(b.service)"
-          (ngModelChange)="upDateQuantity($event, b.service)"
+          (change)="setIsIroning(b, b.isIroning)"
         />
       </td>
       <td>{{ b.service.service.price }}</td>
       <td>
-        <input type="text" name="" id="" [ngModel]="b.service.quantity" />
+        <input
+          type="text"
+          name=""
+          id=""
+          (ngModelChange)="upDateQuantity($event, b.service.service)"
+          [ngModel]="getQuantityForArticleService(b.service.service)"
+        />
       </td>
-      <td>{{ getPriceTotalForArticleService(b.service) }} €</td>
-      <td>{{ index.service.id }}</td>
+      <td>
+        {{ getPriceTotalForArticleService(b.service.service, b.isIroning) }}
+        €
+      </td>
+
       <td>
         <input
           type="checkbox"
@@ -42,20 +51,11 @@
     </tr>
   </tbody>
   <tr>
-    <td colspan="5">
-      Prix total
-      {{ pricaTotal }}
-      €
-    </td>
     <td colspan="1"><button>Suprimmer</button></td>
   </tr>
 </table>
 <div>
-  <button (click)="dialog.showModal()">Onvrire Modal</button>
-  <dialog #dialog>
-    <app-note-dialogue (note)="handleNoteEvent($event)"></app-note-dialogue>
-    <button (click)="closeModal()">Fermer</button>
-  </dialog>
+  <app-note-dialogue (note)="handleNoteEvent($event)"></app-note-dialogue>
 </div>
 
 <button (click)="submitOrder()">Valider commande</button>

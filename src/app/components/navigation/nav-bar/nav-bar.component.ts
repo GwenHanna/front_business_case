@@ -9,12 +9,49 @@ import { UserService } from 'src/app/services/user.service';
 import { selectionInterface } from 'src/app/entities/selectionInterface';
 import { UserInterface } from 'src/app/entities/userInterface';
 import { TmplAstRecursiveVisitor } from '@angular/compiler';
+import {
+  animate,
+  query,
+  state,
+  style,
+  transition,
+  trigger,
+} from '@angular/animations';
 
 @Component({
   selector: 'app-nav-bar',
   templateUrl: './nav-bar.component.html',
   styleUrls: ['./nav-bar.component.css'],
   providers: [DialogService],
+  animations: [
+    trigger('fadeIn', [
+      state('initial', style({ width: '0%' })),
+      state('hovered', style({ width: '100%' })),
+      transition('initial => hovered', [
+        animate('500ms', style({ width: '100%' })),
+      ]),
+      transition('hovered => initial', [
+        animate('500ms', style({ width: '0%' })),
+      ]),
+    ]),
+    trigger('openClose', [
+      state(
+        'in-active',
+        style({
+          bottom: 0,
+          opacity: 0,
+        })
+      ),
+      state(
+        'active',
+        style({
+          transform: 'translateY(100%)',
+        })
+      ),
+      transition('in-active => active', [animate('1.5s')]),
+      transition('active => in-active', [animate('1s')]),
+    ]),
+  ],
 })
 export class NavBarComponent implements OnInit {
   isAdmin: boolean = false;
@@ -29,6 +66,8 @@ export class NavBarComponent implements OnInit {
   // Variable Menu
   isToggleMenuAccount: boolean = false;
   isToggleAccountAdmin: boolean = false;
+
+  animationState: string = 'in'; // Initial state
 
   constructor(
     private authService: AuthService,
@@ -62,7 +101,7 @@ export class NavBarComponent implements OnInit {
         // this.sections = data;
         this.sections = data.map((section) => ({
           ...section,
-          isActive: false,
+          isActive: true,
         }));
         console.log(this.sections);
       },
@@ -103,12 +142,15 @@ export class NavBarComponent implements OnInit {
 
   // Fonction Evenement
   onMenuSectionType(section: any) {
+    this.animationState = 'hovered';
     this.sectionActive = section;
     section.isActive = true;
     console.log(section);
     console.log(this.sectionActive);
   }
   leaveMenuSectionType(section: any) {
+    this.animationState = 'initial';
+
     this.sectionActive = null;
     section.isActive = false;
   }

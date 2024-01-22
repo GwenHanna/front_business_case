@@ -9,6 +9,7 @@ import { BasketService } from './basket.service';
   providedIn: 'root',
 })
 export class PrestationService {
+  time: number = 500;
   private prestationSubject = new BehaviorSubject({});
   public prestation$ = this.prestationSubject.asObservable();
   private basket: selectionInterface[] = [];
@@ -73,7 +74,7 @@ export class PrestationService {
             },
             error: (err) => console.log(err),
           });
-        }, 1000);
+        }, this.time);
       }
     } else {
       return;
@@ -103,7 +104,7 @@ export class PrestationService {
           },
           error: (err) => console.log(err),
         });
-      }, 1000);
+      }, this.time);
     } else {
       let newSelection: selectionInterface = {
         service: article,
@@ -126,10 +127,8 @@ export class PrestationService {
       existElem.quantity++;
       let articleId = '' + existElem.service.id;
       clearTimeout(this.debounceId);
-      let time = 1000;
 
       this.debounceId = setTimeout(() => {
-        console.log('time', time);
         if (existElem) this.refreashPricing(articleId, existElem.quantity);
         this.prestation$.subscribe({
           next: (prestation: any) => {
@@ -141,7 +140,7 @@ export class PrestationService {
           },
           error: (err) => console.log(err),
         });
-      }, time);
+      }, this.time);
     } else {
       let newSelection: selectionInterface = {
         service: article,

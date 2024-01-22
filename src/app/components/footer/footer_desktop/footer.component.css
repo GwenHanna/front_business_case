@@ -5,8 +5,10 @@
   align-items: center;
   gap: 10px;
   width: 100%;
-  height: 25vh;
+  height: auto;
+  min-height: 25vh;
   color: var(--white);
+  padding: 20px 0;
 }
 
 .footer-nav {

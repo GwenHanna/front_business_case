@@ -152,6 +152,5 @@ export class NavBarMobileComponent implements OnInit {
   leaveAccount() {
     this.isToggleAccount = false;
     this.isToggleAccountAdmin = false;
-    console.log('isToggleAccount', this.isToggleAccount);
   }
 }

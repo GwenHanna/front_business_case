@@ -9,25 +9,28 @@
         <!-- Ajout du ng-container pour l'évenement du hover -->
         <ng-container *ngFor="let section of sections">
           <!-- Ici j'utilise des évenements du DOM -->
-          <li
-            (mouseenter)="onMenuSectionType(section)"
-            (mouseleave)="leaveMenuSectionType(section)"
-            class="container-item-navbar"
-          >
-            <!-- Utilisation de la directive ngClass pour injecter la classe removeOverflow si la section est active -->
-            <div
-              class="item-navbar"
+          <div class="test2">
+            <li
+              (mouseenter)="onMenuSectionType(section)"
+              (mouseleave)="leaveMenuSectionType(section)"
+              class="container-item-navbar"
               [ngClass]="{
                 removeOverflow: section.isActive
               }"
             >
-              <a class="">{{ section.name }}</a>
+              <!-- Utilisation de la directive ngClass pour injecter la classe removeOverflow si la section est active -->
+              <div class="item-navbar">
+                <a class="blockA">{{ section.name }}</a>
+              </div>
+            </li>
+            <div class="test">
+              <div
+                [@fadeIn]="section.isActive ? 'hovered' : 'initial'"
+                class="menu-after"
+              ></div>
               <ul
-                [ngClass]="{
-                  'in-active': !section.isActive,
-                  active: section.isActive
-                }"
-                class="menu-hamburger-navbar active"
+                [@openClose]="section.isActive ? 'active' : 'in-active'"
+                class="menu-hamburger-navbar blockB"
               >
                 <li
                   *ngFor="let service of section.serviceTypes"
@@ -42,14 +45,16 @@
                 </li>
               </ul>
             </div>
-          </li>
+          </div>
         </ng-container>
 
-        <li class="container-item-navbar">
-          <div class="item-navbar">
-            <a class="" routerLink="/">contact</a>
-          </div>
-        </li>
+        <div class="test2">
+          <li class="container-item-navbar">
+            <div class="item-navbar">
+              <a class="" routerLink="/">contact</a>
+            </div>
+          </li>
+        </div>
 
         <!--ADMINISTRATION-->
 

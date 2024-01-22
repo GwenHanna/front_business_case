@@ -23,8 +23,12 @@
     rgba(255, 255, 255, 0) 101.2%
   );
   --background-nav-hover: rgba(55, 125, 117, 0.2);
-  --border-box-shadow-menu-nav: 3px 4px 6px 0px rgba(55, 125, 117, 0.5);
+  --border-box-shadow-menu-nav: inset 3px 4px 6px 0px rgba(55, 125, 117, 0.5);
   --border-box-shadow-item: 1px -1px 6px 0px rgba(55, 125, 117, 0.2);
+
+  --border-color: purple;
+  --border-width: 5px;
+  --bottom-distance: 0px; /* you can increase this */
 }
 *,
 body,
@@ -159,15 +163,11 @@ text-transform: uppercase;
 }
 
 
-/* 
 .paragraph-primary {
   font-size: 1em;
   font-weight: 300;
   color: var(--secondary);
 }
-
-
-
 
 .content {
   position: relative;
@@ -176,7 +176,7 @@ text-transform: uppercase;
 
 
 
- */
+
 
 /* Button */
 .text-btn-default {
@@ -236,7 +236,7 @@ router-outlet + * {
   width: 100%;
 }
 
-/* 
+ 
 .primary,
 .secondary:hover {
   background-color: var(--primary);
@@ -276,58 +276,8 @@ select {
 }
 .ng-trigger {
   overflow: hidden !important;
-} */
+} 
 
-/* Media Querries */
-
-/* @media screen and (max-width: 900px) {
-  .title-h3 {
-    font-size: 1em;
-  }
-  .footer {
-    font-size: 1em;
-  }
-} */
-
-/* Extra small devices (phones, 600px and down) */
-/* @media only screen and (max-width: 600px) {
-  .bc-container {
-    padding: 0;
-    margin: 50px;
-    font-size: 0.7rem;
-  }
-  .footer {
-    font-size: 0.75em;
-  }
-  .ng-trigger {
-    width: 98% !important ;
-    overflow: hidden !important;
-  }
-} */
-/* Small devices (portrait tablets and large phones, 600px and up) */
-@media only screen and (min-width: 600px) {
+.ng-tns-c647991600, .modal {
+  z-index: 99999999999999999 !important;
 }
-/* Medium devices (landscape tablets, 768px and up) */
-@media only screen and (min-width: 768px) {
-}
-/* Large devices (laptops/desktops, 992px and up) */
-/* @media screen and (min-width: 992px) {
-  .body {
-    font-size: 0.9rem;
-  }
-  .title-h3 {
-    font-size: 1.5em;
-  }
-} */
-/* Extra large devices (large laptops and desktops, 1200px and up) */
-/* @media only screen and (min-width: 1200px) {
-}
-
-html,
-body {
-  height: 100%;
-}
-body {
-  margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
-} */

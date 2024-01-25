@@ -219,6 +219,15 @@ line-height: normal;
       border-radius: 2px
 }
 
+.btn-secondary{
+  color: var(--white);
+  background: var(--thirdly);
+  padding: 3px;
+  width: 167px;
+  display: flex;
+  justify-content: center;
+}
+
 .btn-card-prestation {
   border: var(--border-btn-card-prestation);
   display: inline-block;

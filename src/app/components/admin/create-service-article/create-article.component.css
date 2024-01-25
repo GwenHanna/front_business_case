@@ -6,3 +6,26 @@
 .delete {
   cursor: pointer;
 }
+.bc-card-header{
+  background: rgba(55, 125, 117, 0.2);
+}
+h6{
+  width: 100%;
+  text-align: center;
+  padding: 3px;
+}
+.item-comtainer{
+border: 1px solid black;
+display: flex;
+align-items: center;
+
+}
+.link-up-date{
+  cursor: pointer;
+}
+.link-up-date:hover{
+  text-decoration: underline;
+}
+thead{
+  border: 1px solid black;
+}

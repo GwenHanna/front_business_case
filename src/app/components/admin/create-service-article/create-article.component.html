@@ -1,4 +1,3 @@
-<h1>ok</h1>
 
 <div class="articles">
   <div *ngIf="messageSuccess">
@@ -23,42 +22,48 @@
     </button>
   </div>
 
-  <div *ngIf="!isEditor && !displayAddArticle" class="card mb-3">
-    <div *ngFor="let article of services" class="row g-0">
-      <div class="col-md-4">
-        <img
-          class="img-fluid rounded-start"
-          [src]="pathPicture + article.picture"
-          [alt]="article.name"
-        />
-      </div>
-      <div class="col-md-8">
-        <div class="bc-card-header card-header">
-          <h6>{{ article.name }} - {{ article.serviceType?.name }}</h6>
-          <span (click)="deleteArticle(article.id)" class="delete"
-            ><svg
-              width="25px"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-            >
-              <title>delete</title>
-              <path
-                d="M17 4V6H3V4H6.5L7.5 3H12.5L13.5 4H17M4 19V7H16V19C16 20.1 15.1 21 14 21H6C4.9 21 4 20.1 4 19M19 15H21V17H19V15M19 7H21V13H19V7Z"
-              /></svg
-          ></span>
-        </div>
-        <div class="card-body">
-          <p class="card-text">{{ article.description }}</p>
-          <p class="card-text">
-            <small class="text-muted">{{ article.price }}</small>
-          </p>
-        </div>
-        <div class="card-footer">
-          <button class="btn" (click)="showUpDate(article.id)">
-            Modifier article
-          </button>
-        </div>
-      </div>
+  <div *ngIf="!isEditor && !displayAddArticle" class="card mb-3 gap-3">
+    <div *ngFor="let article of services" class="row g-0 item-comtainer">
+
+
+<table>
+  <thead>
+   <tr>
+    <th></th>
+    <th>Type de Service </th>
+    <th>Service </th>
+    <th>Prix </th>
+    <th>Modifier </th>
+    <th>Suprimmer </th>
+   </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td> <img
+        class="w-30"
+        [src]="pathPicture + article.picture"
+        [alt]="article.name"
+      /></td>
+      <td>{{ article.serviceType?.name }}</td>
+      <td>{{ article.name }}</td>
+      <td>{{ article.price }}</td>
+      <td><p class="link-up-date" (click)="showUpDate(article.id)">
+        Modifier article
+      </p></td>
+      <td> <span (click)="deleteArticle(article.id)" class="delete"><svg
+        width="25px"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+      >
+        <title>delete</title>
+        <path
+          d="M17 4V6H3V4H6.5L7.5 3H12.5L13.5 4H17M4 19V7H16V19C16 20.1 15.1 21 14 21H6C4.9 21 4 20.1 4 19M19 15H21V17H19V15M19 7H21V13H19V7Z"
+        /></svg></span> </td>
+    </tr>
+  </tbody>
+</table>
+
+
     </div>
   </div>
   <div>
@@ -104,7 +109,7 @@
           </div>
         </div>
 
-        <div class="mb-3 article-description">
+        <!-- <div *ngIf="" class="mb-3 article-description">
           <label for="article" class="form-label">description</label>
           <input
             type="text"
@@ -123,7 +128,7 @@
           >
             Une description est obligatoire.
           </div>
-        </div>
+        </div> -->
 
         <div class="mb-3 article-price">
           <label for="article" class="form-label">price</label>
@@ -146,34 +151,34 @@
           </div>
         </div>
 
-        <div class="mb-3 article-category">
-          <label for="article" class="form-label">category</label>
-          <select name="category" id="" formControlName="category">
-            <option value="" disabled>- Choisir categorie -</option>
-            <option *ngFor="let category of categories" [ngValue]="category.id">
-              {{ category.name }}
+        <!-- <div class="mb-3 article-section">
+          <label for="article" class="form-label">Section</label>
+          <select name="section" id="" formControlName="section">
+            <option value="" disabled>- Choisir une section -</option>
+            <option *ngFor="let section of categories" [ngValue]="section.id">
+              {{ section.name }}
             </option>
           </select>
           <div
             *ngIf="
-              !formAddArticle.get('category')?.valid &&
-              formAddArticle.get('category')?.touched
+              !formAddArticle.get('section')?.valid &&
+              formAddArticle.get('section')?.touched
             "
-            id="article-category"
+            id="article-section"
             class="form-text"
           >
             Une categorie est obligatoire.
           </div>
-        </div>
+        </div> -->
 
         <div class="mb-3 article-service">
-          <div *ngFor="let service of services" class="d-flex flex-column">
+          <div *ngFor="let service of serviceTypes" class="d-flex flex-column">
             <label [for]="'article_' + service.id" class="form-label">{{
               service.name
             }}</label>
             <input
-              type="checkbox"
-              [value]="service.id"
+              type="radio"
+              [value]="service.name"
               [checked]="isSelectedService(service.id)"
               (change)="toggleServiceChecked(service.id)"
               [id]="'article_' + service.id"
@@ -182,8 +187,8 @@
 
           <div
             *ngIf="
-              !formAddArticle.get('service')?.valid &&
-              formAddArticle.get('service')?.touched
+              !formAddArticle.get('serviceType')?.valid &&
+              formAddArticle.get('serviceType')?.touched
             "
             id="article-service"
             class="form-text"

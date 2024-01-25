@@ -13,6 +13,9 @@ import { ArticleService } from 'src/app/services/serviceArticle.service';
 import { CategoryService } from 'src/app/services/category.service';
 import { ServiceTypeService } from 'src/app/services/service-type.service';
 import { map } from 'rxjs';
+import { sectionInterface } from 'src/app/entities/sectionInterface';
+import { SectionService } from 'src/app/services/section.service';
+import { serviceTypesInterface } from 'src/app/entities/service_types';
 
 @Component({
   selector: 'app-create-article',
@@ -21,7 +24,7 @@ import { map } from 'rxjs';
 })
 export class CreateArticleComponent implements OnInit {
   // DATA
-  categories: categoryInterface[] = [];
+  serviceTypes: serviceTypesInterface[] = [];
   services: serviceInterface[] = [];
 
   // Formulaire
@@ -29,7 +32,7 @@ export class CreateArticleComponent implements OnInit {
 
   // Path
   pathPicture = '../../../../assets/articles/';
-  pathUriServices = '/api/services/';
+  pathUriServices = '/api/service_types/';
 
   //Utils
   messageSuccess = '';
@@ -39,14 +42,26 @@ export class CreateArticleComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private articleService: ArticleService,
-    // private categoryService: CategoryService,
-    private servicesService: ServiceTypeService
+    private categoryService: CategoryService,
+    private servicesService: ServiceTypeService,
+    private sectionService: SectionService
   ) {}
   ngOnInit(): void {
-    // this.getCategories();
     this.getServices();
+    this.getServiceType();
+      this.formAddArticle = this.buildFormBuilder();
+    
+  }
 
-    this.formAddArticle = this.buildFormBuilder();
+  getServiceType(){
+    this.servicesService.getServices();
+    this.servicesService.$services.subscribe({
+      next: (data) => {
+        this.serviceTypes = data
+      },
+      error: (err) => console.log(err)
+      
+    })
   }
 
   // CRUD
@@ -60,28 +75,33 @@ export class CreateArticleComponent implements OnInit {
 
   addArticle() {
     if (this.formAddArticle.valid) {
-      console.log(this.formAddArticle.value);
+    
+          const selectService = this.formAddArticle.value.serviceType;
 
-      //     const selectService = this.formAddArticle.value.services;
-      //     const serviceUri = selectService.map(
-      //       (data: any) => this.pathUriServices + data
-      //     );
-      //     const categoryId = this.formAddArticle.get('category')?.value;
-      //     const uriCategory = `/api/categories/${categoryId}`;
-      //     const formData = {
-      //       ...this.formAddArticle.value,
-      //       category: uriCategory,
-      //       services: serviceUri,
-      //     };
+          // const sectionId = this.formAddArticle.get('section')?.value;
+          // const uriSection = `/api/sections/${sectionId}`;
+          const pathPicture = this.formAddArticle.get('picture')?.value.split('C:\\fakepath\\')[1];
 
-      //     this.articleService.addArticle(formData).subscribe({
-      //       next: (data) => this.getServices(),
-      //       error: (err) => console.log(err),
-      //       complete: () => {
-      //         this.displayAddArticle = false;
-      //         this.messageSuccess = 'Article ajouter avec succès';
-      //       },
-      //     });
+          const formData = {
+            ...this.formAddArticle.value,
+            picture: pathPicture,
+            // section: uriSection,
+            serviceType: `${this.pathUriServices}${selectService}`,
+          };
+          console.log(formData);
+          
+
+          this.articleService.addArticle(formData).subscribe({
+            next: (data) => {
+              this.getServices()
+            },
+            error: (err) => console.log(err),
+            complete: () => {
+              this.displayAddArticle = false;
+              this.messageSuccess = 'Article ajouter avec succès';
+              this.formAddArticle.reset()
+            },
+          });
     }
   }
 
@@ -105,75 +125,67 @@ export class CreateArticleComponent implements OnInit {
     console.log(idArticle);
     this.isEditor = true;
 
-    // this.loadFormBuilder(idArticle);
+    if(idArticle)
+    this.loadFormBuilder(idArticle);
   }
   closeUpDate() {
     this.isEditor = false;
     console.log(this.isEditor);
   }
 
-  // getCategories() {
-  //   this.categoryService.$categories.subscribe({
-  //     next: (categories) => (this.categories = categories),
-  //   });
-  // }
 
   getServices() {
-    this.servicesService.getServices();
-    this.servicesService.$services.subscribe({
+    this.articleService.getServices();
+    this.articleService.$articles.subscribe({
       next: (articles) => {
         this.services = articles;
         console.log(this.services);
+   
+       
       },
       error: (err) => console.log(err),
     });
   }
-  toggleServiceChecked(serviceId: number | undefined): boolean | void {
-    const selectService = this.formAddArticle.get('services') as FormArray;
-    const pathService = '/api/services/';
-    const id: string = '' + serviceId;
-
+  toggleServiceChecked(serviceId: number | undefined): void {
+    const selectService = this.formAddArticle.get('serviceType'); // Assurez-vous que 'serviceType' est déclaré dans le FormGroup
+  
     if (serviceId !== undefined) {
-      if (selectService.value.includes(id)) {
-        const index = selectService.value.indexOf(id);
-        selectService.removeAt(index);
-      } else {
-        console.log(pathService + this.fb.control(id));
-
-        selectService.push(this.fb.control(id));
-      }
+      // Mettez à jour la valeur du FormControl avec l'ID du service sélectionné
+      if(selectService)
+      selectService.setValue(serviceId);
     }
   }
+  
   isSelectedService(serviceId: number | undefined): boolean {
-    const selectedServices = this.formAddArticle.get('services');
-    return !!selectedServices && selectedServices.value.includes(serviceId);
+    const selectedService = this.formAddArticle.get('serviceType')?.value;
+    return selectedService === serviceId;
   }
 
   // INIT formulaire
   buildFormBuilder() {
     return this.fb.group({
       name: ['', Validators.required],
-      description: ['', Validators.required],
       price: ['', Validators.required],
-      category: [''],
+      // section: [''],
       picture: ['', Validators.required],
-      services: this.fb.array([]),
+      serviceType: [null, Validators.required],
     });
   }
   loadFormBuilder(articleId: number) {
     const id: string = '' + articleId;
-    const pathUri = '/api/services/';
+    const pathUri = '/api/service_types/';
     let serviceUri: string[] = [];
 
     this.articleService.fetchById(id).subscribe({
       next: (data) => {
+        console.log(data);
+        
         this.formAddArticle.patchValue({
           name: data.name,
-          description: data.description,
           price: data.price,
-          category: data.section,
+          // section: data.section,
           picture: [''],
-          services: data.serviceType,
+          serviceType: data.serviceType,
         });
       },
     });
@@ -182,9 +194,9 @@ export class CreateArticleComponent implements OnInit {
   // Upload File
   onFileSelected(event: any): void {
     const file: File = event.target.files[0];
-    // this.formAddArticle.patchValue({
-    //   file,
-    // });
+    this.formAddArticle.patchValue({
+      file,
+    });
     if (file) {
       const formData = new FormData();
       formData.append('picture', file);

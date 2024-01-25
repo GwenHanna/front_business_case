@@ -18,6 +18,10 @@ import {
   trigger,
 } from '@angular/animations';
 
+import {MatDialog, MatDialogModule, MatDialogRef} from '@angular/material/dialog';
+import { Dialog } from 'primeng/dialog';
+import { BasketComponent } from '../../basket/basket.component';
+
 @Component({
   selector: 'app-nav-bar',
   templateUrl: './nav-bar.component.html',
@@ -28,7 +32,7 @@ import {
       state('initial', style({ width: '0%' })),
       state('hovered', style({ width: '100%' })),
       transition('initial => hovered', [
-        animate('1s', style({ width: '100%' })),
+        animate('700ms', style({ width: '100%' })),
       ]),
       transition('hovered => initial', [animate('1s', style({ width: '0%' }))]),
     ]),
@@ -36,7 +40,7 @@ import {
       state(
         'in-active',
         style({
-          bottom: 0,
+          transform: 'translateY(-100%)',
         })
       ),
       state(
@@ -66,13 +70,15 @@ export class NavBarComponent implements OnInit {
 
   animationState: string = 'in'; // Initial state
 
+
   constructor(
     private authService: AuthService,
     private router: Router,
     public dialogService: DialogService,
     private basketService: BasketService,
     private sectionService: SectionService,
-    private userService: UserService
+    private userService: UserService,
+    private dialog:MatDialog
   ) {
     this.getLoggin();
 
@@ -87,9 +93,11 @@ export class NavBarComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.refreashSectionService();
+ 
+        this.refreashSectionService();
     this.getBasket();
   }
+
 
   refreashSectionService() {
     this.sectionService.getSection();
@@ -114,6 +122,9 @@ export class NavBarComponent implements OnInit {
 
   openBasket() {
     this.basketService.openModal(this.basket);
+    // this.dialog.open(BasketComponent, {
+    //   width: '400px'
+    // });
 
     this.getBasket();
   }
@@ -153,10 +164,14 @@ export class NavBarComponent implements OnInit {
   }
   onAccount(event: any) {
     let target = event.target.classList;
+    console.log(target.contains('account'));
+    
+    console.log(this.isToggleAccountAdmin);
+    console.log(this.isToggleMenuAccount);
     if (target.contains('administration'))
-      this.isToggleAccountAdmin = !this.isToggleAccountAdmin;
+    this.isToggleAccountAdmin = true;
     if (target.contains('account'))
-      this.isToggleMenuAccount = !this.isToggleMenuAccount;
+      this.isToggleMenuAccount = true;
     console.log(target);
   }
   leaveAccount() {

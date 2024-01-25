@@ -43,6 +43,7 @@ import { FooterMobileComponent } from './components/footer/footer_mobile/footer-
 import { NavBarMobileComponent } from './components/navigation/nav-bar-mobile/nav-bar-mobile.component';
 import { ServiceListMobileComponent } from './components/list-services/service-list-mobile/service-list-mobile.component';
 import { BorderAnimateDirective } from './directives/border-animate.directive';
+import { MatDialogModule } from '@angular/material/dialog';
 @NgModule({
   declarations: [
     AppComponent,
@@ -85,6 +86,7 @@ import { BorderAnimateDirective } from './directives/border-animate.directive';
     ButtonModule,
     DialogModule,
     MatSliderModule,
+    MatDialogModule
   ],
   providers: [
     AuthInterceptor,

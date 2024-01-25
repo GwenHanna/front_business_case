@@ -72,11 +72,11 @@ export class BasketService {
 
   openModal(prestationData: any) {
     const ref = this.dialoguService.open(BasketDialogueComponent, {
-      width: '25vw',
       height: '90vh',
       position: 'right',
       data: { prestation: prestationData },
       appendTo: 'body',
+      autoZIndex: false
     });
     ref.onClose.subscribe({
       next: (result) => {

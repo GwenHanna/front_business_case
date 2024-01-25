@@ -5,24 +5,24 @@
     class="bc-menu-basket"
     *ngFor="let serviceType of servicesTypes; let i = index"
   >
-    <h3 (click)="toggleMenuBasket(serviceType)">
+    <h5 class="title-h5-secondary" (click)="toggleMenuBasket(serviceType)">
       {{ serviceType }}
-    </h3>
+    </h5>
     <div
       class="basket d-flex justify-content-around w-100"
       *ngFor="let article of prestationData[i]"
     >
-      <div class="" *ngIf="stateMenuServiceTyype[serviceType]">
+      <div class="d-flex justify-content-between w-100 paragraph-secondary" *ngIf="stateMenuServiceTyype[serviceType]">
         <div>
-          <h6>{{ article.quantity }} {{ article.service.name }}</h6>
+          <p>{{ article.quantity }} {{ article.service.name }}</p>
         </div>
         <div>
-          <p>{{ article.priceTotal }}</p>
+          <p>{{ article.priceTotal }} , 00 €</p>
         </div>
       </div>
     </div>
   </div>
-  <div class="d-flex justify-content-around">
+  <div class="d-flex justify-content-around mb-3">
     <button (click)="submitBasket()" class="btn-primary-active">Valider</button>
     <button (click)="emptyBasket()" class="btn-primary">Supprimer</button>
   </div>

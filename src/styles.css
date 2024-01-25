@@ -58,7 +58,6 @@ ul {
   margin: auto;
 }
 .bc-container {
-  width: 100vw;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -163,11 +162,19 @@ letter-spacing: 1.4px;
 text-transform: uppercase;
 }
 
-
 .paragraph-primary {
   font-size: 1em;
   font-weight: 300;
   color: var(--secondary);
+}
+.paragraph-secondary{
+  color: var(--third, #3E3E3E);
+/* FIGMA p présentation entrprise et employer */
+font-family: Montserrat;
+font-size: 18px;
+font-style: normal;
+font-weight: 300;
+line-height: normal;
 }
 
 .content {

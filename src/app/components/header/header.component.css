@@ -1,11 +1,14 @@
 .container-header {
-  margin-top: 50px;
   /* background: red; */
   display: flex;
   /* flex-wrap: wrap; */
   width: 100%;
   gap: 10px;
-  margin-bottom: 120px;
+  min-height: 80vh;
+  margin: 20px 0;
+  align-content: center;
+  /* position: relative; */
+  flex-wrap: wrap
 }
 .header {
   width: 50%;
@@ -13,6 +16,8 @@
   flex-direction: column;
   gap: 40px;
   flex-grow: 1;
+  justify-content: space-between;
+
 }
 .header-img {
   height: 500px;
@@ -28,4 +33,9 @@ p {
 }
 .addDisplayNone {
   display: none;
+}
+.header-title{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 }

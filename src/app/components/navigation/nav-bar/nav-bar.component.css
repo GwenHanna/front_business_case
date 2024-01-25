@@ -21,7 +21,6 @@ ul {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0px 20px;
 }
 .container-menu-nav-bar {
   background: var(--white);
@@ -29,17 +28,17 @@ ul {
   flex-grow: 1;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   height: 70px;
   margin: 0 20px;
 }
 .menu-nav-bar {
   background: var(--white);
   z-index: 999;
-  flex-grow: 1;
   display: flex;
   align-items: center;
   justify-content: space-around;
-  width: 50%;
+  width: 70%;
   height: 100%;
 }
 
@@ -55,18 +54,19 @@ ul {
   height: 100%;
   align-items: center;
 }
-.container-item-navbar,
-.test2 {
+.container-item-navbar{
   background: var(--white);
   z-index: 999;
   height: 100%;
   display: flex;
   flex-direction: column;
 }
+.container-item-navbar{
+  width: 50%;
+}
 .item-navbar {
   background: var(--white);
   z-index: 999;
-  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -76,13 +76,15 @@ ul {
   height: 100%;
   width: 100%;
 }
-
+.item-navbar:hover{
+  background: var();
+}
 .btns {
   position: relative;
   margin-top: 45px;
 }
 .account {
-  width: fit-content;
+  width: 15%;
 }
 .account .menu-compte {
   position: absolute;
@@ -93,7 +95,6 @@ ul {
   width: 100%;
   padding: 0;
 }
-/**/
 
 .blockA {
   position: relative;
@@ -119,7 +120,6 @@ ul {
   z-index: 0;
   display: flex;
   flex-direction: column;
-  background: red;
   position: absolute;
   width: max-content;
   background: var(--white);
@@ -128,12 +128,10 @@ ul {
   bottom: 0;
   left: 0;
 }
-.test2 {
-  display: flex;
-  flex-direction: column;
-}
-.removeOverflow {
-  overflow: visible;
+
+.item-service-type{
+  text-transform: none;
+  font-size: 0.85rem;
 }
 /* 
 

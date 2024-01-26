@@ -67,24 +67,11 @@
 
               class="menu-hamburger-navbar"
             >
-              <li class="container-item-service-type">
-                <a class="item-service-type" routerLink="/register">Ajouter Employée</a>
-              </li>
-              <li class="container-item-service-type">
-                <a class="item-service-type" routerLink="/assign">Affectation</a>
-              </li>
-              <li class="container-item-service-type">
-                <a class="item-service-type" routerLink="/crud-admin">CRUD</a>
-              </li>
-              <li class="container-item-service-type">
-                <a class="item-service-type" routerLink="/article">Article</a>
-              </li>
-              <li class="container-item-service-type">
-                <a class="item-service-type" routerLink="/service">Service</a>
-              </li>
-              <li class="container-item-service-type">
-                <a class="item-service-type" routerLink="/category">Catégorie</a>
-              </li>
+            <li (click)="leaveAccount()" class="container-item-service-type">
+              <a  class="item-service-type"  routerLink="/crud-admin">Gestion des services</a>
+            </li>
+              <li (click)="leaveAccount()" class="container-item-service-type">
+                <a class="item-service-type" routerLink="/management_employee">Gestion des employées</a>
             </ul>
           </div>
         </li>

@@ -16,6 +16,7 @@ import { AccountComponent } from './components/account-user/account/account.comp
 import { AdminCrudComponent } from './components/admin/admin-crud/admin-crud.component';
 import { BasketComponent } from './components/basket/basket.component';
 import { guestAuthGuard } from './gards/guest-auth.guard';
+import { ManagementEmployeeComponent } from './components/admin/management-employee/management-employee.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -30,11 +31,11 @@ const routes: Routes = [
   { path: 'basket', component: BasketComponent, canActivate: [guestAuthGuard] },
   { path: 'account', component: AccountComponent },
   { path: 'admin', component: AdminComponent, canActivate: [adminGuard] },
-  // {
-  //   path: 'assign',
-  //   component: AffectationComponent,
-  //   canActivate: [adminGuard],
-  // },
+  {
+    path: 'management_employee',
+    component: ManagementEmployeeComponent,
+    canActivate: [adminGuard],
+  },
   {
     path: 'crud-admin',
     component: AdminCrudComponent,

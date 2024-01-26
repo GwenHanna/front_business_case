@@ -44,6 +44,8 @@ import { NavBarMobileComponent } from './components/navigation/nav-bar-mobile/na
 import { ServiceListMobileComponent } from './components/list-services/service-list-mobile/service-list-mobile.component';
 import { BorderAnimateDirective } from './directives/border-animate.directive';
 import { MatDialogModule } from '@angular/material/dialog';
+import { ManagementEmployeeComponent } from './components/admin/management-employee/management-employee.component';
+import { UsersListComponent } from './components/users-list/users-list.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -74,6 +76,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     NavBarMobileComponent,
     ServiceListMobileComponent,
     BorderAnimateDirective,
+    ManagementEmployeeComponent,
+    UsersListComponent,
   ],
   imports: [
     BrowserModule,

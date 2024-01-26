@@ -68,7 +68,7 @@ export class NavBarComponent implements OnInit {
   isToggleMenuAccount: boolean = false;
   isToggleAccountAdmin: boolean = false;
 
-  animationState: string = 'in'; // Initial state
+  animationState: string = 'initial'; // Initial state
 
 
   constructor(
@@ -158,9 +158,9 @@ export class NavBarComponent implements OnInit {
   }
   leaveMenuSectionType(section: any) {
     this.animationState = 'initial';
-
     this.sectionActive = null;
     section.isActive = false;
+
   }
   onAccount(event: any) {
     let target = event.target.classList;

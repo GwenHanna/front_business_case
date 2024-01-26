@@ -15,7 +15,17 @@ export class UserService {
   private userSubject = new BehaviorSubject<any>(null);
   public $user = this.userSubject.asObservable();
 
+  private usersAllSubject = new BehaviorSubject<any>(null);
+  public $usersAll = this.usersAllSubject.asObservable();
+
   /** User */
+  getAllUsers(){
+    this.fetchUsersAll().subscribe({
+      next:(data) => this.usersAllSubject.next(data),
+      error:(err) => console.log(err)
+      
+    })
+  }
 
   fetchUserByEmail(email: string) {
     return this.http.get(`${this.apiUrl}/?email=${email}`);
@@ -56,6 +66,11 @@ export class UserService {
     return null;
   }
   /** CRUD */
+
+  fetchUsersAll() {
+    return this.http.get(`${this.apiUrl}`)
+  }
+
   upUserById(userId: number, body: UserInterface) {
     return this.http.patch(`${this.apiUrl}/${userId}`, body);
   }

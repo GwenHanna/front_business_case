@@ -2,7 +2,7 @@ h4 {
   cursor: pointer;
 }
 .articles {
-  display: inherit;
+  display: none;
   height: 0;
 }
 .services {

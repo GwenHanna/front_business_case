@@ -1,0 +1,23 @@
+<div class="container-management"> 
+    <h1>Gestion des employées</h1>
+    <div [@openClose]="(selectService === 'add' && isToggle) ? 'open' : 'close'" class="container-add-employee">
+        <a (click)="onSelect('add')"  type="button" class="btn-secondary-active w-100" >Ajouter un employée</a>
+ <div class="container-item-add-employee">
+    <app-register ></app-register>
+</div>
+           
+  
+    </div>
+    <div class="container-update-employee" [@openClose]="(selectService === 'update' && isToggle) ?  'open' : 'close'">
+        <a (click)="onSelect('update')" type="button" class="btn-secondary-active w-100" >Modifier ou supprimer un employée</a>
+        <div  class="container-item-update-employee">
+            <app-users-list></app-users-list>
+        </div>
+    </div>
+    <div [@openClose]="(selectService === 'assign' && isToggle) ? 'open' : 'close'"  class="container-assign-employee">
+        <a (click)="onSelect('assign')" type="button" class="btn-secondary-active w-100" >Aassigner une commande</a>
+        <div class="container-item-assign-employee">
+        <app-affectation></app-affectation>
+        </div>
+    </div>
+</div>

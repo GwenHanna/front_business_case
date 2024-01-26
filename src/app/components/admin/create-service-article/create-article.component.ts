@@ -29,6 +29,7 @@ export class CreateArticleComponent implements OnInit {
 
   // Formulaire
   formAddArticle!: FormGroup;
+  formUpdate: any
 
   // Path
   pathPicture = '../../../../assets/articles/';
@@ -66,7 +67,22 @@ export class CreateArticleComponent implements OnInit {
 
   // CRUD
   upDateArticle(article: articleInterface) {
-    this.articleService.upDateArticle(article).subscribe({
+
+
+    const articleId = this.formUpdate.id
+    const serviceTypeId = this.formAddArticle.get('serviceType')?.value;
+    
+    const pathPicture = this.formAddArticle.get('picture')?.value.split('C:\\fakepath\\')[1];
+    
+    const formData = {
+      ...this.formAddArticle.value,
+      serviceType: this.pathUriServices + serviceTypeId,
+      picture: pathPicture,
+    };
+    console.log(articleId);
+console.log(formData);
+
+    this.articleService.upDateArticle(formData,articleId ).subscribe({
       next: (data) =>
         {
           this.messageSuccess = 'Modification effectuer avec succès'
@@ -74,6 +90,11 @@ export class CreateArticleComponent implements OnInit {
           
         },
       error: (err) => console.log(err),
+      complete: () => {
+        this.getServiceType();
+        this.getServices()
+        this.isEditor = !this.isEditor
+      }
     });
   }
 
@@ -183,14 +204,14 @@ export class CreateArticleComponent implements OnInit {
     this.articleService.fetchById(id).subscribe({
       next: (data) => {
         console.log(data.serviceType);
-        
-        this.formAddArticle.patchValue({
+        this.formUpdate = {
+          id: data.id,
           name: data.name,
           price: data.price,
-          // section: data.section,
           picture: [''],
           serviceType: data.serviceType,
-        });
+        }
+        this.formAddArticle.patchValue(this.formUpdate)
       },
     });
   }

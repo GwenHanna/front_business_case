@@ -2,11 +2,11 @@ h4 {
   cursor: pointer;
 }
 .articles {
-  display: none;
+  display: inherit;
   height: 0;
 }
 .services {
-  display: inherit;
+  display: none;
   height: 0;
 }
 .categories {

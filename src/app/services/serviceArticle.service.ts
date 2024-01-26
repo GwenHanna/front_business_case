@@ -57,7 +57,7 @@ export class ArticleService {
   addArticle(article: serviceInterface) {
     return this.http.post<serviceInterface>(this.apiUrl, article);
   }
-  upDateArticle(article: serviceInterface) {
-    return this.http.patch<serviceInterface>(this.apiUrl, article);
+  upDateArticle(article: serviceInterface, articleId: number) {
+    return this.http.patch<serviceInterface>(`${this.apiUrl}/${articleId}`, article);
   }
 }

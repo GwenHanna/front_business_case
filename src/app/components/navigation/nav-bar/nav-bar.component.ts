@@ -55,6 +55,13 @@ import { BasketComponent } from '../../basket/basket.component';
   ],
 })
 export class NavBarComponent implements OnInit {
+showDialog() {
+this.visible = !this.visible
+}
+
+closeDialogu(){
+  this.visible = false
+}
   isAdmin: boolean = false;
   isLogin: boolean = false;
   user: UserInterface | undefined;
@@ -69,6 +76,7 @@ export class NavBarComponent implements OnInit {
   isToggleAccountAdmin: boolean = false;
 
   animationState: string = 'initial'; // Initial state
+visible: boolean = false;
 
 
   constructor(

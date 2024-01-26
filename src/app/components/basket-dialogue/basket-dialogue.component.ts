@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { selectionInterface } from 'src/app/entities/selectionInterface';
 import { serviceInterface } from 'src/app/entities/serviceInterface';
@@ -13,6 +13,8 @@ import { BasketService } from 'src/app/services/basket.service';
 export class BasketDialogueComponent implements OnInit {
   prestationData: selectionInterface[][] = [];
   servicesTypes: any;
+
+  @Output() closeModaleEvent = new EventEmitter<void>();
 
   // Création d'un objet pour gérer l'affichage des services du basket en fonction du serviceType cliqué
   public stateMenuServiceTyype: { [key: string]: boolean } = {};
@@ -44,6 +46,10 @@ export class BasketDialogueComponent implements OnInit {
       error: (err) => console.log('err', err),
     });
   }
+
+  closeModale(){
+    this.closeModaleEvent.emit()
+  }
   toggleMenuBasket(serviceType: string) {
     this.stateMenuServiceTyype[serviceType] =
       !this.stateMenuServiceTyype[serviceType];
@@ -56,5 +62,7 @@ export class BasketDialogueComponent implements OnInit {
 
   submitBasket() {
     this.router.navigateByUrl('/basket');
+    this.closeModale();
   }
+
 }

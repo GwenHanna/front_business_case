@@ -5,7 +5,7 @@ ul {
 
 .nav-bar {
   width: 100%;
-  z-index: 99999999999999;
+  z-index: 99;
   position: relative;
   background: var(--white);
 }

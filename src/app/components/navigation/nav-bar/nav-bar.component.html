@@ -100,9 +100,12 @@
             [@openClose]="isToggleMenuAccount ? 'active' : 'in-active'"
             class="menu-compte menu-hamburger-navbar"
           >
-            <li class="container-item-service-type">
-              <a class="item-service-type" (click)="openBasket()">Mon panier</a>
-            </li>
+
+          <p class="" (click)="showDialog()">Mon panier</p>
+
+            <!-- <li class="container-item-service-type">
+              <a class="item-service-type" pButton >Mon panier</a>
+            </li> -->
             <li class="container-item-service-type">
               <a class="item-service-type" routerLink="account">Modifier mon compte</a>
             </li>
@@ -122,3 +125,9 @@
     </div>
  
 </nav>
+<div class="test">
+  <p-dialog [(visible)]="visible" [style]="{width: '22%', height: '99vh'}" [position]="'right'">
+    <app-basket-dialogue (closeModaleEvent)="closeDialogu()"></app-basket-dialogue>
+  </p-dialog>
+
+</div>

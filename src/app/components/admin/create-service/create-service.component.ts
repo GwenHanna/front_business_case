@@ -26,6 +26,7 @@ export class CreateServiceComponent implements OnInit {
 
   // Formulaire reactive form
   public form!: FormGroup;
+  public formUpdate : any
 
   //
   public servicesTypes: serviceTypesInterface[] = [];
@@ -47,7 +48,8 @@ export class CreateServiceComponent implements OnInit {
   toggleAddService() {
     this.displayAddService = !this.displayAddService;
     this.getCategoriesSection();
-    this.formBuilder();
+    this.form = this.formBuilder();
+
   }
 
   getCategoriesSection() {
@@ -84,9 +86,13 @@ export class CreateServiceComponent implements OnInit {
   addService() {
     if (this.form.valid) {
       const sectionId = this.form.get('section')?.value;
+      const pathPicture = this.form.get('picture')?.value.split('C:\\fakepath\\')[1];
+      const pathIcon = this.form.get('icon')?.value.split('C:\\fakepath\\')[1];
       const formData = {
         ...this.form.value,
         section: this.pathSectionUri + sectionId,
+        picture: pathPicture,
+        icon: pathIcon
       };
 
       this.serviceTypesService.addService(formData).subscribe({
@@ -104,13 +110,39 @@ export class CreateServiceComponent implements OnInit {
         },
       });
     }
+    console.log('sa passe pas');
+    
   }
 
-  upDateService(service: serviceTypesInterface) {
+  upDateService(article: any) {
+    
     if (this.form.valid) {
-      this.serviceTypesService.upDateService(service).subscribe({
-        next: (data) => console.log('data', data),
+      const sectionId = this.form.get('section')?.value;
+      const serviceId = this.formUpdate.id
+      console.log(serviceId);
+      
+      const pathPicture = this.form.get('picture')?.value.split('C:\\fakepath\\')[1];
+      const pathIcon = this.form.get('icon')?.value.split('C:\\fakepath\\')[1];
+      const formData = {
+        ...this.form.value,
+        section: this.pathSectionUri + sectionId,
+        picture: pathPicture,
+        icon: pathIcon
+      };
+      console.log(formData);
+      
+      this.serviceTypesService.upDateService(formData, serviceId).subscribe({
+        next: (data) => {
+          console.log('data', data)
+        },
         error: (err) => console.log('err', err),
+        complete: () => {
+          this.isEditor = !this.isEditor;
+          this.messageSuccess = 'Article modifier avec succès'
+          this.getService();
+          this.form.reset();
+
+        }
       });
     }
   }
@@ -122,6 +154,7 @@ export class CreateServiceComponent implements OnInit {
       description: ['', Validators.required],
       picture: ['', Validators.required],
       section: ['', Validators.required],
+      icon: ['', Validators.required]
     });
   }
   loadFormBuilder(articleId: number) {
@@ -132,13 +165,16 @@ export class CreateServiceComponent implements OnInit {
     this.serviceTypesService.fetchById(id).subscribe({
       next: (data) => {
         console.log(data);
-
-        this.form.patchValue({
-          name: data.name,
-          description: data.description,
-          section: { id: id, name: name },
-          picture: [''],
-        });
+this.formUpdate = {
+  id: data.id,
+  name: data.name,
+  description: data.description,
+  section: data.section,
+  picture: [''],
+  icon: ['']
+}
+this.form.patchValue(this.formUpdate)
+ 
       },
       error: (err) => console.log(err),
     });

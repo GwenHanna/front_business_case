@@ -7,7 +7,7 @@
   cursor: pointer;
 }
 .bc-card-header{
-  background: rgba(55, 125, 117, 0.2);
+  background: var(--backgroundTransparent)
 }
 h6{
   width: 100%;

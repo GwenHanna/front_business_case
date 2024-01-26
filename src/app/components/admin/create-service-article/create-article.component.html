@@ -85,7 +85,7 @@
       <form
         *ngIf="isEditor || displayAddArticle"
         [formGroup]="formAddArticle"
-        (ngSubmit)="addArticle()"
+        (ngSubmit)="displayAddArticle ? addArticle() : upDateArticle(formAddArticle.value)"
       >
         <div class="mb-3 article-name">
           <label for="article" class="form-label">name</label>

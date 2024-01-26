@@ -10,6 +10,7 @@
   --thirdly: #3e3e3e;
   --white: #fff;
   --black: #0000;
+  --backgroundTransparent: rgba(55, 125, 117, 0.2);
   --border-text-btn-default: 1px solid var(--primary);
   --border-title: 1px solid var(--secondary);
   --border-input: 1px solid var(--thirdly);
@@ -219,13 +220,18 @@ line-height: normal;
       border-radius: 2px
 }
 
-.btn-secondary{
+.btn-secondary-active{
   color: var(--white);
   background: var(--thirdly);
   padding: 3px;
   width: 167px;
   display: flex;
   justify-content: center;
+}
+.btn-secondary-active:hover{
+  color: var(--thirdly);
+  background: var(--white);
+  border: var(--border-text-btn-default);
 }
 
 .btn-card-prestation {

@@ -68,7 +68,11 @@ export class CreateArticleComponent implements OnInit {
   upDateArticle(article: articleInterface) {
     this.articleService.upDateArticle(article).subscribe({
       next: (data) =>
-        (this.messageSuccess = 'Modification effectuer avec succès'),
+        {
+          this.messageSuccess = 'Modification effectuer avec succès'
+          console.log(data);
+          
+        },
       error: (err) => console.log(err),
     });
   }
@@ -178,7 +182,7 @@ export class CreateArticleComponent implements OnInit {
 
     this.articleService.fetchById(id).subscribe({
       next: (data) => {
-        console.log(data);
+        console.log(data.serviceType);
         
         this.formAddArticle.patchValue({
           name: data.name,

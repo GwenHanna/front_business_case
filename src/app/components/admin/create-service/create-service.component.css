@@ -1,0 +1,24 @@
+.container-service{
+    position: relative;
+}
+.container-btn{
+    position: absolute;
+    top: -33px;
+    right: 0px 
+}
+
+
+.bc-card-header{
+    background: var(--backgroundTransparent);
+    display: flex;
+    justify-content: space-between;
+    padding: 3px;
+}
+.item-card-service{
+    width: 80%;
+    margin: 20px auto;
+}
+.btn-update{
+    max-height: 31px
+
+}

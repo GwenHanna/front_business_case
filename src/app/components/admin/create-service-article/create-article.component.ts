@@ -46,22 +46,22 @@ export class CreateArticleComponent implements OnInit {
     private categoryService: CategoryService,
     private servicesService: ServiceTypeService,
     private sectionService: SectionService
-  ) {}
+  ) { }
   ngOnInit(): void {
     this.getServices();
     this.getServiceType();
-      this.formAddArticle = this.buildFormBuilder();
-    
+    this.formAddArticle = this.buildFormBuilder();
+
   }
 
-  getServiceType(){
+  getServiceType() {
     this.servicesService.getServices();
-    this.servicesService.$services.subscribe({
+    this.servicesService.services$.subscribe({
       next: (data) => {
         this.serviceTypes = data
       },
       error: (err) => console.log(err)
-      
+
     })
   }
 
@@ -71,24 +71,23 @@ export class CreateArticleComponent implements OnInit {
 
     const articleId = this.formUpdate.id
     const serviceTypeId = this.formAddArticle.get('serviceType')?.value;
-    
+
     const pathPicture = this.formAddArticle.get('picture')?.value.split('C:\\fakepath\\')[1];
-    
+
     const formData = {
       ...this.formAddArticle.value,
       serviceType: this.pathUriServices + serviceTypeId,
       picture: pathPicture,
     };
     console.log(articleId);
-console.log(formData);
+    console.log(formData);
 
-    this.articleService.upDateArticle(formData,articleId ).subscribe({
-      next: (data) =>
-        {
-          this.messageSuccess = 'Modification effectuer avec succès'
-          console.log(data);
-          
-        },
+    this.articleService.upDateArticle(formData, articleId).subscribe({
+      next: (data) => {
+        this.messageSuccess = 'Modification effectuer avec succès'
+        console.log(data);
+
+      },
       error: (err) => console.log(err),
       complete: () => {
         this.getServiceType();
@@ -100,33 +99,33 @@ console.log(formData);
 
   addArticle() {
     if (this.formAddArticle.valid) {
-    
-          const selectService = this.formAddArticle.value.serviceType;
 
-          // const sectionId = this.formAddArticle.get('section')?.value;
-          // const uriSection = `/api/sections/${sectionId}`;
-          const pathPicture = this.formAddArticle.get('picture')?.value.split('C:\\fakepath\\')[1];
+      const selectService = this.formAddArticle.value.serviceType;
 
-          const formData = {
-            ...this.formAddArticle.value,
-            picture: pathPicture,
-            // section: uriSection,
-            serviceType: `${this.pathUriServices}${selectService}`,
-          };
-          console.log(formData);
-          
+      // const sectionId = this.formAddArticle.get('section')?.value;
+      // const uriSection = `/api/sections/${sectionId}`;
+      const pathPicture = this.formAddArticle.get('picture')?.value.split('C:\\fakepath\\')[1];
 
-          this.articleService.addArticle(formData).subscribe({
-            next: (data) => {
-              this.getServices()
-            },
-            error: (err) => console.log(err),
-            complete: () => {
-              this.displayAddArticle = false;
-              this.messageSuccess = 'Article ajouter avec succès';
-              this.formAddArticle.reset()
-            },
-          });
+      const formData = {
+        ...this.formAddArticle.value,
+        picture: pathPicture,
+        // section: uriSection,
+        serviceType: `${this.pathUriServices}${selectService}`,
+      };
+      console.log(formData);
+
+
+      this.articleService.addArticle(formData).subscribe({
+        next: (data) => {
+          this.getServices()
+        },
+        error: (err) => console.log(err),
+        complete: () => {
+          this.displayAddArticle = false;
+          this.messageSuccess = 'Article ajouter avec succès';
+          this.formAddArticle.reset()
+        },
+      });
     }
   }
 
@@ -150,8 +149,8 @@ console.log(formData);
     console.log(idArticle);
     this.isEditor = true;
 
-    if(idArticle)
-    this.loadFormBuilder(idArticle);
+    if (idArticle)
+      this.loadFormBuilder(idArticle);
   }
   closeUpDate() {
     this.isEditor = false;
@@ -165,22 +164,22 @@ console.log(formData);
       next: (articles) => {
         this.services = articles;
         console.log(this.services);
-   
-       
+
+
       },
       error: (err) => console.log(err),
     });
   }
   toggleServiceChecked(serviceId: number | undefined): void {
     const selectService = this.formAddArticle.get('serviceType'); // Assurez-vous que 'serviceType' est déclaré dans le FormGroup
-  
+
     if (serviceId !== undefined) {
       // Mettez à jour la valeur du FormControl avec l'ID du service sélectionné
-      if(selectService)
-      selectService.setValue(serviceId);
+      if (selectService)
+        selectService.setValue(serviceId);
     }
   }
-  
+
   isSelectedService(serviceId: number | undefined): boolean {
     const selectedService = this.formAddArticle.get('serviceType')?.value;
     return selectedService === serviceId;

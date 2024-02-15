@@ -18,7 +18,7 @@ import {
   trigger,
 } from '@angular/animations';
 
-import {MatDialog, MatDialogModule, MatDialogRef} from '@angular/material/dialog';
+import { MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { Dialog } from 'primeng/dialog';
 import { BasketComponent } from '../../basket/basket.component';
 
@@ -27,14 +27,15 @@ import { BasketComponent } from '../../basket/basket.component';
   templateUrl: './nav-bar.component.html',
   styleUrls: ['./nav-bar.component.css'],
   providers: [DialogService],
+  /// animation border ?
   animations: [
     trigger('fadeIn', [
       state('initial', style({ width: '0%' })),
       state('hovered', style({ width: '100%' })),
       transition('initial => hovered', [
-        animate('700ms', style({ width: '100%' })),
+        animate('0ms', style({ width: '100%' })),
       ]),
-      transition('hovered => initial', [animate('1s', style({ width: '0%' }))]),
+      transition('hovered => initial', [animate('0ms', style({ width: '0%' }))]),
     ]),
     trigger('openClose', [
       state(
@@ -49,19 +50,13 @@ import { BasketComponent } from '../../basket/basket.component';
           transform: 'translateY(100%)',
         })
       ),
-      transition('in-active => active', [animate('900ms ease')]),
-      transition('active => in-active', [animate('800ms ease-in')]),
+      transition('in-active => active', [animate('400ms ease')]),
+      transition('active => in-active', [animate('200ms ease-in')]),
     ]),
   ],
 })
 export class NavBarComponent implements OnInit {
-showDialog() {
-this.visible = !this.visible
-}
 
-closeDialogu(){
-  this.visible = false
-}
   isAdmin: boolean = false;
   isLogin: boolean = false;
   user: UserInterface | undefined;
@@ -76,7 +71,7 @@ closeDialogu(){
   isToggleAccountAdmin: boolean = false;
 
   animationState: string = 'initial'; // Initial state
-visible: boolean = false;
+  visible: boolean = false;
 
 
   constructor(
@@ -86,7 +81,7 @@ visible: boolean = false;
     private basketService: BasketService,
     private sectionService: SectionService,
     private userService: UserService,
-    private dialog:MatDialog
+    private dialog: MatDialog
   ) {
     this.getLoggin();
 
@@ -101,8 +96,8 @@ visible: boolean = false;
   }
 
   ngOnInit(): void {
- 
-        this.refreashSectionService();
+
+    this.refreashSectionService();
     this.getBasket();
   }
 
@@ -115,6 +110,7 @@ visible: boolean = false;
         this.sections = data.map((section) => ({
           ...section,
           isActive: false,
+
         }));
         console.log(this.sections);
       },
@@ -173,11 +169,11 @@ visible: boolean = false;
   onAccount(event: any) {
     let target = event.target.classList;
     console.log(target.contains('account'));
-    
+
     console.log(this.isToggleAccountAdmin);
     console.log(this.isToggleMenuAccount);
     if (target.contains('administration'))
-    this.isToggleAccountAdmin = true;
+      this.isToggleAccountAdmin = true;
     if (target.contains('account'))
       this.isToggleMenuAccount = true;
     console.log(target);
@@ -186,4 +182,14 @@ visible: boolean = false;
     this.isToggleMenuAccount = false;
     this.isToggleAccountAdmin = false;
   }
+
+  showDialog() {
+    this.visible = !this.visible
+  }
+
+  closeDialogu() {
+    this.visible = false
+  }
 }
+
+

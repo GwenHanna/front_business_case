@@ -15,6 +15,12 @@ import { UserInterface } from 'src/app/entities/userInterface';
   styleUrls: ['./nav-bar-mobile.component.css'],
 })
 export class NavBarMobileComponent implements OnInit {
+showDialogu() {
+this.visible = true
+}
+closeDialogu() {
+this.visible = false
+}
   isAdmin: boolean = false;
   isLogin: boolean = false;
   user: UserInterface | undefined;
@@ -29,6 +35,7 @@ export class NavBarMobileComponent implements OnInit {
   isToggleAccountAdmin: boolean = false;
   isToggleMenu: boolean = false;
   isToggleMenuAccount: boolean = false;
+  visible: boolean = false;
 
   constructor(
     private authService: AuthService,

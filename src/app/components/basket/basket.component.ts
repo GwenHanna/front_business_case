@@ -10,7 +10,7 @@ import { DataBasketInterface } from 'src/app/entities/dataBasketInterface';
 import { prestationInterface } from 'src/app/entities/prestationsInterface';
 import { selectionInterface } from 'src/app/entities/selectionInterface';
 import { serviceInterface } from 'src/app/entities/serviceInterface';
-import { selection } from 'src/app/models/selection';
+import { selection } from 'src/app/store/models/selection';
 
 import { BasketService } from 'src/app/services/basket.service';
 import { PrestationService } from 'src/app/services/prestation.service';
@@ -33,7 +33,7 @@ export class BasketComponent implements OnInit {
   constructor(
     private basketService: BasketService,
     private prestationsService: PrestationService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.basketService.basket$.subscribe({
@@ -77,7 +77,7 @@ export class BasketComponent implements OnInit {
     return priceTotal;
   }
 
-  updatePriceTotal() {}
+  updatePriceTotal() { }
 
   upDateQuantity(event: any, article: serviceInterface) {
     return this.prestationsService.upDateQuantity(event, article);
@@ -96,7 +96,7 @@ export class BasketComponent implements OnInit {
   //   this.dialog.nativeElement.close();
   // }
 
-  deleteBasket() {}
+  deleteBasket() { }
 
   submitOrder() {
     console.log(this.baskets);

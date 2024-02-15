@@ -4,30 +4,40 @@
     <p>Chargement en cours ...</p>
   </div>
   <div class="d-flex w-100 flex-column">
-    <div *ngFor="let section of sections">
-      <div #container class="container-section">
-        <h5 class="title-h5">{{ section.name }}</h5>
 
-        <div class="d-flex flex-wrap container-service">
-          <div
-            *ngFor="let service of section.serviceTypes; let index"
-            class="card item-section"
-            style="width: 18rem"
-            #item
-          >
-            <div class="card-header p-0">
-              <img
-                src="../../assets/articles/{{ service.picture }}"
-                class="card-img-top"
-                [alt]="service.name"
-              />
-              <div class="container-title">
-                <h4 class="card-title title-h4">{{ service.name }}</h4>
-              </div>
+
+  <ng-container *ngFor="let section of getCurrentPageSections()">
+    <div #container class="container-section">
+      <h5 class="title-h5">{{ section.name }}</h5>
+
+      <div class="d-flex flex-wrap container-service">
+        <div
+          *ngFor="let service of section.serviceTypes; let index"
+          class="card item-section"
+          style="width: 18rem"
+          #item
+        >
+          <div class="card-header p-0">
+            <img
+              src="../../assets/articles/{{ service.picture }}"
+              class="card-img-top"
+              [alt]="service.name"
+            />
+            <div class="container-title">
+              <h4 class="card-title title-h4">{{ service.name }}</h4>
             </div>
           </div>
         </div>
+
       </div>
     </div>
+  </ng-container>
+      <!-- lenght sections -->
+      <p-paginator
+      [first]="1"
+      [rows]="1"
+      [totalRecords]="3" 
+      (onPageChange)="onPageChange($event)"
+    ></p-paginator>
   </div>
 </div>

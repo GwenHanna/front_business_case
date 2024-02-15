@@ -146,6 +146,20 @@ a:hover {
   letter-spacing: 0.95px;
   text-transform: uppercase;
 }
+.title-mobile-onglet{
+  letter-spacing: 7px;
+  border-bottom: 1px solid black;
+  padding-bottom: 3px;
+  width: fit-content;
+  margin: 0 auto;
+  font-family: var(--font-family);
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: 0.95px;
+  text-transform: uppercase;
+}
 
 .paragraph-card {
   font-size: 0.95em;

@@ -20,11 +20,15 @@
       Retour
     </button>
   </div>
+
+  <!-- Affichage des services existants -->
   <div class="" *ngIf="!isEditor && !displayAddService">
     <div *ngFor="let service of servicesTypes" class="row g-0">
       <div class="item-card-service">
+        <!-- En-tête de la carte -->
         <div class="bc-card-header">
           <h6>{{ service.name }}</h6>
+          <!-- Bouton de suppression -->
           <span (click)="deleteService(service.id)" class="delete">
             <svg
               width="25px"
@@ -37,9 +41,11 @@
               /></svg>
           </span>
         </div>
+         <!-- Corps de la carte -->
         <div class="card-body">
           <p class="card-text">{{ service.description }}</p>
         </div>
+        <!-- Bouton de mise à jour de service -->
         <div class="btn-update">
           <button class="btn-secondary-active" (click)="showUpDate(service.id)">
             Modifier service
@@ -63,13 +69,16 @@
         />
       </svg>
     </div>
+
+    <!-- Formulaire d'édition ou d'ajout de service -->
     <form
       *ngIf="isEditor || displayAddService"
       [formGroup]="form"
       (ngSubmit)="!isEditor ? addService() : upDateService(form.value)"
     >
-      <div class="mb-3">
-        <label for="name" class="form-label">Nom</label>
+    <div class="mb-3 servive-type-name">
+      <label for="name" class="form-label">Nom</label>
+      <!-- Champ de saisie pour le nom -->
         <input
           type="text"
           class="form-control"
@@ -77,6 +86,7 @@
           aria-describedby="emailHelp"
           formControlName="name"
         />
+        <!-- Message d'erreur si le champ n'est pas valide -->
         <div
           *ngIf="!form.get('name')?.valid && form.get('name')?.touched"
           id="article"
@@ -104,7 +114,8 @@
           Une description est obligatoire.
         </div>
       </div>
-  
+
+      <!-- Liste déroulante pour la sélection de la section -->
       <div class="mb-3 service-types-section">
         <label for="section" class="form-label">section</label>
         <select name="section" id="" formControlName="section">
@@ -113,7 +124,7 @@
             {{ section.name }}
           </option>
         </select>
-  
+         <!-- Message d'erreur si le champ n'est pas valide -->
         <div
           *ngIf="!form.get('section')?.valid && form.get('section')?.touched"
           id="service-types-section"
@@ -146,7 +157,7 @@
       </div>
     </div>
   -->
-  
+      <!-- Champ de saisie pour le fichier image -->
       <div class="mb-3 service-types-picture">
         <label for="picture" class="form-label">picture</label>
         <input
@@ -184,8 +195,8 @@
           Une icon mobile est obligatoire.
         </div>
       </div>
-  
-      <button class="btn btn-primary">Submit</button>
+      <!-- Le bouton de soumission -->
+      <button class="btn btn-primary">confirmer</button>
     </form>
   </div>
   

@@ -5,6 +5,10 @@ import { categoryInterface } from 'src/app/entities/categoryInterface';
 import { SectionService } from 'src/app/services/section.service';
 import { serviceInterface } from 'src/app/entities/serviceInterface';
 import { ArticleService } from 'src/app/services/serviceArticle.service';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/store/app.state';
+import * as  SectionActions from 'src/app/store/actions/section.actions'
+
 
 @Component({
   selector: 'app-create-category',
@@ -21,12 +25,14 @@ export class CreateCategoryComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private sectionService: SectionService,
-    private articleService: ArticleService
-  ) {}
+    private articleService: ArticleService,
+    private store: Store<AppState>
+
+  ) { }
 
   ngOnInit(): void {
     this.getCategories();
-    this.getServices();
+    // this.getServices();
     this.form = this.fb.group({
       name: [null, Validators.required],
     });
@@ -34,6 +40,8 @@ export class CreateCategoryComponent implements OnInit {
 
   getServices() {
     this.sectionService.getSection();
+
+
     this.sectionService.$section.subscribe({
       next: (categories) => {
         this.categories = categories;
@@ -56,10 +64,10 @@ export class CreateCategoryComponent implements OnInit {
   deleteCategory(servicesId: number | undefined) {
     if (servicesId) {
       this.sectionService.deleteSection(servicesId).subscribe({
+        next: (section) => { this.store.dispatch(SectionActions.deleteSection({ sectionId: servicesId })) },
         error: (err) => console.log(err),
         complete: () => {
           this.messageSuccess = 'La categorie supprimmer';
-          this.getCategories();
         },
       });
     }
@@ -71,17 +79,15 @@ export class CreateCategoryComponent implements OnInit {
 
   onSubmit() {
     if (this.form.valid) {
-      console.log(this.form.value);
-
       const name = this.form.value.name;
 
+      // Requête POST pour une section
       this.sectionService.addSection({ name: name }).subscribe({
-        next: (data) => {},
+        // Si la requête passe avec succès je dispatch ma section créer au store
+        next: (data) => { this.store.dispatch(SectionActions.addSection({ section: data })) },
         error: (err) => (this.messageSuccess = err.statusText),
       });
-
       this.form.reset();
-      this.getCategories();
     }
   }
 }

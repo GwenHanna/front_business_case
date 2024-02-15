@@ -9,7 +9,7 @@ import { BasketService } from './basket.service';
   providedIn: 'root',
 })
 export class PrestationService {
-  time: number = 500;
+  time: number = 350;
   private prestationSubject = new BehaviorSubject({});
   public prestation$ = this.prestationSubject.asObservable();
   private basket: selectionInterface[] = [];

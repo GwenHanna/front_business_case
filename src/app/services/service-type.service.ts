@@ -1,59 +1,82 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { prestationInterface } from '../entities/prestationsInterface';
 import { environment } from 'src/environments/environment.development';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable, catchError, take, tap, throwError } from 'rxjs';
 import { serviceTypesInterface } from '../entities/service_types';
-
+import { Store } from '@ngrx/store';
+import { AppState } from '../store/app.state';
+import { selectServiceTypes } from '../store/selectors/service-type.selector';
+import * as  ServiceTypeActions from '../store/actions/service-types.actions'
 @Injectable({
   providedIn: 'root',
 })
 export class ServiceTypeService {
-  constructor(private http: HttpClient) {}
 
-  // url = 'http://vps206.tyrolium.fr:2022/api';
+  // Instance du service HttpClient qui permet les requêtes HTTP
+  constructor(private http: HttpClient, private store: Store<AppState>) { }
+
+  // URL de l'API pour les types de service
   private apiUrl: string = environment.apiUrl + 'service_types';
-  private apiUrlUri: string = environment.apiUrlUri;
-  private subjectServices = new BehaviorSubject<serviceTypesInterface[]>([]);
-  private subjectServicesTypeUri = new BehaviorSubject<any>(null);
-  public $servicesTypeUri = this.subjectServicesTypeUri.asObservable();
-  public $services = this.subjectServices.asObservable();
 
-  getByUri(uri: string): void {
-    this.fetchByUri(uri).subscribe({
+  // URL de base pour les URI des services
+  private apiUrlUri: string = environment.apiUrlUri;
+
+  // Sujet BehaviorSubject pour émettre les services récupérés
+  private subjectServices = new BehaviorSubject<serviceTypesInterface[]>([]);
+  public services$ = this.subjectServices.asObservable();
+
+  // Sujet BehaviorSubject pour émettre les détails d'un service par URI
+  private subjectServicesTypeUri = new BehaviorSubject<any>(null);
+  public servicesTypeUri$ = this.subjectServicesTypeUri.asObservable();
+
+  // Fonction pour obtenir tous les services
+  getServices() {
+    this.store.select(selectServiceTypes).subscribe({
+      next: (data) => {
+        if (data !== undefined && data.length === 0) {
+          this.fetchAllService().subscribe({
+            next: (serviceTypes) => {
+              this.subjectServices.next(serviceTypes)
+              this.store.dispatch(ServiceTypeActions.setServiceTypes({ serviceTypes: serviceTypes }))
+            },
+            error: (err) => console.log('serviceTypes', err)
+          });
+        } else {
+          this.subjectServices.next(data)
+        }
+      },
+      error: (err) => console.log('data', err)
+    })
+  }
+
+  // Fonction pour obtenir les détails d'un service par son URI
+  getServiceById(id: string): void {
+    this.fetchById(id).subscribe({
       next: (data: any) => this.subjectServicesTypeUri.next(data),
       error: (err) => console.log('err', err),
     });
   }
-  fetchByUri(uri: string) {
-    return this.http.get(`${this.apiUrlUri}${uri}`);
-  }
 
-  getServices() {
-    this.fetchAllService().subscribe({
-      next: (data) => this.subjectServices.next(data),
-    });
-  }
-
+  // Fonction pour effectuer la requête GET pour obtenir tous les services
   fetchAllService() {
     return this.http.get<serviceTypesInterface[]>(this.apiUrl);
   }
 
+  // Fonction pour effectuer la requête GET pour obtenir un service par son ID
   fetchById(id: string) {
     return this.http.get<serviceTypesInterface>(`${this.apiUrl}/${id}`);
   }
-
+  // Fonction pour effectuer la requête DELETE pour supprimer un service
   deleteService(idService: string) {
     return this.http.delete(`${this.apiUrl}/${idService}`);
   }
-  addService(service: serviceTypesInterface) {
-    console.log('service' + service);
+  // Fonction pour effectuer la requête POST pour ajouter un nouveau service
+  addService(service: serviceTypesInterface): Observable<serviceTypesInterface> {
 
     return this.http.post<serviceTypesInterface>(this.apiUrl, service);
   }
+  // Fonction pour effectuer la requête PATCH pour mettre à jour un service
   upDateService(service: serviceTypesInterface, serviceId: number) {
-    console.log(serviceId);
-    
     return this.http.patch<serviceTypesInterface>(`${this.apiUrl}/${serviceId}`, service);
   }
 }

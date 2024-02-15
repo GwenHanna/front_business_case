@@ -3,6 +3,7 @@
   padding-bottom: 20px;
   z-index: 9999999999999999;
   position: relative;
+
 }
 .container-nav-bar {
   display: flex;
@@ -49,6 +50,7 @@
 }
 .container-menu-account {
   justify-content: space-between;
+  height: 100vh
 }
 .container-login,
 .account {
@@ -87,4 +89,23 @@
 }
 .title-h1 {
   width: fit-content;
+}
+.menu-account{
+display: flex;
+flex-direction: column;
+flex-grow: 0.7;
+}
+.item-account{
+  list-style-type: none;
+    color: inherit;
+    text-decoration: none;
+    font-size: 1.2rem;
+    text-transform: capitalize;
+    /* border-bottom: 1px solid black; */
+    width: 100%;
+    border-top: 1px solid var(--backgroundTransparent);
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

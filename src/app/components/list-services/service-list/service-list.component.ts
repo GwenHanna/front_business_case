@@ -6,6 +6,7 @@ import {
   QueryList,
   ViewChildren,
 } from '@angular/core';
+import { PaginatorState } from 'primeng/paginator';
 import { sectionInterface } from 'src/app/entities/sectionInterface';
 import { SectionService } from 'src/app/services/section.service';
 
@@ -15,9 +16,12 @@ import { SectionService } from 'src/app/services/section.service';
   styleUrls: ['./service-list.component.css'],
 })
 export class ServiceListComponent implements OnInit, AfterViewChecked {
+
   @ViewChildren('item') item!: QueryList<ElementRef>;
   sections: sectionInterface[] = [];
   isLoading = false;
+  totalSections: number = 0;  // Le nombre total de sections
+  currentPage: number = 1;
 
   constructor(private sectionsService: SectionService) {}
   ngAfterViewChecked(): void {
@@ -42,6 +46,20 @@ export class ServiceListComponent implements OnInit, AfterViewChecked {
     //     element.nativeElement['__mutationObserver'] = observer;
     //   });
     // }
+  }
+
+  onPageChange(event: any) {
+    // Mettez à jour la page actuelle lorsque l'utilisateur change de page
+    this.currentPage = event.page + 1;
+  }
+
+  getCurrentPageSections(): any[] {
+    const sectionsPerPage = 1; // Nombre de sections par page (paramétrable)
+    const startIndex = this.currentPage - 1 * sectionsPerPage;
+    const endIndex = startIndex + sectionsPerPage;
+  
+    // Extraire les sections pour la page actuelle
+    return this.sections.slice(startIndex, endIndex);
   }
 
   ngOnInit(): void {

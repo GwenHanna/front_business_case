@@ -2,8 +2,13 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment.development';
 import { sectionInterface } from '../entities/sectionInterface';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, catchError, take, tap, throwError } from 'rxjs';
 import { categoryInterface } from '../entities/categoryInterface';
+import { Store } from '@ngrx/store';
+import { AppState } from '../store/app.state';
+import { selectServiceTypes } from '../store/selectors/service-type.selector';
+import * as  SectionActions from '../store/actions/section.actions'
+import { selectSection } from '../store/selectors/section.selector';
 
 @Injectable({
   providedIn: 'root',
@@ -15,15 +20,30 @@ export class SectionService {
     this.sectionsSubject.asObservable();
   token = localStorage.getItem('token');
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private store: Store<AppState>) { }
 
   getSection() {
-    this.fetchAllSection().subscribe({
+    this.store.select(selectSection).subscribe({
       next: (data) => {
-        this.sectionsSubject.next(data);
+        if (data !== undefined && data.length === 0) {
+          console.log(data);
+          this.fetchAllSection().subscribe({
+            next: (sections) => {
+              this.sectionsSubject.next(sections);
+              this.store.dispatch(SectionActions.loadSection({ section: sections }))
+            },
+            error: (err) => console.log('section', err)
+          });
+        } else {
+          this.sectionsSubject.next(data);
+          console.log('SECTION', data);
+        }
       },
+      error: (err) => console.log('data', err)
     });
   }
+
+
   fetchById(idCategory: string) {
     return this.http.get<sectionInterface>(`${this.apiUrl}/${idCategory}`);
   }
@@ -43,8 +63,8 @@ export class SectionService {
     return this.http.delete<sectionInterface>(`${this.apiUrl}/${categoryId}`);
   }
 
-  addSection(name: categoryInterface): Observable<categoryInterface> {
-    return this.http.post(this.apiUrl, name);
+  addSection(name: sectionInterface): Observable<sectionInterface> {
+    return this.http.post(this.apiUrl, name)
   }
 
   fetchAllSection() {

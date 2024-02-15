@@ -46,6 +46,11 @@ import { BorderAnimateDirective } from './directives/border-animate.directive';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ManagementEmployeeComponent } from './components/admin/management-employee/management-employee.component';
 import { UsersListComponent } from './components/users-list/users-list.component';
+import { PaginatorModule } from 'primeng/paginator';
+import { StoreModuleModule } from './store/store-module/store-module.module';
+// import { StoreModule } from '@ngrx/store';
+// import { appReducer } from './store/app.reducer';
+// import { metaReducer } from './store/reducers/service-types.reducer';
 @NgModule({
   declarations: [
     AppComponent,
@@ -90,7 +95,9 @@ import { UsersListComponent } from './components/users-list/users-list.component
     ButtonModule,
     DialogModule,
     MatSliderModule,
-    MatDialogModule
+    MatDialogModule,
+    PaginatorModule,
+    StoreModuleModule
   ],
   providers: [
     AuthInterceptor,
@@ -101,4 +108,4 @@ import { UsersListComponent } from './components/users-list/users-list.component
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

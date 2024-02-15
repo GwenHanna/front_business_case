@@ -13,7 +13,6 @@
             (mouseenter)="onMenuSectionType(section)"
             (mouseleave)="leaveMenuSectionType(section)"
             class="container-item-navbar"
-  
           >
             <!-- Utilisation de la directive ngClass pour injecter la classe removeOverflow si la section est active -->
             <div class="item-navbar">
@@ -59,19 +58,23 @@
           >
             <a class="blockA"> Administration </a>
             <div
-            [@fadeIn]="isToggleAccountAdmin ? 'hovered' : 'initial'"
-            class="menu-after"
-          ></div>
+              [@fadeIn]="isToggleAccountAdmin ? 'hovered' : 'initial'"
+              class="menu-after"
+            ></div>
             <ul
-            [@openClose]="isToggleAccountAdmin ? 'active' : 'in-active'"
-
+              [@openClose]="isToggleAccountAdmin ? 'active' : 'in-active'"
               class="menu-hamburger-navbar"
             >
-            <li (click)="leaveAccount()" class="container-item-service-type">
-              <a  class="item-service-type"  routerLink="/crud-admin">Gestion des services</a>
-            </li>
               <li (click)="leaveAccount()" class="container-item-service-type">
-                <a class="item-service-type" routerLink="/management_employee">Gestion des employées</a>
+                <a class="item-service-type" routerLink="/crud-admin"
+                  >Gestion des services</a
+                >
+              </li>
+              <li (click)="leaveAccount()" class="container-item-service-type">
+                <a class="item-service-type" routerLink="/management_employee"
+                  >Gestion des employées</a
+                >
+              </li>
             </ul>
           </div>
         </li>
@@ -83,51 +86,52 @@
         </button>
         <p><a class="register" routerLink="/register">S'inscrire</a></p>
       </div>
-
-     
+      <div
+        (mouseenter)="onAccount($event)"
+        (mouseleave)="leaveAccount()"
+        *ngIf="isLogin"
+        class="account item-navbar"
+      >
+        <a class="blockA"> Mon compte </a>
         <div
-          (mouseenter)="onAccount($event)"
-          (mouseleave)="leaveAccount()"
-          *ngIf="isLogin"
-          class="account item-navbar"
-        >
-          <a class="blockA"> Mon compte </a>
-          <div
           [@fadeIn]="isToggleMenuAccount ? 'hovered' : 'initial'"
           class="menu-after"
         ></div>
-          <ul
-            [@openClose]="isToggleMenuAccount ? 'active' : 'in-active'"
-            class="menu-compte menu-hamburger-navbar"
-          >
-
+        <ul
+          [@openClose]="isToggleMenuAccount ? 'active' : 'in-active'"
+          class="menu-compte menu-hamburger-navbar"
+        >
           <p class="" (click)="showDialog()">Mon panier</p>
 
-            <!-- <li class="container-item-service-type">
+          <!-- <li class="container-item-service-type">
               <a class="item-service-type" pButton >Mon panier</a>
             </li> -->
-            <li class="container-item-service-type">
-              <a class="item-service-type" routerLink="account">Modifier mon compte</a>
-            </li>
-            <li class="container-item-service-type"><a class="item-service-type" href="">Mes commandes</a></li>
-            <li class="container-item-service-type">
-              <button
-                (click)="logout()"
-                class="text-btn-default btn-primary"
-                id=""
-              >
-                DECONNEXION
-              </button>
-            </li>
-          </ul>
-        </div>
+          <li class="container-item-service-type">
+            <a class="item-service-type" routerLink="account"
+              >Modifier mon compte</a
+            >
+          </li>
+          <li class="container-item-service-type">
+            <a class="item-service-type" href="">Mes commandes</a>
+          </li>
+          <li class="container-item-service-type">
+            <button
+              (click)="logout()"
+              class="text-btn-default btn-primary"
+              id=""
+            >
+              DECONNEXION
+            </button>
+          </li>
+        </ul>
       </div>
     </div>
- 
+  </div>
 </nav>
 <div class="test">
-  <p-dialog [(visible)]="visible" [style]="{width: '22%', height: '99vh'}" [position]="'right'">
-    <app-basket-dialogue (closeModaleEvent)="closeDialogu()"></app-basket-dialogue>
+  <p-dialog [style]="{ width: '22%', height: '99vh' }" [position]="'right'">
+    <app-basket-dialogue
+      (closeModaleEvent)="closeDialogu()"
+    ></app-basket-dialogue>
   </p-dialog>
-
 </div>

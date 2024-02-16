@@ -12,3 +12,8 @@ export const loadSection = createAction(
     '[Section] Set Section',
     props<{ section: sectionInterface[] }>()
 );
+
+export const updateSections = createAction(
+    '[Section] Update of Sections',
+    props<{ section: sectionInterface }>()
+);

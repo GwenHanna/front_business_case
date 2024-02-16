@@ -103,19 +103,18 @@ export class NavBarComponent implements OnInit {
 
 
   refreashSectionService() {
-    this.sectionService.getSection();
-    this.sectionService.$section.subscribe({
-      next: (data) => {
-        // this.sections = data;
-        this.sections = data.map((section) => ({
+    this.sectionService.getSection().subscribe({
+      next: (section) => {
+        console.log('SECTION', section);
+
+        this.sections = section.map((section) => ({
           ...section,
           isActive: false,
-
         }));
-        console.log(this.sections);
       },
     });
   }
+
 
   getBasket() {
     return this.basketService.getPrestation().subscribe({

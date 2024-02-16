@@ -9,6 +9,7 @@ import { AppState } from 'src/app/store/app.state';
 import { selectServiceTypes } from 'src/app/store/selectors/service-type.selector';
 
 import * as  ServiceTypeActions from 'src/app/store/actions/service-types.actions'
+import * as  SectionActions from 'src/app/store/actions/section.actions'
 
 
 @Component({
@@ -62,20 +63,16 @@ export class CreateServiceComponent implements OnInit {
   getService() {
 
     // Appel de la méthode getServices() du service ServiceTypeService
-    this.serviceTypesService.getServices();
-    // Souscription à l'observable services$ du service ServiceTypeService
-    this.serviceTypesService.services$.subscribe({
+    this.serviceTypesService.getServices().subscribe({
       // Fonction appelée lorsqu'une nouvelle valeur est émise par l'observable
-      next: (services) => {
-        (this.servicesTypes = services)
-        const selectedTypes = this.store.select(selectServiceTypes).subscribe({
-          next: (data) => console.log(data)
-        });
+      next: (data) => {
+        this.servicesTypes = data
       },
       // Fonction appelée en cas d'erreur pendant la récupération des services
       error: (err) => console.log(err),
     });
   }
+
   // Fonction pour supprimer un service
   deleteService(servicesId: number | undefined) {
     const id: string = '' + servicesId;
@@ -85,16 +82,19 @@ export class CreateServiceComponent implements OnInit {
         error: (err) => console.log(err),
         complete: () => {
           this.messageSuccess = 'Service supprimer';
-
         },
       });
+
   }
   // Fonction pour ajouter un service
   addService() {
+
     // Vérification de la validité du formulaire
     if (this.form.valid) {
+
       // Récupération de l'ID de la section sélectionnée dans le formulaire
       const sectionId = this.form.get('section')?.value;
+
       // Extraction des noms de fichiers à partir des chemins complets du formulaire
       const pathPicture = this.form
         .get('picture')
@@ -117,6 +117,8 @@ export class CreateServiceComponent implements OnInit {
           // Fonction appelée en cas de succès de la requête
           this.messageSuccess = 'Service ajouté avec succès';
           this.store.dispatch(ServiceTypeActions.addServiceType({ serviceType: data }))
+          if (data.section)
+            this.store.dispatch(SectionActions.updateSections({ section: data.section }))
         },
         error: (err) => {
           console.error(err);
@@ -168,8 +170,7 @@ export class CreateServiceComponent implements OnInit {
 
   // Fonction pour obtenir les catégories de section
   getCategoriesSection() {
-    this.sectionService.getSection();
-    this.sectionService.$section.subscribe({
+    this.sectionService.getSection().subscribe({
       next: (categories) => {
         this.categorySection = categories;
         console.log('cat', categories);

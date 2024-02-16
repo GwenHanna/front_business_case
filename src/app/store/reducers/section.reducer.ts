@@ -6,6 +6,7 @@ export const initialState: SectionState = {
     section: []
 }
 
+
 export const sectionReducer = createReducer(
     initialState,
     on(SectionActions.addSection, (state, { section }) => ({
@@ -25,5 +26,5 @@ export const sectionReducer = createReducer(
             ...state,
             section: section,
         }
-    })
+    }),
 );

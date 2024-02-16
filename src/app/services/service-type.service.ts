@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment.development';
-import { BehaviorSubject, Observable, catchError, take, tap, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, catchError, of, switchMap, take, tap, throwError } from 'rxjs';
 import { serviceTypesInterface } from '../entities/service_types';
 import { Store } from '@ngrx/store';
 import { AppState } from '../store/app.state';
@@ -29,24 +29,28 @@ export class ServiceTypeService {
   private subjectServicesTypeUri = new BehaviorSubject<any>(null);
   public servicesTypeUri$ = this.subjectServicesTypeUri.asObservable();
 
-  // Fonction pour obtenir tous les services
-  getServices() {
-    this.store.select(selectServiceTypes).subscribe({
-      next: (data) => {
+  // Fonction pour obtenir tous les type de service services
+  getServices(): Observable<any> {
+    return this.store.select(selectServiceTypes).pipe(
+      // Utilisation de switchMap pour gérer les observables imbriqués
+      switchMap(data => {
         if (data !== undefined && data.length === 0) {
-          this.fetchAllService().subscribe({
-            next: (serviceTypes) => {
-              this.subjectServices.next(serviceTypes)
-              this.store.dispatch(ServiceTypeActions.setServiceTypes({ serviceTypes: serviceTypes }))
-            },
-            error: (err) => console.log('serviceTypes', err)
-          });
+          // Si les données sont absentes ou vides, je fait une requête asynchrone pour les récupérer
+          return this.fetchAllService().pipe(
+            // Utilisation de tap pour effectuer une action sans affecter le flux principal
+            tap(serviceTypes => this.store.dispatch(ServiceTypeActions.setServiceTypes({ serviceTypes })))
+          );
         } else {
-          this.subjectServices.next(data)
+          // Si les données sont déjà présentes, retournez-les directement
+          return of(data);
         }
-      },
-      error: (err) => console.log('data', err)
-    })
+      }),
+      // Utilisation de catchError pour gérer les erreurs éventuelles
+      catchError(err => {
+        console.error('Erreur lors de la récupération des services', err);
+        return err;
+      })
+    );
   }
 
   // Fonction pour obtenir les détails d'un service par son URI

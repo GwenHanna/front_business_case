@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment.development';
 import { sectionInterface } from '../entities/sectionInterface';
-import { BehaviorSubject, Observable, catchError, take, tap, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, catchError, of, switchMap, take, tap, throwError } from 'rxjs';
 import { categoryInterface } from '../entities/categoryInterface';
 import { Store } from '@ngrx/store';
 import { AppState } from '../store/app.state';
@@ -22,25 +22,18 @@ export class SectionService {
 
   constructor(private http: HttpClient, private store: Store<AppState>) { }
 
-  getSection() {
-    this.store.select(selectSection).subscribe({
-      next: (data) => {
-        if (data !== undefined && data.length === 0) {
-          console.log(data);
-          this.fetchAllSection().subscribe({
-            next: (sections) => {
-              this.sectionsSubject.next(sections);
-              this.store.dispatch(SectionActions.loadSection({ section: sections }))
-            },
-            error: (err) => console.log('section', err)
-          });
+  getSection(): Observable<sectionInterface[]> {
+    return this.store.select(selectSection).pipe(
+      switchMap(sections => {
+        if (sections !== undefined && sections.length === 0) {
+          return this.fetchAllSection().pipe(
+            tap(sections => this.store.dispatch(SectionActions.loadSection({ section: sections })))
+          )
         } else {
-          this.sectionsSubject.next(data);
-          console.log('SECTION', data);
+          return of(sections)
         }
-      },
-      error: (err) => console.log('data', err)
-    });
+      })
+    )
   }
 
 

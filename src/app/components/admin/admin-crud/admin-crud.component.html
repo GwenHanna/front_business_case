@@ -6,12 +6,16 @@
   ></app-create-article> -->
 </div>
 <div>
+
+  <!-- Evenement au click -->
   <h4 (click)="toggleClass('services')">services</h4>
+  <!-- ngClass attribue dynamiquement la classe "active" -->
   <app-create-service
     [ngClass]="{ active: crudService.$isActiveServices | async }"
     class="services"
   ></app-create-service>
 </div>
+
 <div>
   <h4 (click)="toggleClass('categories')">categories</h4>
   <app-create-category

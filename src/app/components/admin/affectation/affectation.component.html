@@ -1,16 +1,36 @@
 <div class="">
-  <h3>COMANNDE</h3>
-  <div *ngFor="let order of orders" class="card mb-3" style="max-width: 540px">
-    <div class="row g-0">
+  <h3>COMMANDES</h3>
+  <div
+    *ngFor="let order of orders; let i = index"
+    class="card mb-3"
+    style="max-width: 540px"
+  >
+    <div *ngIf="order.status === 'En attente'" class="row g-0">
       <div class="col-md-8">
         <div class="card-body">
           <h5 class="card-title">Commande N° {{ order.id }}</h5>
           <p class="card-text">Statut : {{ order.status }}</p>
           <p class="card-text">Date de dépôt : {{ order.depotDate }}</p>
-          <p class="card-text">Statut : {{ order.status }}</p>
+          <form [formGroup]="form">
+            <div formArrayName="orders">
+              <div [formGroupName]="i">
+                <div>
+                  <label>Assigner à :</label>
+                  <select formControlName="user">
+                    <option
+                      *ngFor="let user of users | employeeFilter; let j = index"
+                      [ngValue]="user.id"
+                    >
+                      {{ user.firstname }} _ {{ j }}
+                    </option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </form>
         </div>
       </div>
     </div>
   </div>
-  
+  <button (click)="onSubmit()" class="btn-text-default">Confirmer</button>
 </div>

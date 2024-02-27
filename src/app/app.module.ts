@@ -48,6 +48,7 @@ import { ManagementEmployeeComponent } from './components/admin/management-emplo
 import { UsersListComponent } from './components/users-list/users-list.component';
 import { PaginatorModule } from 'primeng/paginator';
 import { StoreModuleModule } from './store/store-module/store-module.module';
+import { EmployeeFilterPipe } from './pipes/employee-filter.pipe';
 // import { StoreModule } from '@ngrx/store';
 // import { appReducer } from './store/app.reducer';
 // import { metaReducer } from './store/reducers/service-types.reducer';
@@ -83,6 +84,7 @@ import { StoreModuleModule } from './store/store-module/store-module.module';
     BorderAnimateDirective,
     ManagementEmployeeComponent,
     UsersListComponent,
+    EmployeeFilterPipe,
   ],
   imports: [
     BrowserModule,

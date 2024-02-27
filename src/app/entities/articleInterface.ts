@@ -1,12 +1,8 @@
 import { categoryInterface } from './categoryInterface';
+import { OrdersInterface } from './orders-interface';
 
 export interface articleInterface {
   id: number;
-  name: string;
-  description: string;
-  state?: string;
-  price: number;
-  category: categoryInterface;
-  picture?: string;
-  services?: string;
+  order: OrdersInterface
+
 }

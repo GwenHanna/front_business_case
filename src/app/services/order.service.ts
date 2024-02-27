@@ -14,4 +14,8 @@ export class OrderService {
   getAllOrder() {
     return this.http.get<OrdersInterface[]>(this.apiUrl);
   }
+
+  patchOrder(updateOrders: any) {
+    return this.http.patch<OrdersInterface>(this.apiUrl, updateOrders);
+  }
 }

@@ -60,7 +60,7 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.form.value.role);
+    console.log(this.form.valid);
     let formData: RegisterForm;
 
     if (this.form.valid) {
@@ -73,7 +73,6 @@ export class RegisterComponent implements OnInit {
         formData = {
           ...this.form.value,
         };
-        console.log(formData);
       }
       this.userService.addUser(formData).subscribe({
         next: (data) => {

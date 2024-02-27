@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ArticleService } from '../../services/serviceArticle.service';
+import { ServiceTypeService } from '../../services/serviceArticle.service';
 import { articleInterface } from '../../entities/articleInterface';
 import { serviceInterface } from 'src/app/entities/serviceInterface';
 
@@ -11,7 +11,7 @@ import { serviceInterface } from 'src/app/entities/serviceInterface';
 export class ArticleComponent implements OnInit {
   articleList: serviceInterface[] = [];
 
-  constructor(private articleService: ArticleService) {}
+  constructor(private articleService: ServiceTypeService) {}
 
   ngOnInit(): void {
     this.displayArticle();

@@ -11,16 +11,12 @@ import { UserService } from 'src/app/services/user.service';
 
     trigger('openClose', [
       state('close', style({height: '37px'})),
-      state('open', style({ height: '600px' })),
+      state('open', style({ height: '700px' })),
       transition('open <=> close', [animate('900ms ease')]),
     ]),
   ]
 })
 export class ManagementEmployeeComponent implements OnInit {
-
-
-
-
 
   ngOnInit(): void {
     

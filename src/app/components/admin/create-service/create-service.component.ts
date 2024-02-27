@@ -271,7 +271,7 @@ export class CreateServiceComponent implements OnInit {
   }
 
   getServiceUri() {
-    //   this.articleService.$articles.subscribe({
+    //   this.articleService.$serviceType.subscribe({
     //     next: (articles) => (this.articles = articles),
     //     error: (err) => console.log(err),
     //   });

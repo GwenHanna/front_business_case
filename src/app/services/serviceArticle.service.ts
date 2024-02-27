@@ -4,16 +4,17 @@ import { articleInterface } from '../entities/articleInterface';
 import { environment } from 'src/environments/environment.development';
 import { BehaviorSubject, Observable, catchError, of, tap } from 'rxjs';
 import { serviceInterface } from '../entities/serviceInterface';
+import { serviceTypesInterface } from '../entities/service_types';
 
 @Injectable({
   providedIn: 'root',
 })
-export class ArticleService {
+export class ServiceTypeService {
   private apiUrl: string = environment.apiUrl + 'services';
   private apiUrlService: string = environment.apiUrl;
 
-  private subjectArticle = new BehaviorSubject<serviceInterface[]>([]);
-  public $articles = this.subjectArticle.asObservable();
+  private subjectArticle = new BehaviorSubject<serviceTypesInterface[]>([]);
+  public $serviceType = this.subjectArticle.asObservable();
 
   constructor(private http: HttpClient) {}
 
@@ -44,20 +45,20 @@ export class ArticleService {
   // URL_API_ARTICLE = 'http://vps206.tyrolium.fr:2022/api/articles';
 
   fetchById(idArticle: string) {
-    return this.http.get<serviceInterface>(`${this.apiUrl}/${idArticle}`);
+    return this.http.get<serviceTypesInterface>(`${this.apiUrl}/${idArticle}`);
   }
   deleteArticle(idArticle: string) {
     return this.http.delete(`${this.apiUrl}/${idArticle}`);
   }
 
   fetchAllArticle() {
-    return this.http.get<serviceInterface[]>(this.apiUrl);
+    return this.http.get<serviceTypesInterface[]>(this.apiUrl);
   }
 
-  addArticle(article: serviceInterface) {
-    return this.http.post<serviceInterface>(this.apiUrl, article);
+  addArticle(article: serviceTypesInterface) {
+    return this.http.post<serviceTypesInterface>(this.apiUrl, article);
   }
-  upDateArticle(article: serviceInterface, articleId: number) {
-    return this.http.patch<serviceInterface>(`${this.apiUrl}/${articleId}`, article);
+  upDateArticle(article: serviceTypesInterface, articleId: number) {
+    return this.http.patch<serviceTypesInterface>(`${this.apiUrl}/${articleId}`, article);
   }
 }

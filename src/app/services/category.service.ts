@@ -18,6 +18,8 @@ export class CategoryService {
   getCategories() {
     this.fetchAllCategory().subscribe({
       next: (data) => this.categoriesSubject.next(data),
+      error: (err) => console.log(err)
+      
     });
   }
   fetchById(idCategory: string) {

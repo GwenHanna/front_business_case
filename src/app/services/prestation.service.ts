@@ -32,6 +32,7 @@ export class PrestationService {
     const url = `http://localhost:8000/api/services/${id}/pricing?quantity=${quantity}`;
     return this.http.get(url);
   }
+  
   getPriceTotalForArticleService(articleService: serviceInterface) {
     // console.log('articleService', articleService);
     if (this.basket && articleService && articleService.id) {

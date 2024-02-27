@@ -2,11 +2,10 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Observable, Subject, map, takeUntil } from 'rxjs';
 import { BasketService } from 'src/app/services/basket.service';
-import { ArticleService } from 'src/app/services/serviceArticle.service';
+import { ServiceTypeService } from 'src/app/services/serviceArticle.service';
 import { PrestationService } from 'src/app/services/prestation.service';
 import { selectionInterface } from 'src/app/entities/selectionInterface';
 import { serviceInterface } from 'src/app/entities/serviceInterface';
-import { ServiceTypeService } from 'src/app/services/service-type.service';
 
 @Component({
   selector: 'app-prestation',
@@ -24,7 +23,7 @@ export class PrestationComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject<void>();
 
   constructor(
-    private articleService: ArticleService,
+    private articleService: ServiceTypeService,
     private basketService: BasketService,
     private prestationService: PrestationService,
     private route: ActivatedRoute,
@@ -54,7 +53,7 @@ export class PrestationComponent implements OnInit, OnDestroy {
 
   refreashPrestation(id: string) {
     this.articleService.getServiceUri(+id);
-    this.articleService.$articles.pipe(takeUntil(this.destroy$)).subscribe({
+    this.articleService.$serviceType.pipe(takeUntil(this.destroy$)).subscribe({
       next: (data) => {
         this.prestations = data;
         this.isLoading = false;

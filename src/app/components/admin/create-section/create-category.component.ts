@@ -4,7 +4,7 @@ import { CategoryService } from '../../../services/category.service';
 import { categoryInterface } from 'src/app/entities/categoryInterface';
 import { SectionService } from 'src/app/services/section.service';
 import { serviceInterface } from 'src/app/entities/serviceInterface';
-import { ArticleService } from 'src/app/services/serviceArticle.service';
+import { ServiceTypeService } from 'src/app/services/serviceArticle.service';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.state';
 import * as  SectionActions from 'src/app/store/actions/section.actions'
@@ -25,7 +25,7 @@ export class CreateCategoryComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private sectionService: SectionService,
-    private articleService: ArticleService,
+    private articleService: ServiceTypeService,
     private store: Store<AppState>
 
   ) { }

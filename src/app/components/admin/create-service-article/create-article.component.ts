@@ -9,9 +9,8 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { articleInterface } from 'src/app/entities/articleInterface';
 import { categoryInterface } from 'src/app/entities/categoryInterface';
 import { serviceInterface } from 'src/app/entities/serviceInterface';
-import { ArticleService } from 'src/app/services/serviceArticle.service';
+import { ServiceTypeService } from 'src/app/services/serviceArticle.service';
 import { CategoryService } from 'src/app/services/category.service';
-import { ServiceTypeService } from 'src/app/services/service-type.service';
 import { map } from 'rxjs';
 import { sectionInterface } from 'src/app/entities/sectionInterface';
 import { SectionService } from 'src/app/services/section.service';
@@ -42,9 +41,8 @@ export class CreateArticleComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private articleService: ArticleService,
+    private articleService: ServiceTypeService,
     private categoryService: CategoryService,
-    private servicesService: ServiceTypeService,
     private sectionService: SectionService
   ) { }
   ngOnInit(): void {
@@ -55,8 +53,8 @@ export class CreateArticleComponent implements OnInit {
   }
 
   getServiceType() {
-    this.servicesService.getServices();
-    this.servicesService.services$.subscribe({
+    this.articleService.getServices();
+    this.articleService.$serviceType.subscribe({
       next: (data) => {
         this.serviceTypes = data
       },
@@ -160,7 +158,7 @@ export class CreateArticleComponent implements OnInit {
 
   getServices() {
     this.articleService.getServices();
-    this.articleService.$articles.subscribe({
+    this.articleService.$serviceType.subscribe({
       next: (articles) => {
         this.services = articles;
         console.log(this.services);

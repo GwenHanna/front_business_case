@@ -30,6 +30,7 @@ export class BasketDialogueComponent implements OnInit {
           if (serviceType) {
             if (!acc[serviceType]) {
               acc[serviceType] = [];
+              console.log(acc[serviceType]);
             }
 
             acc[serviceType].push(item);
@@ -42,18 +43,21 @@ export class BasketDialogueComponent implements OnInit {
         this.prestationData = Object.values(test);
         console.log(this.servicesTypes);
         console.log(this.prestationData);
+        this.servicesTypes.forEach((type: string) => {
+          this.stateMenuServiceTyype[type] = true;
+        });
       },
       error: (err) => console.log('err', err),
     });
   }
 
-  closeModale(){
-    this.closeModaleEvent.emit()
+  closeModale() {
+    this.closeModaleEvent.emit();
   }
   toggleMenuBasket(serviceType: string) {
     this.stateMenuServiceTyype[serviceType] =
       !this.stateMenuServiceTyype[serviceType];
-    console.log(this.stateMenuServiceTyype[serviceType]);
+    console.log(this.stateMenuServiceTyype);
   }
   emptyBasket() {
     console.log('prestationData', this.prestationData);
@@ -64,5 +68,4 @@ export class BasketDialogueComponent implements OnInit {
     this.router.navigateByUrl('/basket');
     this.closeModale();
   }
-
 }

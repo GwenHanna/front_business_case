@@ -194,7 +194,7 @@ export class NavBarComponent implements OnInit {
     this.visible = !this.visible;
   }
 
-  closeDialogu() {
+  closeDialog() {
     this.visible = false;
   }
 }

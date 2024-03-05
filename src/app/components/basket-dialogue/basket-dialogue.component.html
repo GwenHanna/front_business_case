@@ -12,7 +12,10 @@
       class="basket d-flex justify-content-around w-100"
       *ngFor="let article of prestationData[i]"
     >
-      <div class="d-flex justify-content-between w-100 paragraph-secondary" *ngIf="stateMenuServiceTyype[serviceType]">
+      <div
+        class="d-flex justify-content-between w-100 paragraph-secondary"
+        *ngIf="stateMenuServiceTyype[serviceType]"
+      >
         <div>
           <p>{{ article.quantity }} {{ article.service.name }}</p>
         </div>

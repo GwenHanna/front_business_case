@@ -133,9 +133,11 @@
   </div>
 </nav>
 <div class="test">
-  <p-dialog [style]="{ width: '22%', height: '99vh' }" [position]="'right'">
-    <app-basket-dialogue
-      (closeModaleEvent)="closeDialogu()"
-    ></app-basket-dialogue>
+  <p-dialog
+    [style]="{ width: '22%', height: '99vh' }"
+    [position]="'right'"
+    [(visible)]="visible"
+  >
+    <app-basket-dialogue></app-basket-dialogue>
   </p-dialog>
 </div>

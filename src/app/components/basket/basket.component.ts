@@ -33,7 +33,7 @@ export class BasketComponent implements OnInit {
   constructor(
     private basketService: BasketService,
     private prestationsService: PrestationService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.basketService.basket$.subscribe({
@@ -77,7 +77,7 @@ export class BasketComponent implements OnInit {
     return priceTotal;
   }
 
-  updatePriceTotal() { }
+  updatePriceTotal() {}
 
   upDateQuantity(event: any, article: serviceInterface) {
     return this.prestationsService.upDateQuantity(event, article);
@@ -96,7 +96,7 @@ export class BasketComponent implements OnInit {
   //   this.dialog.nativeElement.close();
   // }
 
-  deleteBasket() { }
+  deleteBasket() {}
 
   submitOrder() {
     console.log(this.baskets);

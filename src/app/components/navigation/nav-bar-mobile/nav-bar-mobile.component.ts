@@ -15,12 +15,12 @@ import { UserInterface } from 'src/app/entities/userInterface';
   styleUrls: ['./nav-bar-mobile.component.css'],
 })
 export class NavBarMobileComponent implements OnInit {
-showDialogu() {
-this.visible = true
-}
-closeDialogu() {
-this.visible = false
-}
+  showDialogu() {
+    this.visible = true;
+  }
+  closeDialog() {
+    this.visible = false;
+  }
   isAdmin: boolean = false;
   isLogin: boolean = false;
   user: UserInterface | undefined;

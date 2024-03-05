@@ -3,8 +3,6 @@ import { CommonModule } from '@angular/common';
 import { StoreModule } from '@ngrx/store';
 import { appReducer, metaReducer } from '../app.reducer';
 
-
-
 @NgModule({
   declarations: [],
   imports: [

@@ -30,8 +30,6 @@ export class AppComponent implements OnInit {
   sections: sectionInterface[] = []
 
   ngOnInit(): void {
-
-
   }
   title = 'app_clean_and_chic';
 

@@ -21,11 +21,12 @@ import * as  SectionActions from 'src/app/store/actions/section.actions'
 // CREATE SERVICE TYPES
 export class CreateServiceComponent implements OnInit {
   constructor(
-    // Injection du service ServiceTypeService
-    private serviceTypesService: ServiceTypeService,
-    private sectionService: SectionService,
     // Injection du FormBuilder pour la gestion des formulaires réactifs
     private fb: FormBuilder,
+    // Injection des différents services 
+    private serviceTypesService: ServiceTypeService,
+    private sectionService: SectionService,
+    // Injection du store
     private store: Store<AppState>
   ) { }
 
@@ -59,7 +60,7 @@ export class CreateServiceComponent implements OnInit {
 
   // C R U D           
 
-  // Fonction pour obtenir les services
+  // Méthode pour obtenir les services
   getService() {
 
     // Appel de la méthode getServices() du service ServiceTypeService
@@ -75,20 +76,22 @@ export class CreateServiceComponent implements OnInit {
 
   // Fonction pour supprimer un service
   deleteService(servicesId: number | undefined) {
+    // Convertir l'ID en chaîne de caractères
     const id: string = '' + servicesId;
+     // Vérifier si l'ID du service est défini
     if (servicesId)
       this.serviceTypesService.deleteService(id).subscribe({
+     // En cas de succès, mettre à jour le state en dispatchant l'action de suppression
         next: (service) => { this.store.dispatch(ServiceTypeActions.deleteServiceType({ serviceTypeId: servicesId })) },
         error: (err) => console.log(err),
+        // Après la suppression réussie, afficher un message de succès
         complete: () => {
           this.messageSuccess = 'Service supprimer';
         },
       });
-
   }
   // Fonction pour ajouter un service
   addService() {
-
     // Vérification de la validité du formulaire
     if (this.form.valid) {
 

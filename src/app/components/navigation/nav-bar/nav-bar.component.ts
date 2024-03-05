@@ -18,7 +18,11 @@ import {
   trigger,
 } from '@angular/animations';
 
-import { MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import {
+  MatDialog,
+  MatDialogModule,
+  MatDialogRef,
+} from '@angular/material/dialog';
 import { Dialog } from 'primeng/dialog';
 import { BasketComponent } from '../../basket/basket.component';
 
@@ -33,9 +37,11 @@ import { BasketComponent } from '../../basket/basket.component';
       state('initial', style({ width: '0%' })),
       state('hovered', style({ width: '100%' })),
       transition('initial => hovered', [
-        animate('0ms', style({ width: '100%' })),
+        animate('300ms ease-in-out', style({ width: '100%' })),
       ]),
-      transition('hovered => initial', [animate('0ms', style({ width: '0%' }))]),
+      transition('hovered => initial', [
+        animate('300ms ease-in-out', style({ width: '0%' })),
+      ]),
     ]),
     trigger('openClose', [
       state(
@@ -56,7 +62,6 @@ import { BasketComponent } from '../../basket/basket.component';
   ],
 })
 export class NavBarComponent implements OnInit {
-
   isAdmin: boolean = false;
   isLogin: boolean = false;
   user: UserInterface | undefined;
@@ -65,6 +70,7 @@ export class NavBarComponent implements OnInit {
   basket: selectionInterface[] = [];
   basketFilter: { [key: string]: { article: string; quantity: number }[] } = {};
   sectionActive: sectionInterface | null = null;
+  state: string = 'initial';
 
   // Variable Menu
   isToggleMenuAccount: boolean = false;
@@ -72,7 +78,6 @@ export class NavBarComponent implements OnInit {
 
   animationState: string = 'initial'; // Initial state
   visible: boolean = false;
-
 
   constructor(
     private authService: AuthService,
@@ -96,11 +101,9 @@ export class NavBarComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
     this.refreashSectionService();
     this.getBasket();
   }
-
 
   refreashSectionService() {
     this.sectionService.getSection().subscribe({
@@ -114,7 +117,6 @@ export class NavBarComponent implements OnInit {
       },
     });
   }
-
 
   getBasket() {
     return this.basketService.getPrestation().subscribe({
@@ -152,6 +154,15 @@ export class NavBarComponent implements OnInit {
   }
 
   // Fonction Evenement
+  onMouseEnter() {
+    this.state = 'hovered';
+    console.log('ok');
+  }
+
+  onMouseLeave() {
+    this.state = 'initial';
+    console.log('ok');
+  }
   onMenuSectionType(section: any) {
     this.animationState = 'hovered';
     this.sectionActive = section;
@@ -163,7 +174,6 @@ export class NavBarComponent implements OnInit {
     this.animationState = 'initial';
     this.sectionActive = null;
     section.isActive = false;
-
   }
   onAccount(event: any) {
     let target = event.target.classList;
@@ -171,10 +181,8 @@ export class NavBarComponent implements OnInit {
 
     console.log(this.isToggleAccountAdmin);
     console.log(this.isToggleMenuAccount);
-    if (target.contains('administration'))
-      this.isToggleAccountAdmin = true;
-    if (target.contains('account'))
-      this.isToggleMenuAccount = true;
+    if (target.contains('administration')) this.isToggleAccountAdmin = true;
+    if (target.contains('account')) this.isToggleMenuAccount = true;
     console.log(target);
   }
   leaveAccount() {
@@ -183,12 +191,10 @@ export class NavBarComponent implements OnInit {
   }
 
   showDialog() {
-    this.visible = !this.visible
+    this.visible = !this.visible;
   }
 
   closeDialogu() {
-    this.visible = false
+    this.visible = false;
   }
 }
-
-

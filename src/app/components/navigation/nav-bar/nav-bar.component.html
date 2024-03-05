@@ -17,7 +17,6 @@
             <!-- Utilisation de la directive ngClass pour injecter la classe removeOverflow si la section est active -->
             <div class="item-navbar">
               <a class="blockA">{{ section.name }}</a>
-
               <div
                 [@fadeIn]="section.isActive ? 'hovered' : 'initial'"
                 class="menu-after"
@@ -42,9 +41,14 @@
           </li>
         </ng-container>
 
-        <li class="container-item-navbar">
+        <li
+          class="container-item-navbar"
+          (mouseenter)="onMouseEnter()"
+          (mouseleave)="onMouseLeave()"
+        >
           <div class="item-navbar">
-            <a class="" routerLink="/">contact</a>
+            <a class="blockA">contact</a>
+            <div [@fadeIn]="state" class="menu-after"></div>
           </div>
         </li>
 

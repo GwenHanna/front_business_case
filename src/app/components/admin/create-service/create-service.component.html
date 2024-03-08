@@ -2,6 +2,12 @@
   <div *ngIf="messageSuccess">
     {{ messageSuccess }}
   </div>
+  <p-dialog
+    [(visible)]="visibleMessageRemove"
+    [style]="{ width: '22%', height: '99vh' }"
+  >
+    <app-confirm-remove-dialog></app-confirm-remove-dialog>
+  </p-dialog>
   <div *ngIf="!isEditor" class="d-flex container-btn">
     <button
       *ngIf="!displayAddService"

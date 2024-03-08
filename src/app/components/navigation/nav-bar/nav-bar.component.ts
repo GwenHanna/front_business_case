@@ -30,7 +30,7 @@ import { BasketComponent } from '../../basket/basket.component';
   selector: 'app-nav-bar',
   templateUrl: './nav-bar.component.html',
   styleUrls: ['./nav-bar.component.css'],
-  providers: [DialogService],
+
   /// animation border ?
   animations: [
     trigger('fadeIn', [

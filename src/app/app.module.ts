@@ -49,6 +49,9 @@ import { UsersListComponent } from './components/users-list/users-list.component
 import { PaginatorModule } from 'primeng/paginator';
 import { StoreModuleModule } from './store/store-module/store-module.module';
 import { EmployeeFilterPipe } from './pipes/employee-filter.pipe';
+import { ConfirmRemoveDialogComponent } from './components/modal/confirm-remove-dialog/confirm-remove-dialog.component';
+import { ConfirmationService } from 'primeng/api';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 // import { StoreModule } from '@ngrx/store';
 // import { appReducer } from './store/app.reducer';
 // import { metaReducer } from './store/reducers/service-types.reducer';
@@ -85,6 +88,7 @@ import { EmployeeFilterPipe } from './pipes/employee-filter.pipe';
     ManagementEmployeeComponent,
     UsersListComponent,
     EmployeeFilterPipe,
+    ConfirmRemoveDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -99,15 +103,17 @@ import { EmployeeFilterPipe } from './pipes/employee-filter.pipe';
     MatSliderModule,
     MatDialogModule,
     PaginatorModule,
-    StoreModuleModule
+    StoreModuleModule,
+    ConfirmDialogModule,
   ],
   providers: [
     AuthInterceptor,
     DialogService,
     BasketService,
+    ConfirmationService,
     provideAnimations(),
     { provide: HTTP_INTERCEPTORS, useClass: ErrorsInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

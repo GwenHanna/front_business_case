@@ -8,9 +8,10 @@ import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.state';
 import { selectServiceTypes } from 'src/app/store/selectors/service-type.selector';
 
-import * as  ServiceTypeActions from 'src/app/store/actions/service-types.actions'
-import * as  SectionActions from 'src/app/store/actions/section.actions'
-
+import * as ServiceTypeActions from 'src/app/store/actions/service-types.actions';
+import * as SectionActions from 'src/app/store/actions/section.actions';
+import { ConfirmationService } from 'primeng/api';
+import { ConfirmRemoveDialogComponent } from '../../modal/confirm-remove-dialog/confirm-remove-dialog.component';
 
 @Component({
   selector: 'app-create-service',
@@ -23,12 +24,13 @@ export class CreateServiceComponent implements OnInit {
   constructor(
     // Injection du FormBuilder pour la gestion des formulaires réactifs
     private fb: FormBuilder,
-    // Injection des différents services 
+    // Injection des différents services
     private serviceTypesService: ServiceTypeService,
     private sectionService: SectionService,
+    private confirmRemove: ConfirmRemoveDialogComponent,
     // Injection du store
     private store: Store<AppState>
-  ) { }
+  ) {}
 
   // Formulaire reactive form
   public form!: FormGroup;
@@ -42,6 +44,7 @@ export class CreateServiceComponent implements OnInit {
   public messageSuccess: string = '';
   public displayAddService: boolean = false;
   public pathSectionUri = 'api/sections/';
+  public visibleMessageRemove: boolean = false;
 
   // Édition de service
   public isEditor: boolean = false;
@@ -52,49 +55,59 @@ export class CreateServiceComponent implements OnInit {
     // Chargement des services
     this.getService();
     const selectedTypes = this.store.select(selectServiceTypes).subscribe({
-      next: (data) => console.log(data)
+      next: (data) => console.log(data),
     });
-
   }
 
-
-  // C R U D           
+  // C R U D
 
   // Méthode pour obtenir les services
   getService() {
-
     // Appel de la méthode getServices() du service ServiceTypeService
     this.serviceTypesService.getServices().subscribe({
       // Fonction appelée lorsqu'une nouvelle valeur est émise par l'observable
       next: (data) => {
-        this.servicesTypes = data
+        this.servicesTypes = data;
       },
       // Fonction appelée en cas d'erreur pendant la récupération des services
       error: (err) => console.log(err),
     });
   }
 
+  show() {
+    this.visibleMessageRemove = true;
+    this.confirmRemove.showConfirmationDialog();
+  }
+
   // Fonction pour supprimer un service
   deleteService(servicesId: number | undefined) {
+    this.show();
+    console.log(this.confirmRemove.test);
+
     // Convertir l'ID en chaîne de caractères
     const id: string = '' + servicesId;
-     // Vérifier si l'ID du service est défini
-    if (servicesId)
-      this.serviceTypesService.deleteService(id).subscribe({
-     // En cas de succès, mettre à jour le state en dispatchant l'action de suppression
-        next: (service) => { this.store.dispatch(ServiceTypeActions.deleteServiceType({ serviceTypeId: servicesId })) },
-        error: (err) => console.log(err),
-        // Après la suppression réussie, afficher un message de succès
-        complete: () => {
-          this.messageSuccess = 'Service supprimer';
-        },
-      });
+    console.log('ok');
+
+    // Vérifier si l'ID du service est défini
+    // if (servicesId)
+    //   this.serviceTypesService.deleteService(id).subscribe({
+    //     // En cas de succès, mettre à jour le state en dispatchant l'action de suppression
+    //     next: (service) => {
+    //       this.store.dispatch(
+    //         ServiceTypeActions.deleteServiceType({ serviceTypeId: servicesId })
+    //       );
+    //     },
+    //     error: (err) => console.log(err),
+    //     // Après la suppression réussie, afficher un message de succès
+    //     complete: () => {
+    //       this.messageSuccess = 'Service supprimer';
+    //     },
+    //   });
   }
   // Fonction pour ajouter un service
   addService() {
     // Vérification de la validité du formulaire
     if (this.form.valid) {
-
       // Récupération de l'ID de la section sélectionnée dans le formulaire
       const sectionId = this.form.get('section')?.value;
 
@@ -119,16 +132,19 @@ export class CreateServiceComponent implements OnInit {
 
           // Fonction appelée en cas de succès de la requête
           this.messageSuccess = 'Service ajouté avec succès';
-          this.store.dispatch(ServiceTypeActions.addServiceType({ serviceType: data }))
+          this.store.dispatch(
+            ServiceTypeActions.addServiceType({ serviceType: data })
+          );
           if (data.section)
-            this.store.dispatch(SectionActions.updateSections({ section: data.section }))
+            this.store.dispatch(
+              SectionActions.updateSections({ section: data.section })
+            );
         },
         error: (err) => {
           console.error(err);
         },
         // Fonction appelée lorsque la requête est complètement traitée
         complete: () => {
-
           // Masquage du formulaire d'ajout
           this.displayAddService = false;
           // Réinitialisation du formulaire
@@ -158,7 +174,9 @@ export class CreateServiceComponent implements OnInit {
       this.serviceTypesService.upDateService(formData, serviceId).subscribe({
         next: (data) => {
           console.log('data', data);
-          this.store.dispatch(ServiceTypeActions.updateServiceType({ serviceType: data }))
+          this.store.dispatch(
+            ServiceTypeActions.updateServiceType({ serviceType: data })
+          );
         },
         error: (err) => console.log('err', err),
         complete: () => {
@@ -170,14 +188,12 @@ export class CreateServiceComponent implements OnInit {
     }
   }
 
-
   // Fonction pour obtenir les catégories de section
   getCategoriesSection() {
     this.sectionService.getSection().subscribe({
       next: (categories) => {
         this.categorySection = categories;
         console.log('cat', categories);
-
       },
       error: (err) => console.log(err),
     });
@@ -218,13 +234,11 @@ export class CreateServiceComponent implements OnInit {
     });
   }
 
-
   // Fonction pour basculer l'affichage du formulaire d'ajout de service
   toggleAddService() {
     this.displayAddService = !this.displayAddService;
     this.getCategoriesSection();
     this.form = this.formBuilder();
-
   }
   // Fonction pour afficher le formulaire de mise à jour
   showUpDate(servicesId: number | undefined) {

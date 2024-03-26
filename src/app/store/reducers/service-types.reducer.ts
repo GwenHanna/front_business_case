@@ -1,4 +1,4 @@
-import { ActionReducer, MetaReducer, createReducer, on } from '@ngrx/store';
+import { createReducer, on } from '@ngrx/store';
 import { ServiceTypesState } from '../states/service-types.state';
 import * as ServiceTypeActions from '../actions/service-types.actions';
 

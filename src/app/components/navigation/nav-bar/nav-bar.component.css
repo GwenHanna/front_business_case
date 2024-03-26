@@ -112,7 +112,7 @@ ul {
   bottom: 0;
   left: 0;
   height: 3px;
-  background-color: #019fb6;
+  background-color: var(--primary-second);
   width: 0;
   z-index: 999;
 }

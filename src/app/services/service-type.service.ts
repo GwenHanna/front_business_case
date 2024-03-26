@@ -1,19 +1,27 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment.development';
-import { BehaviorSubject, Observable, catchError, of, switchMap, take, tap, throwError } from 'rxjs';
+import {
+  BehaviorSubject,
+  Observable,
+  catchError,
+  of,
+  switchMap,
+  take,
+  tap,
+  throwError,
+} from 'rxjs';
 import { serviceTypesInterface } from '../entities/service_types';
 import { Store } from '@ngrx/store';
 import { AppState } from '../store/app.state';
 import { selectServiceTypes } from '../store/selectors/service-type.selector';
-import * as  ServiceTypeActions from '../store/actions/service-types.actions'
+import * as ServiceTypeActions from '../store/actions/service-types.actions';
 @Injectable({
   providedIn: 'root',
 })
 export class ServiceTypeService {
-
   // Instance du service HttpClient qui permet les requêtes HTTP
-  constructor(private http: HttpClient, private store: Store<AppState>) { }
+  constructor(private http: HttpClient, private store: Store<AppState>) {}
 
   // URL de l'API pour les types de service
   private apiUrl: string = environment.apiUrl + 'service_types';
@@ -33,12 +41,16 @@ export class ServiceTypeService {
   getServices(): Observable<any> {
     return this.store.select(selectServiceTypes).pipe(
       // Utilisation de switchMap pour gérer les observables imbriqués
-      switchMap(data => {
+      switchMap((data) => {
         if (data !== undefined && data.length === 0) {
           // Si les données sont absentes ou vides, je fait une requête asynchrone pour les récupérer
           return this.fetchAllService().pipe(
             // Utilisation de tap pour effectuer une action sans affecter le flux principal
-            tap(serviceTypes => this.store.dispatch(ServiceTypeActions.setServiceTypes({ serviceTypes })))
+            tap((serviceTypes) =>
+              this.store.dispatch(
+                ServiceTypeActions.setServiceTypes({ serviceTypes })
+              )
+            )
           );
         } else {
           // Si les données sont déjà présentes, retournez-les directement
@@ -46,7 +58,7 @@ export class ServiceTypeService {
         }
       }),
       // Utilisation de catchError pour gérer les erreurs éventuelles
-      catchError(err => {
+      catchError((err) => {
         console.error('Erreur lors de la récupération des services', err);
         return err;
       })
@@ -75,12 +87,16 @@ export class ServiceTypeService {
     return this.http.delete(`${this.apiUrl}/${idService}`);
   }
   // Fonction pour effectuer la requête POST pour ajouter un nouveau service
-  addService(service: serviceTypesInterface): Observable<serviceTypesInterface> {
-
+  addService(
+    service: serviceTypesInterface
+  ): Observable<serviceTypesInterface> {
     return this.http.post<serviceTypesInterface>(this.apiUrl, service);
   }
   // Fonction pour effectuer la requête PATCH pour mettre à jour un service
   upDateService(service: serviceTypesInterface, serviceId: number) {
-    return this.http.patch<serviceTypesInterface>(`${this.apiUrl}/${serviceId}`, service);
+    return this.http.patch<serviceTypesInterface>(
+      `${this.apiUrl}/${serviceId}`,
+      service
+    );
   }
 }

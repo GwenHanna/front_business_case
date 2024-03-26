@@ -210,6 +210,8 @@ line-height: normal;
   text-transform: uppercase;
   letter-spacing: 1px;
   font-weight: 500;
+  width: 50%;
+  max-width: 290px;
 }
 .btn-primary-active,
 .btn-primary:hover {

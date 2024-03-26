@@ -59,6 +59,9 @@ export class ServiceTypeService {
     return this.http.post<serviceTypesInterface>(this.apiUrl, article);
   }
   upDateArticle(article: serviceTypesInterface, articleId: number) {
-    return this.http.patch<serviceTypesInterface>(`${this.apiUrl}/${articleId}`, article);
+    return this.http.patch<serviceTypesInterface>(
+      `${this.apiUrl}/${articleId}`,
+      article
+    );
   }
 }

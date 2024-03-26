@@ -16,11 +16,10 @@ import { SectionService } from 'src/app/services/section.service';
   styleUrls: ['./service-list.component.css'],
 })
 export class ServiceListComponent implements OnInit, AfterViewChecked {
-
   @ViewChildren('item') item!: QueryList<ElementRef>;
   sections: sectionInterface[] = [];
   isLoading = false;
-  totalSections: number = 0;  // Le nombre total de sections
+  totalSections: number = 0; // Le nombre total de sections
   currentPage: number = 1;
 
   constructor(private sectionsService: SectionService) {}
@@ -57,7 +56,7 @@ export class ServiceListComponent implements OnInit, AfterViewChecked {
     const sectionsPerPage = 1; // Nombre de sections par page (paramétrable)
     const startIndex = this.currentPage - 1 * sectionsPerPage;
     const endIndex = startIndex + sectionsPerPage;
-  
+
     // Extraire les sections pour la page actuelle
     return this.sections.slice(startIndex, endIndex);
   }
@@ -68,14 +67,14 @@ export class ServiceListComponent implements OnInit, AfterViewChecked {
   }
 
   refreachService() {
-    this.sectionsService.getSection();
-    this.sectionsService.$section.subscribe({
-      next: (data) => {
-        console.log(data);
-        data.forEach((element) =>
-          console.log('element', element.serviceTypes?.length)
-        );
-        this.sections = data;
+    this.sectionsService.getSection().subscribe({
+      next: (section) => {
+        console.log('SECTION', section);
+
+        this.sections = section.map((section) => ({
+          ...section,
+          isActive: false,
+        }));
         this.isLoading = false;
       },
       error: (err) => console.log(err),

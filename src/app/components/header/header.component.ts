@@ -9,6 +9,7 @@ import { ResponsiveService } from 'src/app/services/responsive.service';
 export class HeaderComponent {
   isHandset!: boolean;
   isTablet!: boolean;
+  isMedium!: boolean;
 
   constructor(private reponsiveService: ResponsiveService) {
     this.reponsiveService.isHandset.subscribe({
@@ -16,6 +17,9 @@ export class HeaderComponent {
     });
     reponsiveService.isTablet.subscribe({
       next: (data) => (this.isTablet = data),
+    });
+    reponsiveService.isMedium.subscribe({
+      next: (data) => (this.isMedium = data),
     });
   }
 }

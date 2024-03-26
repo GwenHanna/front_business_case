@@ -1,5 +1,9 @@
 <div class="container-header">
-  <div class="header">
+  <div
+    [ngClass]="isMedium ? 'isMedium' : 'header'"
+    class=""
+    [style]="isTablet || isMedium ? 'width: 100%' : 'width: 50%'"
+  >
     <div class="header-title">
       <h1 class="title-h1">clean & chic</h1>
       <h2 class="title-h2">pressing</h2>
@@ -15,7 +19,10 @@
       nos services
     </button>
   </div>
-  <div [ngClass]="{ addDisplayNone: isHandset || isTablet }" class="header-img">
+  <!-- <div
+    [ngClass]="{ addDisplayNone: isHandset || isTablet || isMedium }"
+    class="header-img"
+  >
     <img src="../../../assets/articles/header.jpg" alt="" />
-  </div>
+  </div> -->
 </div>

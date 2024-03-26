@@ -18,14 +18,13 @@ export class ServiceListMobileComponent implements OnInit {
   }
 
   refreachService() {
-    this.sectionsService.getSection();
-    this.sectionsService.$section.subscribe({
-      next: (data) => {
-        console.log(data);
-        data.forEach((element) =>
+    this.sectionsService.getSection().subscribe({
+      next: (section) => {
+        console.log(section);
+        section.forEach((element) =>
           console.log('element', element.serviceTypes?.length)
         );
-        this.sections = data;
+        this.sections = section;
         this.isLoading = false;
       },
       error: (err) => console.log(err),

@@ -6,6 +6,7 @@ import { ServiceTypeService } from 'src/app/services/serviceArticle.service';
 import { PrestationService } from 'src/app/services/prestation.service';
 import { selectionInterface } from 'src/app/entities/selectionInterface';
 import { serviceInterface } from 'src/app/entities/serviceInterface';
+import { SectionService } from 'src/app/services/section.service';
 
 @Component({
   selector: 'app-prestation',
@@ -16,7 +17,7 @@ export class PrestationComponent implements OnInit, OnDestroy {
   // Type de prestation ????
   prestations: any = [];
   isLoading = false;
-  serviceName: string = '';
+  serviceName: string | undefined = '';
   idPrestation$ = new Observable();
   // basket ? ou selectionBasket ??????????
   basket: selectionInterface[] = [];
@@ -41,10 +42,10 @@ export class PrestationComponent implements OnInit, OnDestroy {
     this.idPrestation$.pipe(takeUntil(this.destroy$)).subscribe({
       next: (data: any) => {
         this.refreashPrestation(data);
-        // console.log(data);
+        console.log('data', data);
         this.serviceTypeService.fetchById(data).subscribe({
-          next: (serviceType) => {
-            this.serviceName = serviceType.name;
+          next: (service) => {
+            this.serviceName = service.name;
           },
         });
       },

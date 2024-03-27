@@ -1,4 +1,3 @@
-
 <nav class="nav-bar">
   <div class="container-nav-bar">
     <div class="btn-menu" (click)="toggleMenu()">
@@ -58,12 +57,19 @@
       </div>
 
       <div *ngIf="isLogin" class="btns account">
-  
         <h5 class="title-mobile-onglet">Mon Compte</h5>
         <ul class="menu-account">
-          <li class="item-account" (click)="updateAccount()">modifier mon compte</li>
+          <li class="item-account" (click)="updateAccount()">
+            modifier mon compte
+          </li>
           <li class="item-account">mes commandes</li>
-          <li class="item-account" routerLink="/basket" (click)="toggleMenuCompte()">mon panier</li>
+          <li
+            class="item-account"
+            routerLink="/basket"
+            (click)="toggleMenuCompte()"
+          >
+            mon panier
+          </li>
           <li class="item-account">
             <button
               (click)="logout()"
@@ -80,9 +86,6 @@
     <div class="logo">
       <h1 class="title-h1 mobile">Clean&Chic</h1>
     </div>
-
-
-
 
     <div class="container-account" (click)="toggleMenuCompte()">
       <svg
@@ -122,65 +125,65 @@
         </div>
       </div>
       <ul class="menu-nav-bar">
-               <!--ADMINISTRATION-->
+        <!--ADMINISTRATION-->
 
-               <li class="container-item-navbar" *ngIf="isAdmin && isLogin">
-                <div
-                  (click)="onAccount($event)"
-                  (mouseleave)="leaveAccount()"
-                  class="item-navbar administration"
-                  [ngClass]="{
-                    isOverflow: isToggleAccountAdmin
-                  }"
+        <li class="container-item-navbar" *ngIf="isAdmin && isLogin">
+          <div
+            (click)="onAccount($event)"
+            (mouseleave)="leaveAccount()"
+            class="item-navbar administration"
+            [ngClass]="{
+              isOverflow: isToggleAccountAdmin
+            }"
+          >
+            <a class="title-h3"> Administration </a>
+
+            <ul
+              [ngClass]="{
+                'in-active': !isToggleAccountAdmin,
+                active: isToggleAccountAdmin
+              }"
+              class="menu-hamburger-navbar active"
+            >
+              <li>
+                <a class="container-item-service-type" routerLink="/register"
+                  >Ajouter Employée</a
                 >
-                  <a class="title-h3"> Administration </a>
-      
-                  <ul
-                    [ngClass]="{
-                      'in-active': !isToggleAccountAdmin,
-                      active: isToggleAccountAdmin
-                    }"
-                    class="menu-hamburger-navbar active"
-                  >
-                    <li>
-                      <a class="container-item-service-type" routerLink="/register"
-                        >Ajouter Employée</a
-                      >
-                    </li>
-                    <li>
-                      <a class="container-item-service-type" routerLink="/assign"
-                        >Affectation</a
-                      >
-                    </li>
-                    <li>
-                      <a class="container-item-service-type" routerLink="/crud-admin"
-                        >CRUD</a
-                      >
-                    </li>
-                    <li>
-                      <a class="container-item-service-type" routerLink="/article"
-                        >Article</a
-                      >
-                    </li>
-                    <li>
-                      <a class="container-item-service-type" routerLink="/service"
-                        >Service</a
-                      >
-                    </li>
-                    <li>
-                      <a class="container-item-service-type" routerLink="/category"
-                        >Catégorie</a
-                      >
-                    </li>
-                  </ul>
-                </div>
               </li>
+              <li>
+                <a class="container-item-service-type" routerLink="/assign"
+                  >Affectation</a
+                >
+              </li>
+              <li>
+                <a class="container-item-service-type" routerLink="/crud-admin"
+                  >CRUD</a
+                >
+              </li>
+              <li>
+                <a class="container-item-service-type" routerLink="/article"
+                  >Article</a
+                >
+              </li>
+              <li>
+                <a class="container-item-service-type" routerLink="/service"
+                  >Article</a
+                >
+              </li>
+              <li>
+                <a class="container-item-service-type" routerLink="/category"
+                  >Catégorie</a
+                >
+              </li>
+            </ul>
+          </div>
+        </li>
         <div class="item-navbar">
           <a class="title-mobile" routerLink="/" (click)="toggleMenu()"
             >accueil</a
           >
         </div>
-        
+
         <!-- Ajout du ng-container pour l'évenement du hover -->
         <ng-container *ngFor="let section of sections">
           <!-- Ici j'utilise des évenements du DOM -->
@@ -226,8 +229,6 @@
             >
           </div>
         </li>
-
- 
       </ul>
     </div>
   </div>

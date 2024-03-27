@@ -1,4 +1,3 @@
-
 <div class="articles">
   <div *ngIf="messageSuccess">
     {{ messageSuccess }}
@@ -24,46 +23,50 @@
 
   <div *ngIf="!isEditor && !displayAddArticle" class="card mb-3 gap-3">
     <div *ngFor="let article of services" class="row g-0 item-comtainer">
-
-
-<table>
-  <thead>
-   <tr>
-    <th></th>
-    <th>Type de Service </th>
-    <th>Service </th>
-    <th>Prix </th>
-    <th>Modifier </th>
-    <th>Suprimmer </th>
-   </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td> <img
-        class="w-30"
-        [src]="pathPicture + article.picture"
-        [alt]="article.name"
-      /></td>
-      <td>{{ article.serviceType?.name }}</td>
-      <td>{{ article.name }}</td>
-      <td>{{ article.price }}</td>
-      <td><p class="link-up-date" (click)="showUpDate(article.id)">
-        Modifier article
-      </p></td>
-      <td> <span (click)="deleteArticle(article.id)" class="delete"><svg
-        width="25px"
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 24 24"
-      >
-        <title>delete</title>
-        <path
-          d="M17 4V6H3V4H6.5L7.5 3H12.5L13.5 4H17M4 19V7H16V19C16 20.1 15.1 21 14 21H6C4.9 21 4 20.1 4 19M19 15H21V17H19V15M19 7H21V13H19V7Z"
-        /></svg></span> </td>
-    </tr>
-  </tbody>
-</table>
-
-
+      <table>
+        <thead>
+          <tr>
+            <th></th>
+            <th>Type de Article</th>
+            <th>Article</th>
+            <th>Prix</th>
+            <th>Modifier</th>
+            <th>Suprimmer</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <img
+                class="w-30"
+                [src]="pathPicture + article.picture"
+                [alt]="article.name"
+              />
+            </td>
+            <td>{{ article.serviceType?.name }}</td>
+            <td>{{ article.name }}</td>
+            <td>{{ article.price }}</td>
+            <td>
+              <p class="link-up-date" (click)="showUpDate(article.id)">
+                Modifier article
+              </p>
+            </td>
+            <td>
+              <span (click)="deleteArticle(article.id)" class="delete"
+                ><svg
+                  width="25px"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                >
+                  <title>delete</title>
+                  <path
+                    d="M17 4V6H3V4H6.5L7.5 3H12.5L13.5 4H17M4 19V7H16V19C16 20.1 15.1 21 14 21H6C4.9 21 4 20.1 4 19M19 15H21V17H19V15M19 7H21V13H19V7Z"
+                  /></svg
+              ></span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
   <div>
@@ -85,7 +88,9 @@
       <form
         *ngIf="isEditor || displayAddArticle"
         [formGroup]="formAddArticle"
-        (ngSubmit)="displayAddArticle ? addArticle() : upDateArticle(formAddArticle.value)"
+        (ngSubmit)="
+          displayAddArticle ? addArticle() : upDateArticle(formAddArticle.value)
+        "
       >
         <div class="mb-3 article-name">
           <label for="article" class="form-label">name</label>

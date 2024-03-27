@@ -100,7 +100,7 @@ export class CreateServiceComponent implements OnInit {
     //     error: (err) => console.log(err),
     //     // Après la suppression réussie, afficher un message de succès
     //     complete: () => {
-    //       this.messageSuccess = 'Service supprimer';
+    //       this.messageSuccess = 'Article supprimer';
     //     },
     //   });
   }
@@ -131,7 +131,7 @@ export class CreateServiceComponent implements OnInit {
           console.log(data);
 
           // Fonction appelée en cas de succès de la requête
-          this.messageSuccess = 'Service ajouté avec succès';
+          this.messageSuccess = 'Article ajouté avec succès';
           this.store.dispatch(
             ServiceTypeActions.addServiceType({ serviceType: data })
           );

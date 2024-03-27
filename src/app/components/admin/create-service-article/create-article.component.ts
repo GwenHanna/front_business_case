@@ -9,12 +9,12 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { articleInterface } from 'src/app/entities/articleInterface';
 import { categoryInterface } from 'src/app/entities/categoryInterface';
 import { serviceInterface } from 'src/app/entities/serviceInterface';
-import { ServiceTypeService } from 'src/app/services/serviceArticle.service';
 import { CategoryService } from 'src/app/services/category.service';
 import { map } from 'rxjs';
 import { sectionInterface } from 'src/app/entities/sectionInterface';
 import { SectionService } from 'src/app/services/section.service';
 import { serviceTypesInterface } from 'src/app/entities/service_types';
+import { ArticleService } from 'src/app/services/serviceArticle.service';
 
 @Component({
   selector: 'app-create-article',
@@ -28,7 +28,7 @@ export class CreateArticleComponent implements OnInit {
 
   // Formulaire
   formAddArticle!: FormGroup;
-  formUpdate: any
+  formUpdate: any;
 
   // Path
   pathPicture = '../../../../assets/articles/';
@@ -41,36 +41,34 @@ export class CreateArticleComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private articleService: ServiceTypeService,
+    private articleService: ArticleService,
     private categoryService: CategoryService,
     private sectionService: SectionService
-  ) { }
+  ) {}
   ngOnInit(): void {
     this.getServices();
     this.getServiceType();
     this.formAddArticle = this.buildFormBuilder();
-
   }
 
   getServiceType() {
     this.articleService.getServices();
     this.articleService.$serviceType.subscribe({
       next: (data) => {
-        this.serviceTypes = data
+        this.serviceTypes = data;
       },
-      error: (err) => console.log(err)
-
-    })
+      error: (err) => console.log(err),
+    });
   }
 
   // CRUD
   upDateArticle(article: articleInterface) {
-
-
-    const articleId = this.formUpdate.id
+    const articleId = this.formUpdate.id;
     const serviceTypeId = this.formAddArticle.get('serviceType')?.value;
 
-    const pathPicture = this.formAddArticle.get('picture')?.value.split('C:\\fakepath\\')[1];
+    const pathPicture = this.formAddArticle
+      .get('picture')
+      ?.value.split('C:\\fakepath\\')[1];
 
     const formData = {
       ...this.formAddArticle.value,
@@ -82,27 +80,27 @@ export class CreateArticleComponent implements OnInit {
 
     this.articleService.upDateArticle(formData, articleId).subscribe({
       next: (data) => {
-        this.messageSuccess = 'Modification effectuer avec succès'
+        this.messageSuccess = 'Modification effectuer avec succès';
         console.log(data);
-
       },
       error: (err) => console.log(err),
       complete: () => {
         this.getServiceType();
-        this.getServices()
-        this.isEditor = !this.isEditor
-      }
+        this.getServices();
+        this.isEditor = !this.isEditor;
+      },
     });
   }
 
   addArticle() {
     if (this.formAddArticle.valid) {
-
       const selectService = this.formAddArticle.value.serviceType;
 
       // const sectionId = this.formAddArticle.get('section')?.value;
       // const uriSection = `/api/sections/${sectionId}`;
-      const pathPicture = this.formAddArticle.get('picture')?.value.split('C:\\fakepath\\')[1];
+      const pathPicture = this.formAddArticle
+        .get('picture')
+        ?.value.split('C:\\fakepath\\')[1];
 
       const formData = {
         ...this.formAddArticle.value,
@@ -112,16 +110,15 @@ export class CreateArticleComponent implements OnInit {
       };
       console.log(formData);
 
-
       this.articleService.addArticle(formData).subscribe({
         next: (data) => {
-          this.getServices()
+          this.getServices();
         },
         error: (err) => console.log(err),
         complete: () => {
           this.displayAddArticle = false;
           this.messageSuccess = 'Article ajouter avec succès';
-          this.formAddArticle.reset()
+          this.formAddArticle.reset();
         },
       });
     }
@@ -147,14 +144,12 @@ export class CreateArticleComponent implements OnInit {
     console.log(idArticle);
     this.isEditor = true;
 
-    if (idArticle)
-      this.loadFormBuilder(idArticle);
+    if (idArticle) this.loadFormBuilder(idArticle);
   }
   closeUpDate() {
     this.isEditor = false;
     console.log(this.isEditor);
   }
-
 
   getServices() {
     this.articleService.getServices();
@@ -162,8 +157,6 @@ export class CreateArticleComponent implements OnInit {
       next: (articles) => {
         this.services = articles;
         console.log(this.services);
-
-
       },
       error: (err) => console.log(err),
     });
@@ -173,8 +166,7 @@ export class CreateArticleComponent implements OnInit {
 
     if (serviceId !== undefined) {
       // Mettez à jour la valeur du FormControl avec l'ID du service sélectionné
-      if (selectService)
-        selectService.setValue(serviceId);
+      if (selectService) selectService.setValue(serviceId);
     }
   }
 
@@ -207,8 +199,8 @@ export class CreateArticleComponent implements OnInit {
           price: data.price,
           picture: [''],
           serviceType: data.serviceType,
-        }
-        this.formAddArticle.patchValue(this.formUpdate)
+        };
+        this.formAddArticle.patchValue(this.formUpdate);
       },
     });
   }

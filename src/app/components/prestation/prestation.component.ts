@@ -2,11 +2,12 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Observable, Subject, map, takeUntil } from 'rxjs';
 import { BasketService } from 'src/app/services/basket.service';
-import { ServiceTypeService } from 'src/app/services/serviceArticle.service';
 import { PrestationService } from 'src/app/services/prestation.service';
 import { selectionInterface } from 'src/app/entities/selectionInterface';
 import { serviceInterface } from 'src/app/entities/serviceInterface';
 import { SectionService } from 'src/app/services/section.service';
+import { ArticleService } from 'src/app/services/serviceArticle.service';
+import { ServiceTypeService } from 'src/app/services/service-type.service';
 
 @Component({
   selector: 'app-prestation',
@@ -24,7 +25,7 @@ export class PrestationComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject<void>();
 
   constructor(
-    private articleService: ServiceTypeService,
+    private articleService: ArticleService,
     private basketService: BasketService,
     private prestationService: PrestationService,
     private route: ActivatedRoute,

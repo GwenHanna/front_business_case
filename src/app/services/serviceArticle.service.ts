@@ -9,8 +9,8 @@ import { serviceTypesInterface } from '../entities/service_types';
 @Injectable({
   providedIn: 'root',
 })
-export class ServiceTypeService {
-  private apiUrl: string = environment.apiUrl + 'services';
+export class ArticleService {
+  private apiUrl: string = environment.apiUrl + 'articles';
   private apiUrlService: string = environment.apiUrl;
 
   private subjectArticle = new BehaviorSubject<serviceTypesInterface[]>([]);
@@ -31,7 +31,7 @@ export class ServiceTypeService {
   }
 
   fetchServiceByServiceType(id: number): Observable<any> {
-    const url = `${this.apiUrlService}services/${id}/article`;
+    const url = `${this.apiUrl}/${id}/article`;
     return this.http.get(url);
   }
 

@@ -2,6 +2,7 @@
   <h3 class="title-h3">inscription</h3>
   <div class="form-register">
     <h5 class="title-h5-secondary onglet-default">Coordonnée</h5>
+    <div *ngIf="messageError">{{ messageError }}</div>
     <form [formGroup]="form" (ngSubmit)="onSubmit()">
       <div class="mb-3 col-12 email">
         <input
@@ -17,15 +18,13 @@
           class="form-text"
           *ngIf="form?.get('email')?.invalid && form?.get('email')?.touched"
         >
-          Adresse email invalid.
+          {{ messageError }}
         </div>
-        <div
+        <!-- <div
           id="email-alert"
           class="form-text bc-alert-danger"
-          *ngIf="messageEmail"
         >
-          {{ messageEmail }}
-        </div>
+        </div> -->
       </div>
 
       <div class="d-flex justify-content-between align-items-center gap-2">
@@ -45,7 +44,8 @@
               form?.get('lastname')?.invalid && form?.get('lastname')?.touched
             "
           >
-            Veuillez entrer votre nom.
+            <!-- Veuillez entrer votre nom. -->
+            {{ messageError }}
           </div>
         </div>
 
@@ -65,7 +65,8 @@
               form?.get('firstname')?.invalid && form?.get('firstname')?.touched
             "
           >
-            Veuillez entrez votre Prénom.
+            <!-- Veuillez entrez votre Prénom. -->
+            {{ messageError }}
           </div>
         </div>
       </div>
@@ -175,7 +176,8 @@
             form?.get('plainPassword')?.touched
           "
         >
-          Votre mot de passe doit contenire au minimum 6 caractères.
+          <!-- Votre mot de passe doit contenire au minimum 6 caractères. -->
+          {{ messageError }}
         </div>
       </div>
 

@@ -15,7 +15,7 @@ import { FormulaireService } from 'src/app/services/formulaire.service';
 export class RegisterComponent implements OnInit {
   form!: FormGroup;
   formObservable$: Observable<RegisterForm> | undefined;
-  messageEmail = '';
+  messageError = '';
   isAdmin = false;
 
   // Initialisation des placeholder du formulaire
@@ -46,8 +46,8 @@ export class RegisterComponent implements OnInit {
       },
     });
     this.form = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      plainPassword: ['', [Validators.required, Validators.minLength(6)]],
+      email: ['', [Validators.required]],
+      plainPassword: ['', [Validators.required]],
       lastname: ['', [Validators.required, Validators.minLength(2)]],
       firstname: ['', [Validators.required, Validators.minLength(2)]],
       birthdate: ['', [Validators.required]],
@@ -81,7 +81,8 @@ export class RegisterComponent implements OnInit {
           this.navigateService.navigate('login');
         },
         error: (err) => {
-          this.messageEmail = err;
+          this.messageError = err;
+          console.log(this.messageError);
         },
       });
       this.form.reset();

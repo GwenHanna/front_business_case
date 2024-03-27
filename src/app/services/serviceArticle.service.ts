@@ -1,9 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { articleInterface } from '../entities/articleInterface';
 import { environment } from 'src/environments/environment.development';
-import { BehaviorSubject, Observable, catchError, of, tap } from 'rxjs';
-import { serviceInterface } from '../entities/serviceInterface';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { serviceTypesInterface } from '../entities/service_types';
 
 @Injectable({

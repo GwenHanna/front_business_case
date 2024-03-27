@@ -18,27 +18,28 @@ export class ErrorsInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<string>> {
     return next.handle(request).pipe(
       catchError((error: HttpErrorResponse) => {
-        let errorMessage = "Une erreur c'est produite.";
-        let codeError = error.status;
-        console.log('codeError', error);
+        let errorMessage = error.error.violations[0].message;
+        // let codeError = error.status;
 
-        switch (codeError) {
-          case 401:
-            if (error.message) {
-              errorMessage = 'Votre Email ou mot de passe est incorect';
-            } else {
-              errorMessage = "La page demandée n'a pas été trouveée.";
-            }
-            break;
-          case 404:
-            errorMessage = "La ressource demandée n'a pas été trouvée.";
-            break;
-          case 422:
-            errorMessage = 'Cet Email éxiste déjà.';
-            break;
-          default:
-            break;
-        }
+        console.log('codeError', error.error.violations[0].message);
+
+        // switch (codeError) {
+        //   case 401:
+        //     if (error.message) {
+        //       errorMessage = 'Votre Email ou mot de passe est incorect';
+        //     } else {
+        //       errorMessage = "La page demandée n'a pas été trouveée.";
+        //     }
+        //     break;
+        //   case 404:
+        //     errorMessage = "La ressource demandée n'a pas été trouvée.";
+        //     break;
+        //   case 422:
+        //     errorMessage = 'Cet Email éxiste déjà.';
+        //     break;
+        //   default:
+        //     break;
+        // }
 
         return throwError(() => new Error(errorMessage));
       })

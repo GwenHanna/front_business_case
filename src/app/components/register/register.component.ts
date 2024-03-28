@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { Observable } from 'rxjs';
 import { RegisterForm } from '../../entities/registerForm';
@@ -18,6 +23,9 @@ export class RegisterComponent implements OnInit {
   messageError = '';
   isAdmin = false;
   passwordView = false;
+  regexChar = /[!@#$%^&*(),.?":{}|<>]/;
+  regexNum = /[0-9]/;
+  regexMaj = /[A-Z]/;
 
   // Initialisation des placeholder du formulaire
   placeholder: { [key: string]: string } = {
@@ -47,12 +55,12 @@ export class RegisterComponent implements OnInit {
       },
     });
     this.form = this.fb.group({
-      email: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
       plainPassword: [
         '',
         [
-          // Validators.required,
-          // Validators.minLength(12),
+          Validators.required,
+          Validators.minLength(12),
           // Validators.pattern('^(?=.*[A-Z])[A-Za-z0-9]+$'),
           Validators.pattern(
             '^(?=.*[A-Z])(?=.*[!@#$%^&*(),.?":{}|<>])[A-Za-z0-9!@#$%^&*(),.?":{}|<>]+$'
@@ -73,7 +81,7 @@ export class RegisterComponent implements OnInit {
     this.passwordView = !this.passwordView;
   }
   onSubmit() {
-    console.log(this.form.valid);
+    console.log(this.form.value);
     let formData: RegisterForm;
 
     if (this.form.valid) {
@@ -98,7 +106,36 @@ export class RegisterComponent implements OnInit {
           console.log(this.messageError);
         },
       });
-      this.form.reset();
     }
+  }
+
+  // Getters
+
+  public get getEmail(): any {
+    return this.form.get('email');
+  }
+  public get getPassword(): any {
+    return this.form.get('plainPassword');
+  }
+  public get getLastname(): any {
+    return this.form.get('lastname');
+  }
+  public get getFirstName(): any {
+    return this.form.get('firstname');
+  }
+  public get getBirthdate(): any {
+    return this.form.get('birthdate');
+  }
+  public get getGender(): any {
+    return this.form.get('gender');
+  }
+  public get getStreet(): any {
+    return this.form.get('street');
+  }
+  public get getZipcode(): any {
+    return this.form.get('zipcode');
+  }
+  public get getCity(): any {
+    return this.form.get('city');
   }
 }

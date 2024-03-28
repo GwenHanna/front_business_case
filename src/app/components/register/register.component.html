@@ -13,12 +13,14 @@
           formControlName="email"
           aria-describedby="emailHelp"
         />
-        <div id="email-alert" class="form-text"></div>
-        <!-- <div
-          id="email-alert"
-          class="form-text bc-alert-danger"
-        >
-        </div> -->
+        <div id="email-alert" class="form-text bc-alert-danger">
+          <p *ngIf="getEmail.errors?.required && getEmail.touched">
+            Un email est obligatoire.
+          </p>
+          <p *ngIf="getEmail.errors?.email && getEmail.touched">
+            Cet email est invalid.
+          </p>
+        </div>
       </div>
 
       <div class="d-flex justify-content-between align-items-center gap-2">
@@ -31,15 +33,10 @@
             formControlName="lastname"
             aria-describedby="lastname"
           />
-          <div
-            id="lastname-alert"
-            class="form-text"
-            *ngIf="
-              form?.get('lastname')?.invalid && form?.get('lastname')?.touched
-            "
-          >
-            <!-- Veuillez entrer votre nom. -->
-            {{ messageError }}
+          <div id="lastname-alert" class="form-text bc-alert-danger">
+            <p *ngIf="getLastname.invalid && getLastname.touched">
+              Un nom de famille est obligatoire.
+            </p>
           </div>
         </div>
 
@@ -52,15 +49,10 @@
             formControlName="firstname"
             aria-describedby="firstname"
           />
-          <div
-            id="firstname-alert"
-            class="form-text"
-            *ngIf="
-              form?.get('firstname')?.invalid && form?.get('firstname')?.touched
-            "
-          >
-            <!-- Veuillez entrez votre Prénom. -->
-            {{ messageError }}
+          <div id="firstname-alert" class="form-text bc-alert-danger">
+            <p *ngIf="getFirstName.invalid && getFirstName.touched">
+              Un Prénom est obligatoire.
+            </p>
           </div>
         </div>
       </div>
@@ -75,14 +67,10 @@
             formControlName="birthdate"
             aria-describedby="birthdate"
           />
-          <div
-            id="birthdate-alert"
-            class="form-text"
-            *ngIf="
-              form?.get('birthdate')?.invalid && form?.get('birthdate')?.touched
-            "
-          >
-            Votre d'anniverssaire.
+          <div id="birthdate-alert" class="form-text bc-alert-danger">
+            <p *ngIf="getBirthdate.invalid && getBirthdate.touched">
+              Une date d'anniversaire est obligatoire.
+            </p>
           </div>
         </div>
 
@@ -105,12 +93,10 @@
           formControlName="street"
           aria-describedby="street"
         />
-        <div
-          id="street-alert"
-          class="form-text"
-          *ngIf="form?.get('street')?.invalid && form?.get('street')?.touched"
-        >
-          Veuillez entrez un nom de rue.
+        <div id="street-alert" class="form-text bc-alert-danger">
+          <p *ngIf="getStreet.invalid && getStreet.touched">
+            Un nom de rue est obligatoire.
+          </p>
         </div>
       </div>
 
@@ -124,14 +110,10 @@
             formControlName="zipcode"
             aria-describedby="zipcode"
           />
-          <div
-            id="street-alert"
-            class="form-text"
-            *ngIf="
-              form?.get('zipcode')?.invalid && form?.get('zipcode')?.touched
-            "
-          >
-            Veuillez entrez un code postal.
+          <div id="zipcode-alert" class="form-text bc-alert-danger">
+            <p *ngIf="getZipcode.invalid && getZipcode.touched">
+              Un code postal est obligatoire.
+            </p>
           </div>
         </div>
 
@@ -144,59 +126,204 @@
             formControlName="city"
             aria-describedby="city"
           />
-          <div
-            id="city-alert"
-            class="form-text"
-            *ngIf="form?.get('city')?.invalid && form?.get('city')?.touched"
-          >
-            Veuillez entrez une ville.
+          <div id="city-alert" class="form-text bc-alert-danger">
+            <p *ngIf="getCity.invalid && getCity.touched">
+              Une ville est obligatoire.
+            </p>
           </div>
         </div>
       </div>
 
-      <div class="mb-3 password pass-view">
-        <input
-          [placeholder]="placeholder['password']"
-          [type]="passwordView ? 'text' : 'password'"
-          class="input-form form-control"
-          id="password"
-          formControlName="plainPassword"
-        />
-        <span (click)="toggleViewPassword()">
-          <svg
-            class="eye-outline"
-            *ngIf="!passwordView"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            width="30"
-            fill="#253f3c"
-          >
-            <title>eye-outline</title>
-            <path
-              d="M12,9A3,3 0 0,1 15,12A3,3 0 0,1 12,15A3,3 0 0,1 9,12A3,3 0 0,1 12,9M12,4.5C17,4.5 21.27,7.61 23,12C21.27,16.39 17,19.5 12,19.5C7,19.5 2.73,16.39 1,12C2.73,7.61 7,4.5 12,4.5M3.18,12C4.83,15.36 8.24,17.5 12,17.5C15.76,17.5 19.17,15.36 20.82,12C19.17,8.64 15.76,6.5 12,6.5C8.24,6.5 4.83,8.64 3.18,12Z"
-            />
-          </svg>
-          <svg
-            *ngIf="passwordView"
-            width="30"
-            class="eye-outline"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="#253f3c"
-          >
-            <title>eye-off-outline</title>
-            <path
-              d="M2,5.27L3.28,4L20,20.72L18.73,22L15.65,18.92C14.5,19.3 13.28,19.5 12,19.5C7,19.5 2.73,16.39 1,12C1.69,10.24 2.79,8.69 4.19,7.46L2,5.27M12,9A3,3 0 0,1 15,12C15,12.35 14.94,12.69 14.83,13L11,9.17C11.31,9.06 11.65,9 12,9M12,4.5C17,4.5 21.27,7.61 23,12C22.18,14.08 20.79,15.88 19,17.19L17.58,15.76C18.94,14.82 20.06,13.54 20.82,12C19.17,8.64 15.76,6.5 12,6.5C10.91,6.5 9.84,6.68 8.84,7L7.3,5.47C8.74,4.85 10.33,4.5 12,4.5M3.18,12C4.83,15.36 8.24,17.5 12,17.5C12.69,17.5 13.37,17.43 14,17.29L11.72,15C10.29,14.85 9.15,13.71 9,12.28L5.6,8.87C4.61,9.72 3.78,10.78 3.18,12Z"
-            />
-          </svg>
-        </span>
-        <div>
-          <ul
-            class="alert"
-            [ngClass]="form.get('plainPassword')?.errors || form.get('plainPassword')?.errors?.['pattern'] ? 'alert' : 'success'"
-          >
-            <li>Votre mot de passe doit avoir au moins une majuscule.</li>
+      <div class="mb-3 password">
+        <div class="help-edit-password mt-4 mb-4">
+          <ul>
+            <li
+              [ngClass]="
+                getPassword.errors?.required ? 'alert-danger' : 'alert-success'
+              "
+            >
+              Un mot de passe est obligatoire.
+            </li>
+            <li
+              [ngClass]="
+                getPassword.value.match(regexMaj)
+                  ? 'alert-success'
+                  : 'alert-danger'
+              "
+            >
+              <span>
+                <svg
+                  *ngIf="getPassword.value.match(regexMaj)"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  width="20"
+                  fill="#377d75"
+                >
+                  <title>check</title>
+                  <path
+                    d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"
+                  />
+                </svg>
+
+                <svg
+                  *ngIf="!getPassword.value.match(regexMaj)"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  width="20"
+                  fill="red"
+                >
+                  <title>close</title>
+                  <path
+                    d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z"
+                  />
+                </svg>
+              </span>
+              - Majuscule
+            </li>
+            <li
+              [ngClass]="
+                getPassword.value.match(regexChar)
+                  ? 'alert-success'
+                  : 'alert-danger'
+              "
+            >
+              <span>
+                <svg
+                  *ngIf="getPassword.value.match(regexChar)"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  width="20"
+                  fill="#377d75"
+                >
+                  <title>check</title>
+                  <path
+                    d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"
+                  />
+                </svg>
+
+                <svg
+                  *ngIf="!getPassword.value.match(regexChar)"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  width="20"
+                  fill="red"
+                >
+                  <title>close</title>
+                  <path
+                    d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z"
+                  />
+                </svg>
+              </span>
+              - !#$%^&*(),.?":&amp;&lt;&gt;&lbrace;&rbrace;\.
+            </li>
+            <li
+              [ngClass]="
+                getPassword.value.match(regexNum)
+                  ? 'alert-success'
+                  : 'alert-danger'
+              "
+            >
+              <span>
+                <svg
+                  *ngIf="getPassword.value.match(regexNum)"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  width="20"
+                  fill="#377d75"
+                >
+                  <title>check</title>
+                  <path
+                    d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"
+                  />
+                </svg>
+
+                <svg
+                  *ngIf="!getPassword.value.match(regexNum)"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  width="20"
+                  fill="red"
+                >
+                  <title>close</title>
+                  <path
+                    d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z"
+                  />
+                </svg>
+              </span>
+              - Un chiffre de 0 à 9.
+            </li>
+            <li
+              [ngClass]="
+                getPassword.value.length < 12 ? 'alert-danger' : 'alert-success'
+              "
+            >
+              <span>
+                <svg
+                  *ngIf="getPassword.value.length >= 12"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  width="20"
+                  fill="#377d75"
+                >
+                  <title>check</title>
+                  <path
+                    d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"
+                  />
+                </svg>
+
+                <svg
+                  *ngIf="getPassword.value.length < 12"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  width="20"
+                  fill="red"
+                >
+                  <title>close</title>
+                  <path
+                    d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z"
+                  />
+                </svg>
+              </span>
+              - Le mot de passe doit avoir 12 caractères minimum.
+            </li>
           </ul>
+        </div>
+        <div class="pass-view">
+          <input
+            [placeholder]="placeholder['password']"
+            [type]="passwordView ? 'text' : 'password'"
+            class="input-form form-control"
+            id="password"
+            formControlName="plainPassword"
+          />
+          <span (click)="toggleViewPassword()">
+            <svg
+              class="eye-outline"
+              *ngIf="!passwordView"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              width="25"
+              fill="#253f3c"
+            >
+              <title>eye-outline</title>
+              <path
+                d="M12,9A3,3 0 0,1 15,12A3,3 0 0,1 12,15A3,3 0 0,1 9,12A3,3 0 0,1 12,9M12,4.5C17,4.5 21.27,7.61 23,12C21.27,16.39 17,19.5 12,19.5C7,19.5 2.73,16.39 1,12C2.73,7.61 7,4.5 12,4.5M3.18,12C4.83,15.36 8.24,17.5 12,17.5C15.76,17.5 19.17,15.36 20.82,12C19.17,8.64 15.76,6.5 12,6.5C8.24,6.5 4.83,8.64 3.18,12Z"
+              />
+            </svg>
+            <svg
+              *ngIf="passwordView"
+              width="25"
+              class="eye-outline"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="#253f3c"
+            >
+              <title>eye-off-outline</title>
+              <path
+                d="M2,5.27L3.28,4L20,20.72L18.73,22L15.65,18.92C14.5,19.3 13.28,19.5 12,19.5C7,19.5 2.73,16.39 1,12C1.69,10.24 2.79,8.69 4.19,7.46L2,5.27M12,9A3,3 0 0,1 15,12C15,12.35 14.94,12.69 14.83,13L11,9.17C11.31,9.06 11.65,9 12,9M12,4.5C17,4.5 21.27,7.61 23,12C22.18,14.08 20.79,15.88 19,17.19L17.58,15.76C18.94,14.82 20.06,13.54 20.82,12C19.17,8.64 15.76,6.5 12,6.5C10.91,6.5 9.84,6.68 8.84,7L7.3,5.47C8.74,4.85 10.33,4.5 12,4.5M3.18,12C4.83,15.36 8.24,17.5 12,17.5C12.69,17.5 13.37,17.43 14,17.29L11.72,15C10.29,14.85 9.15,13.71 9,12.28L5.6,8.87C4.61,9.72 3.78,10.78 3.18,12Z"
+              />
+            </svg>
+          </span>
         </div>
       </div>
 
@@ -207,7 +334,6 @@
         </select>
       </div>
       <button class="text-btn-default btn-primary-active">Inscription</button>
-
       <div class="mb-3 form-check"></div>
     </form>
   </div>

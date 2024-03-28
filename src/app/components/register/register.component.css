@@ -25,9 +25,7 @@ h5 {
   margin-bottom: 38px;
   padding-bottom: 10px;
 }
-.alert{
-  background: red;
-}
-.success{
-  background: green;
+.help-edit-password{
+  width: 50%;
+  font-size: 0.85rem;
 }

@@ -20,3 +20,9 @@ form {
 h3 {
   text-align: center;
 }
+.form-login{
+  max-width: 600px;
+  margin: auto;
+  margin-top: 0;
+  margin-bottom: 0;
+}

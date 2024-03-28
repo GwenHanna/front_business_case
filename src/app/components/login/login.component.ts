@@ -1,12 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Observable } from 'rxjs';
-import { LoginForm } from '../../entities/loginForm';
-import { map } from 'rxjs/operators';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { HttpResponse } from '@angular/common/http';
-import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-login',
@@ -17,6 +13,8 @@ export class LoginComponent implements OnInit {
   // Création d'un formulaire reactive
   public form!: FormGroup;
   public messageError: string = '';
+  public passwordView = false;
+
   public placeholder = {
     email: 'Email',
     password: 'Mot de passe',
@@ -34,6 +32,13 @@ export class LoginComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]],
     });
+  }
+
+  public get getEmail(): any {
+    return this.form.get('email');
+  }
+  public get getPassword(): any {
+    return this.form.get('password');
   }
 
   onLogin() {
@@ -56,5 +61,9 @@ export class LoginComponent implements OnInit {
         },
       });
     }
+  }
+
+  toggleViewPassword() {
+    this.passwordView = !this.passwordView;
   }
 }

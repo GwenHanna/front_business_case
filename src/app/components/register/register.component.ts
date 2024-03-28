@@ -1,7 +1,7 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
-import { Observable, map, switchMap } from 'rxjs';
+import { Observable } from 'rxjs';
 import { RegisterForm } from '../../entities/registerForm';
 import { NavigateService } from '../../services/navigate.service';
 import { UserService } from 'src/app/services/user.service';
@@ -17,6 +17,7 @@ export class RegisterComponent implements OnInit {
   formObservable$: Observable<RegisterForm> | undefined;
   messageError = '';
   isAdmin = false;
+  passwordView = false;
 
   // Initialisation des placeholder du formulaire
   placeholder: { [key: string]: string } = {
@@ -47,7 +48,17 @@ export class RegisterComponent implements OnInit {
     });
     this.form = this.fb.group({
       email: ['', [Validators.required]],
-      plainPassword: ['', [Validators.required]],
+      plainPassword: [
+        '',
+        [
+          // Validators.required,
+          // Validators.minLength(12),
+          // Validators.pattern('^(?=.*[A-Z])[A-Za-z0-9]+$'),
+          Validators.pattern(
+            '^(?=.*[A-Z])(?=.*[!@#$%^&*(),.?":{}|<>])[A-Za-z0-9!@#$%^&*(),.?":{}|<>]+$'
+          ),
+        ],
+      ],
       lastname: ['', [Validators.required, Validators.minLength(2)]],
       firstname: ['', [Validators.required, Validators.minLength(2)]],
       birthdate: ['', [Validators.required]],
@@ -58,7 +69,9 @@ export class RegisterComponent implements OnInit {
       roles: [''],
     });
   }
-
+  toggleViewPassword() {
+    this.passwordView = !this.passwordView;
+  }
   onSubmit() {
     console.log(this.form.valid);
     let formData: RegisterForm;
